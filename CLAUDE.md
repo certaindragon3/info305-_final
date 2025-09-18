@@ -29,7 +29,7 @@ A sophisticated, interactive virtual museum featuring:
 ### Tech Stack
 - **Frontend**: Next.js 15 (App Router) + React 19 + TypeScript
 - **3D**: React Three Fiber + Three.js
-- **Styling**: Tailwind CSS v4 + shadcn/ui (new-york style)
+- **Styling**: Tailwind CSS v4 + shadcn/ui
 - **Icons**: Lucide React
 - **Animations**: tw-animate-css
 - **Deployment**: Static generation (no backend required)

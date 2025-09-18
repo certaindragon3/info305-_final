@@ -31,9 +31,6 @@ export default function HeroSection() {
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <Badge variant="secondary" className="text-sm">
-                🏮 Intangible Cultural Heritage
-              </Badge>
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                   Preserving Subang Cuisine Heritage
