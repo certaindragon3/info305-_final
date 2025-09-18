@@ -13,7 +13,7 @@
 ## 🎯 Project Vision
 
 ### Problem Statement
-Labor-intensive traditional Subang cuisine techniques are disappearing in modern fast-paced society. Acheng Restaurant, established in 1987, represents a critical cultural heritage that needs digital preservation.
+Labor-intensive traditional Subang cuisine techniques are disappearing in modern fast-paced society. Acheng Restaurant, established in 1999, represents a critical cultural heritage that needs digital preservation.
 
 ### Solution
 A sophisticated, interactive virtual museum featuring:
@@ -129,10 +129,10 @@ interface Review {
 **So that** I can begin implementing features efficiently
 
 **Acceptance Criteria**:
-- [ ] Install React Three Fiber and dependencies
-- [ ] Configure TypeScript interfaces
-- [ ] Set up project folder structure
-- [ ] Configure development scripts
+- [*] Install React Three Fiber and dependencies
+- [*] Configure TypeScript interfaces
+- [*] Set up project folder structure
+- [*] Configure development scripts
 
 **Technical Implementation**:
 - Install `@react-three/fiber`, `@react-three/drei`, `three`
