@@ -143,10 +143,10 @@ export const dishes: Dish[] = [
 
 export const restaurant: Restaurant = {
   name: 'Acheng Restaurant',
-  history: 'Founded in 1987 by Master Chef Chen Acheng, this family-run restaurant has been preserving authentic Subang cuisine for over three decades. Located in the heart of Suzhou\'s historic district, it has become a cultural landmark.',
-  location: 'Guanqian Street, Suzhou, Jiangsu Province, China',
-  established: '1987',
-  philosophy: 'To preserve and share the authentic flavors of Subang cuisine while maintaining the traditional cooking techniques passed down through generations.',
+  history: 'Founded in 1999, this neighborhood Suzhou eatery just off Shiquan Street has quietly served classic Su cuisine for 26 years. Unlike celebrated Michelin-listed kitchens, this under-recognized community restaurant is cherished mainly by local elders. Now entering a sensitive transition as the chef-owner retires and stewardship passes to his son.',
+  location: 'Near Shiquan Street, Suzhou, Jiangsu Province, China',
+  established: '1999',
+  philosophy: 'To preserve the slow, subtle idiom of authentic Subang cuisine through labor-intensive dishes and tacit techniques passed down through generations.',
   layout: {
     description: 'Traditional Suzhou-style architecture with modern kitchen facilities',
     zones: [
@@ -200,20 +200,23 @@ export const reviews: Review[] = [
 ];
 
 export const culturalContext: CulturalContext = {
-  overview: 'Subang cuisine, originating from the Suzhou region, is renowned for its delicate flavors, exquisite presentation, and labor-intensive preparation methods. It emphasizes the natural taste of ingredients and the harmony of sweet and sour flavors.',
+  overview: 'Subang cuisine, with origins dating back to the Spring and Autumn period, represents one of China\'s Eight Great Cuisines. Rooted in the philosophy of "Golden Mean" and characterized by "seven tastes and seven senses," it embodies the cultural principle of balance and moderation. This Intangible Cultural Heritage emphasizes precise technique, natural flavors, and elegant presentation.',
   threats: [
-    'Disappearing traditional cooking techniques',
-    'Loss of skilled craftsmen',
-    'Fast-paced modern lifestyle reducing appreciation for slow cooking',
-    'Younger generation\'s preference for quick meals'
+    'Rising costs and prevalence of premade food',
+    'Younger diners\' preference for spicier Sichuan/Hunan flavors',
+    'Limited innovation and low brand recognition compared to other cuisines',
+    'Difficulty in passing traditional techniques to younger generations',
+    'Loss of master chefs with authentic knowledge',
+    'Commercialization pressure threatening authenticity'
   ],
-  preservation: 'Digital documentation of recipes, techniques, and cultural stories helps preserve this culinary heritage for future generations.',
+  preservation: 'If these labor-intensive techniques and tacit knowledge don\'t get recorded during this critical transition period, they may become impossible to revive later. Digital archives can preserve both recipes and the cultural stories surrounding them.',
   characteristics: [
-    'Emphasis on fresh, seasonal ingredients',
-    'Delicate knife work and presentation',
-    'Balance of sweet and sour flavors',
-    'Labor-intensive preparation methods',
-    'Seasonal menu variations'
+    'Mild, refreshingly silky, lightly sweet, and umami flavors',
+    'Exquisite knife work and precise temperature control',
+    'Texture mastery: soft without mushiness',
+    'Visual elegance and pursuit of perfection',
+    'Integration of health principles with culinary artistry',
+    'Balance of flavor, nutrition, color, and texture'
   ]
 };
 
