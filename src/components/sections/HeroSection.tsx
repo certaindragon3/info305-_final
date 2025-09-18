@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { GridBeams } from "@/components/ui/grid-beams"
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import { restaurant, culturalContext, photoGallery } from "@/lib/data"
 import Image from "next/image"
@@ -24,12 +24,20 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative">
-      <GridBeams
-        backgroundColor="var(--background)"
-        gridColor="#d6e4f0"
-        rayOpacity={0.25}
-        className="min-h-screen flex items-center justify-center px-4 py-20 text-foreground"
+    <section className="relative overflow-hidden">
+      <BackgroundGradientAnimation
+        gradientBackgroundStart="rgba(255,255,255,1)"
+        gradientBackgroundEnd="rgba(255,243,230,1)"
+        firstColor="232, 151, 67"
+        secondColor="205, 98, 84"
+        thirdColor="82, 138, 187"
+        fourthColor="158, 110, 214"
+        fifthColor="120, 190, 150"
+        pointerColor="232, 151, 67"
+        size="68%"
+        blendingValue="soft-light"
+        containerClassName="min-h-screen w-full flex items-center justify-center px-4 py-20 text-foreground"
+        className="relative z-10 flex w-full items-center justify-center"
       >
         <div className="container mx-auto max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -132,7 +140,7 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-      </GridBeams>
+      </BackgroundGradientAnimation>
     </section>
   )
 }

@@ -160,3 +160,91 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes gradient-first {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes gradient-second {
+  0% {
+    transform: rotate(0deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(-200deg) scale(0.95);
+  }
+  100% {
+    transform: rotate(-360deg) scale(1.05);
+  }
+}
+
+@keyframes gradient-third {
+  0% {
+    transform: rotate(0deg) scale(0.95);
+  }
+  50% {
+    transform: rotate(220deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(0.95);
+  }
+}
+
+@keyframes gradient-fourth {
+  0% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(-160deg) scale(0.9);
+  }
+  100% {
+    transform: rotate(-360deg) scale(1.1);
+  }
+}
+
+@keyframes gradient-fifth {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(210deg) scale(1.08);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@layer utilities {
+  .gradients-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .animate-first {
+    animation: gradient-first 36s linear infinite;
+  }
+
+  .animate-second {
+    animation: gradient-second 52s linear infinite;
+  }
+
+  .animate-third {
+    animation: gradient-third 28s linear infinite;
+  }
+
+  .animate-fourth {
+    animation: gradient-fourth 44s ease-in-out infinite;
+  }
+
+  .animate-fifth {
+    animation: gradient-fifth 40s linear infinite;
+  }
+}
