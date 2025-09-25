@@ -34,7 +34,7 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,130,67,0.18),_transparent_55%)]" />
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 lg:px-8">
         <header className="relative z-[1] mx-auto max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-amber-300">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-orange-400">
             Acheng Restaurant Atmosphere
           </p>
           <h2 className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
