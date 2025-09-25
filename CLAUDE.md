@@ -58,6 +58,15 @@ src/
 
 ---
 
+## 🧭 Fieldwork Dish Context
+
+- Signature: 松鼠桂鱼 (Squirrel Fish)
+- Others: 荷塘小炒 (Lotus Pond Stir-fry), 碧螺虾仁 (Biluochun Tea Shrimp), 响油鳝糊 (Hot Oil Eel)
+
+This set drives gallery cards, routes, and related content.
+
+---
+
 ## 📊 Data Structure Design
 
 ### Core Data Models
@@ -184,7 +193,7 @@ interface Review {
 
 **Acceptance Criteria**:
 - [ ] Feature松鼠桂鱼 as signature exhibition
-- [ ] Display 4 additional cuisine cards
+- [ ] Display 3 additional cuisine cards
 - [ ] Enable navigation to detailed dish pages
 - [ ] Implement hover effects and animations
 

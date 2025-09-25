@@ -42,102 +42,101 @@ export const dishes: Dish[] = [
   },
   {
     id: '2',
-    slug: 'red-braised-pork',
-    name: 'Red Braised Pork',
-    nameZh: '红烧肉',
+    slug: 'lotus-stir-fry',
+    name: 'Lotus Pond Stir-fry',
+    nameZh: '荷塘小炒',
     category: 'classic',
     isSignature: false,
-    description: 'A classic Subang dish featuring tender pork belly in rich, caramelized soy sauce.',
-    story: 'This comfort food has been a staple in Suzhou households for generations, representing the essence of home cooking.',
+    description: 'A light, elegant stir-fry with lotus root, lily bulb, snow peas, and seasonal vegetables—clean flavors and crisp textures.',
+    story: 'Named for its lotus-inspired ingredients, this dish embodies the Su cuisine ethos of freshness, balance, and visual elegance.',
     recipe: {
       ingredients: [
-        'Pork belly (500g)',
-        'Dark soy sauce',
-        'Light soy sauce',
-        'Rock sugar',
-        'Shaoxing wine'
+        'Lotus root slices',
+        'Fresh lily bulb (百合)',
+        'Snow peas',
+        'Carrot slices',
+        'Wood ear fungus',
+        'Salt, sugar, vegetable oil'
       ],
       steps: [
-        'Cut pork belly into cubes',
-        'Blanch to remove impurities',
-        'Caramelize rock sugar',
-        'Braise with soy sauces and wine',
-        'Simmer until tender'
-      ],
-      cookingTime: '1.5 hours',
-      difficulty: 'medium'
-    },
-    media: {
-      model3D: '/models/red-braised-pork.glb',
-      images: ['/images/red-braised-pork-1.jpg']
-    },
-    culturalSignificance: 'Symbolizes prosperity and family unity in Chinese culture.'
-  },
-  {
-    id: '3',
-    slug: 'sweet-sour-ribs',
-    name: 'Sweet and Sour Ribs',
-    nameZh: '糖醋排骨',
-    category: 'classic',
-    isSignature: false,
-    description: 'Perfectly balanced sweet and sour flavors coating tender pork ribs.',
-    story: 'A beloved dish that showcases the Subang expertise in balancing contrasting flavors.',
-    recipe: {
-      ingredients: [
-        'Pork ribs (600g)',
-        'Black vinegar',
-        'Rock sugar',
-        'Light soy sauce',
-        'Ginger and scallions'
-      ],
-      steps: [
-        'Blanch ribs to remove blood',
-        'Fry until golden brown',
-        'Create sweet and sour sauce',
-        'Braise ribs in sauce',
-        'Reduce sauce until glossy'
-      ],
-      cookingTime: '40 minutes',
-      difficulty: 'medium'
-    },
-    media: {
-      model3D: '/models/sweet-sour-ribs.glb',
-      images: ['/images/sweet-sour-ribs-1.jpg']
-    },
-    culturalSignificance: 'Demonstrates the Subang mastery of sauce-based cooking techniques.'
-  },
-  {
-    id: '4',
-    slug: 'steamed-fish',
-    name: 'Steamed Bass',
-    nameZh: '清蒸鲈鱼',
-    category: 'classic',
-    isSignature: false,
-    description: 'Fresh bass steamed to perfection with minimal seasoning to highlight natural flavors.',
-    story: 'This dish embodies the Subang principle of preserving the natural essence of fresh ingredients.',
-    recipe: {
-      ingredients: [
-        'Fresh sea bass (1 whole)',
-        'Ginger slices',
-        'Scallions',
-        'Light soy sauce',
-        'Cooking wine'
-      ],
-      steps: [
-        'Clean and score the fish',
-        'Marinate with wine and ginger',
-        'Steam for 8-10 minutes',
-        'Top with fresh scallions',
-        'Finish with hot oil and soy sauce'
+        'Blanch crunchy veggies briefly to retain texture',
+        'Heat wok with light oil, stir-fry aromatics quickly',
+        'Add vegetables by hardness and toss rapidly',
+        'Season mildly to preserve natural sweetness',
+        'Plate neatly to highlight color balance'
       ],
       cookingTime: '15 minutes',
       difficulty: 'easy'
     },
     media: {
-      model3D: '/models/steamed-fish.glb',
-      images: ['/images/steamed-fish-1.jpg']
+      model3D: '/models/lotus-stir-fry.glb',
+      images: ['/images/lotus-stir-fry-1.jpg']
     },
-    culturalSignificance: 'Represents the Subang philosophy of respecting ingredient integrity.'
+    culturalSignificance: 'Reflects the Subang preference for clarity and finesse—crisp textures, gentle seasoning, and seasonal produce.'
+  },
+  {
+    id: '3',
+    slug: 'biluochun-shrimp',
+    name: 'Biluochun Tea Shrimp',
+    nameZh: '碧螺虾仁',
+    category: 'classic',
+    isSignature: false,
+    description: 'Delicate river shrimp flash-cooked and infused with Biluochun tea fragrance—fresh, sweet, and tender.',
+    story: 'A Suzhou specialty marrying local tea culture with premium freshwater shrimp; timing and temperature control are crucial.',
+    recipe: {
+      ingredients: [
+        'Shelled river shrimp (虾仁)',
+        'Biluochun tea leaves',
+        'Egg white and starch (for velveting)',
+        'Salt and a touch of sugar'
+      ],
+      steps: [
+        'Velvet shrimp with egg white and starch until lightly set',
+        'Brew Biluochun tea to a light infusion; reserve leaves',
+        'Gently stir-fry shrimp on low heat to just-opaque',
+        'Add tea infusion and a few tea leaves for aroma',
+        'Season delicately and plate immediately'
+      ],
+      cookingTime: '12 minutes',
+      difficulty: 'medium'
+    },
+    media: {
+      model3D: '/models/biluochun-shrimp.glb',
+      images: ['/images/biluochun-shrimp-1.jpg']
+    },
+    culturalSignificance: 'Showcases Suzhou terroir—tea and waterways—through refined technique and subtle aromas.'
+  },
+  {
+    id: '4',
+    slug: 'hot-oil-eel',
+    name: 'Hot Oil Eel',
+    nameZh: '响油鳝糊',
+    category: 'classic',
+    isSignature: false,
+    description: 'Silky-smooth shredded eel finished with sizzling hot oil for a signature aroma; savory-sweet and glossy.',
+    story: 'A Jiangnan classic prized for texture. The finishing “sizzle” (响油) releases fragrance and gives the dish its name.',
+    recipe: {
+      ingredients: [
+        'Eel fillets (shredded)',
+        'Ginger and scallions',
+        'Light soy, a touch of sugar',
+        'Starch slurry',
+        'Hot scallion oil for finishing'
+      ],
+      steps: [
+        'Stir-fry eel shreds quickly to set texture',
+        'Add aromatics and seasonings; thicken lightly',
+        'Plate the eel and pour sizzling hot scallion oil over top',
+        'Serve immediately for best aroma'
+      ],
+      cookingTime: '18 minutes',
+      difficulty: 'medium'
+    },
+    media: {
+      model3D: '/models/hot-oil-eel.glb',
+      images: ['/images/hot-oil-eel-1.jpg']
+    },
+    culturalSignificance: 'Represents texture mastery and the hallmark finishing technique of Jiangnan kitchens.'
   }
 ];
 
@@ -274,19 +273,19 @@ export const interactivePoints: InteractivePoint[] = [
     id: '2',
     dishId: '2',
     position: [-2, 1, 0],
-    label: 'Red Braised Pork'
+    label: 'Lotus Stir-fry'
   },
   {
     id: '3',
     dishId: '3',
     position: [0, 1, 2],
-    label: 'Sweet-Sour Ribs'
+    label: 'Biluochun Shrimp'
   },
   {
     id: '4',
     dishId: '4',
     position: [0, 1, -2],
-    label: 'Steamed Fish'
+    label: 'Hot Oil Eel'
   }
 ];
 

@@ -150,6 +150,12 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+
+  --animate-first: moveVertical 30s ease infinite;
+  --animate-second: moveInCircle 20s reverse infinite;
+  --animate-third: moveInCircle 40s linear infinite;
+  --animate-fourth: moveHorizontal 40s ease infinite;
+  --animate-fifth: moveInCircle 20s ease infinite;
 }
 
 @layer base {
@@ -161,63 +167,39 @@
   }
 }
 
-@keyframes gradient-first {
+@keyframes moveHorizontal {
   0% {
-    transform: rotate(0deg) scale(1);
+    transform: translateX(-50%) translateY(-10%);
   }
   50% {
-    transform: rotate(180deg) scale(1.05);
+    transform: translateX(50%) translateY(10%);
   }
   100% {
-    transform: rotate(360deg) scale(1);
+    transform: translateX(-50%) translateY(-10%);
   }
 }
 
-@keyframes gradient-second {
+@keyframes moveInCircle {
   0% {
-    transform: rotate(0deg) scale(1.05);
+    transform: rotate(0deg);
   }
   50% {
-    transform: rotate(-200deg) scale(0.95);
+    transform: rotate(180deg);
   }
   100% {
-    transform: rotate(-360deg) scale(1.05);
+    transform: rotate(360deg);
   }
 }
 
-@keyframes gradient-third {
+@keyframes moveVertical {
   0% {
-    transform: rotate(0deg) scale(0.95);
+    transform: translateY(-50%);
   }
   50% {
-    transform: rotate(220deg) scale(1.1);
+    transform: translateY(50%);
   }
   100% {
-    transform: rotate(360deg) scale(0.95);
-  }
-}
-
-@keyframes gradient-fourth {
-  0% {
-    transform: rotate(0deg) scale(1.1);
-  }
-  50% {
-    transform: rotate(-160deg) scale(0.9);
-  }
-  100% {
-    transform: rotate(-360deg) scale(1.1);
-  }
-}
-
-@keyframes gradient-fifth {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(210deg) scale(1.08);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
+    transform: translateY(-50%);
   }
 }
 
@@ -229,22 +211,22 @@
   }
 
   .animate-first {
-    animation: gradient-first 36s linear infinite;
+    animation: var(--animate-first);
   }
 
   .animate-second {
-    animation: gradient-second 52s linear infinite;
+    animation: var(--animate-second);
   }
 
   .animate-third {
-    animation: gradient-third 28s linear infinite;
+    animation: var(--animate-third);
   }
 
   .animate-fourth {
-    animation: gradient-fourth 44s ease-in-out infinite;
+    animation: var(--animate-fourth);
   }
 
   .animate-fifth {
-    animation: gradient-fifth 40s linear infinite;
+    animation: var(--animate-fifth);
   }
 }
