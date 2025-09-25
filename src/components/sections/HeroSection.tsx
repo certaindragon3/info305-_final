@@ -1,143 +1,111 @@
-'use client'
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation"
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
-import { restaurant, culturalContext, photoGallery } from "@/lib/data"
-import Image from "next/image"
+import { motion } from "motion/react";
+import Image from "next/image";
+import { IconArrowDownRight } from "@tabler/icons-react";
 
-const heroPhotos = photoGallery.slice(0, 5) // Use first 5 photos for hero carousel
+import Carousel from "@/components/ui/carousel";
+import { Spotlight } from "@/components/ui/spotlight";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { culturalContext, photoGallery, restaurant } from "@/lib/data";
+
+const heroPhotos = photoGallery.slice(0, 5);
 
 export default function HeroSection() {
   const scrollToNext = () => {
-    const nextSection = document.getElementById('photo-gallery')
+    const nextSection = document.getElementById("photo-gallery");
     if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' })
+      nextSection.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
-    <section className="relative overflow-hidden">
-      <BackgroundGradientAnimation
-        gradientBackgroundStart="rgba(255,255,255,1)"
-        gradientBackgroundEnd="rgba(255,239,225,1)"
-        primaryColor="233, 118, 54"
-        secondaryColor="108, 156, 80"
-        pointerColor="233, 118, 54"
-        size="70%"
-        blendingValue="soft-light"
-        containerClassName="min-h-screen w-full flex items-center justify-center px-4 py-20 text-foreground"
-        className="relative z-10 flex w-full items-center justify-center"
-      >
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                  <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                    Preserving Subang Cuisine Heritage
-                  </span>
-                </h1>
-                <div className="text-xl md:text-2xl text-muted-foreground space-y-2">
-                  <p className="font-medium">{restaurant.name}</p>
-                  <p className="text-sm">Est. {restaurant.established} • {restaurant.location}</p>
-                </div>
-              </div>
+    <section className="relative overflow-hidden bg-slate-950 text-slate-100">
+      <div className="relative mx-auto flex min-h-screen w-full items-center justify-center px-6 py-24 lg:px-8">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(248,113,113,0.18),_transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/60 to-transparent" />
+        <Spotlight className="left-1/2 top-[-10%] h-[120%] w-[120%] -translate-x-1/2 opacity-60" fill="rgba(249,115,22,0.55)" />
 
-              <div className="space-y-6">
-                <blockquote className="text-lg italic border-l-4 border-primary pl-6 text-muted-foreground">
-                  "Labor-intensive culinary traditions are disappearing in modern fast-paced society"
-                </blockquote>
+        <div className="relative z-10 grid w-full max-w-6xl gap-16 lg:grid-cols-[minmax(0,_1fr)_minmax(0,_0.9fr)]">
+          <motion.div
+            className="flex flex-col gap-8"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+          >
+            <motion.span
+              className="text-xs font-semibold uppercase tracking-[0.45em] text-orange-400"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              Acheng Restaurant Preservation
+            </motion.span>
 
-                <p className="text-base leading-relaxed text-muted-foreground">
-                  {culturalContext.overview.split('.')[0]}.{' '}
-                  <span className="text-foreground font-medium">
-                    This neighborhood eatery represents a critical moment of cultural transition.
-                  </span>
-                </p>
+            <motion.h1
+              className="text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.55, ease: "easeOut" }}
+            >
+              Safeguarding Acheng Restaurant&apos;s Subang legacy.
+            </motion.h1>
 
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">What's at stake:</p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>• {culturalContext.threats[0]}</li>
-                    <li>• {culturalContext.threats[1]}</li>
-                    <li>• {culturalContext.threats[3]}</li>
-                  </ul>
-                </div>
-              </div>
+            <TextGenerateEffect
+              words="We preserve Acheng Restaurant's slow Subang mastery through immersive digital archiving."
+              className="text-balance"
+              textClassName="text-lg text-slate-300"
+              duration={0.6}
+            />
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <InteractiveHoverButton
-                  type="button"
-                  onClick={scrollToNext}
-                  className="px-10 py-3 text-base shadow-md border-border/50 bg-background/80 backdrop-blur transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
-                >
-                  Explore Stories Below
-                </InteractiveHoverButton>
-              </div>
-            </div>
+            <motion.p
+              className="max-w-xl text-sm leading-relaxed text-slate-400"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
+            >
+              Focus: {restaurant.name} • Est. {restaurant.established} • {restaurant.location}
+            </motion.p>
 
-            {/* Right Photo Carousel */}
-            <div className="flex justify-center lg:justify-end">
+            <motion.div
+              className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.95 }}
+            >
+              <InteractiveHoverButton
+                type="button"
+                onClick={scrollToNext}
+                className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white transition"
+              >
+                Enter the museum
+              </InteractiveHoverButton>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
+          >
+            <div className="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-slate-900/70 p-8 backdrop-blur">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/8 via-transparent to-slate-900/60" />
               <div className="relative">
                 <Carousel
-                  className="w-full max-w-sm"
-                  opts={{
-                    loop: true,
-                  }}
-                >
-                  <CarouselContent>
-                    {heroPhotos.map((photo, index) => (
-                      <CarouselItem key={photo.id}>
-                        <div className="p-1">
-                          <Card className="border-2 border-muted shadow-xl">
-                            <CardContent className="p-0">
-                              <div className="aspect-[4/5] relative overflow-hidden rounded-lg">
-                                <Image
-                                  src={photo.imageUrl}
-                                  alt={photo.alt}
-                                  fill
-                                  className="object-cover transition-transform hover:scale-105"
-                                  placeholder="blur"
-                                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                                />
-                              </div>
-                              <div className="p-4 bg-card">
-                                <h3 className="font-medium text-sm text-center">
-                                  {photo.title}
-                                </h3>
-                                <p className="text-xs text-muted-foreground text-center mt-1">
-                                  {photo.description}
-                                </p>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="left-2" />
-                  <CarouselNext className="right-2" />
-                </Carousel>
-
-                {/* Decorative Frame Elements */}
-                <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-primary/30"></div>
-                <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-primary/30"></div>
-                <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-primary/30"></div>
-                <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-primary/30"></div>
+                  slides={heroPhotos.map((photo) => ({
+                    title: photo.title,
+                    button: "Explore",
+                    src: photo.imageUrl,
+                  }))}
+                />
               </div>
+
             </div>
-          </div>
+          </motion.div>
         </div>
-      </BackgroundGradientAnimation>
+      </div>
     </section>
-  )
+  );
 }
