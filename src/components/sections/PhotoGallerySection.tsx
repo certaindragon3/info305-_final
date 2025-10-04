@@ -46,15 +46,15 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
           </p>
         </header>
 
-        <div className="relative z-[1]">
-          <ParallaxScrollSecond images={images} className="h-[34rem]" />
+        <div className="relative z-[1] mb-32 min-h-[50rem]">
+          <ParallaxScrollSecond images={images} className="h-full" />
         </div>
 
         <motion.div
-          className="relative z-[1] mx-auto w-full max-w-4xl"
-          initial={{ opacity: 0, y: 40 }}
+          className="relative z-[2] mx-auto w-full max-w-4xl"
+          initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 120, damping: 18, delay: 0.1 }}
+          transition={{ type: "spring", stiffness: 120, damping: 18, delay: 0.3 }}
           viewport={{ once: true, amount: 0.3 }}
         >
           <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
