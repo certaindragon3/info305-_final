@@ -171,30 +171,57 @@ export const restaurant: Restaurant = {
 export const reviews: Review[] = [
   {
     id: '1',
-    author: 'Sarah L.',
+    author: '美食探店王',
     rating: 5,
-    content: 'The squirrel fish here brings back childhood memories of my grandmother\'s cooking. Absolutely authentic!',
+    content: '松鼠桂鱼是真的绝！外酥里嫩，酸甜恰到好处。师傅的刀工太厉害了，每一片鱼肉都薄厚均匀。环境也很雅致，适合家庭聚餐。',
     date: '2024-01-15',
     verified: true,
     type: 'customer'
   },
   {
     id: '2',
-    author: 'Food Critic Wang',
+    author: '苏州老饕',
     rating: 5,
-    content: 'Authentic Subang cuisine at its finest. Master Chen\'s skills are unmatched in preserving traditional techniques.',
+    content: '阿诚家的苏帮菜做的很地道，不愧是老字号。荷塘小炒清爽不油腻，碧螺虾仁鲜嫩入味，每一道菜都能看出厨师的用心和功底。',
     date: '2024-01-10',
     verified: true,
-    type: 'critic'
+    type: 'customer'
   },
   {
     id: '3',
-    author: 'Local Historian',
+    author: '江南美食家',
     rating: 5,
-    content: 'A cultural treasure that must be preserved. This restaurant maintains the true essence of Subang culinary heritage.',
+    content: '这家店坚守传统工艺值得点赞！响油鳝糊的火候掌握得恰到好处，鳝丝嫩滑，油温的把控体现了真功夫。希望这样的老手艺能一直传承下去。',
     date: '2024-01-05',
     verified: true,
+    type: 'customer'
+  },
+  {
+    id: '4',
+    author: '文化研究者',
+    rating: 5,
+    content: '不只是一家餐厅，更像是苏帮菜的活化石。从食材选择到烹饪手法都遵循古法，是研究江南饮食文化不可多得的实践样本。',
+    date: '2023-12-28',
+    verified: true,
     type: 'historian'
+  },
+  {
+    id: '5',
+    author: '上海吃货小分队',
+    rating: 5,
+    content: '专程从上海开车过来的，没有失望！菜品精致，摆盘讲究，味道正宗。特别推荐松鼠桂鱼和碧螺虾仁，性价比很高。',
+    date: '2023-12-20',
+    verified: true,
+    type: 'customer'
+  },
+  {
+    id: '6',
+    author: '本地居民',
+    rating: 5,
+    content: '从1999年开业就一直光顾，二十多年了味道始终如一。陈师傅的手艺是真没话说，每次带外地朋友来都赞不绝口。',
+    date: '2023-12-15',
+    verified: true,
+    type: 'customer'
   }
 ];
 
