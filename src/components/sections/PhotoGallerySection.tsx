@@ -25,11 +25,11 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
   const images = useMemo(() => baseImages, []);
 
   // Transform reviews data for InfiniteMovingCards
-  const testimonials = reviews.map((review) => ({
+  const testimonials = useMemo(() => reviews.map((review) => ({
     quote: review.content,
     name: review.author,
-    title: `${"⭐".repeat(review.rating)} · ${new Date(review.date).toLocaleDateString("zh-CN")}`,
-  }));
+    title: `${"⭐".repeat(review.rating)} · ${review.date}`,
+  })), []);
 
   return (
     <section

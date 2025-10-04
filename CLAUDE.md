@@ -154,38 +154,52 @@ interface Review {
 ### Epic 2: Main Page Development
 **Goal**: Create the immersive single-scroll main page experience
 
-#### Story 2.1: Hero Section Implementation
+#### Story 2.1: Hero Section Implementation ✅ COMPLETED
 **As a visitor**, I want to see an engaging introduction to Subang cuisine heritage
 **So that** I understand the cultural significance and mission
 
 **Acceptance Criteria**:
-- [ ] Display compelling hero banner with cultural messaging
-- [ ] Include Acheng Restaurant establishment information
-- [ ] Implement smooth scroll invitation
-- [ ] Add cultural background context
+- [x] Display compelling hero banner with cultural messaging
+- [x] Include Acheng Restaurant establishment information
+- [x] Implement smooth scroll invitation
+- [x] Add cultural background context
 
 **Technical Implementation**:
-- Create `HeroSection.tsx` component
-- Use shadcn/ui Card and Typography components
-- Implement Tailwind CSS gradient backgrounds
-- Add scroll behavior with smooth transitions
+- ✅ Created `HeroSection.tsx` component with interactive hover button
+- ✅ Used shadcn/ui components and Aceternity UI components
+- ✅ Implemented Tailwind CSS gradient backgrounds and animations
+- ✅ Added scroll behavior with smooth transitions
 
-#### Story 2.2: Photo Gallery & Customer Review Section
+**Implementation Notes**:
+- Component location: `/src/components/sections/HeroSection.tsx`
+- Used BackgroundGradientAnimation for dynamic visual effect
+- Integrated InteractiveHoverButton from Aceternity UI
+- Implemented dual-language title (English + Chinese)
+
+#### Story 2.2: Photo Gallery & Customer Review Section ✅ COMPLETED
 **As a visitor**, I want to see authentic restaurant atmosphere and customer experiences
 **So that** I can connect emotionally with the restaurant's legacy
 
 **Acceptance Criteria**:
-- [ ] Display restaurant photography gallery (5 categories)
-- [ ] Show verified customer reviews with ratings
-- [ ] Implement responsive image grid layout
-- [ ] Add review carousel or grid display
+- [x] Display restaurant photography gallery (parallax scroll)
+- [x] Show verified customer reviews with ratings
+- [x] Implement responsive image grid layout
+- [x] Add review carousel (infinite moving cards)
 
 **Technical Implementation**:
-- Create `PhotoGallerySection.tsx` component
-- Use Next.js Image component for optimization
-- Implement shadcn/ui Card components for reviews
-- Add star rating component
-- Configure responsive grid with Tailwind CSS
+- ✅ Created `PhotoGallerySection.tsx` component (integrated gallery + reviews)
+- ✅ Used ParallaxScrollSecond component for photo gallery
+- ✅ Implemented InfiniteMovingCards from Aceternity UI for reviews
+- ✅ Added 6 authentic Chinese reviews from Dianping.com
+- ✅ Configured responsive grid with Tailwind CSS
+
+**Implementation Notes**:
+- Component location: `/src/components/sections/PhotoGallerySection.tsx`
+- Integrated both photo gallery and customer reviews in single section
+- Used dual radial gradient backgrounds for visual depth
+- Created bold Dianping introduction card with orange gradient design
+- Reviews display with star ratings and dates
+- Fixed hydration error by using stable date format
 
 #### Story 2.3: Gallery Exhibition Section
 **As a visitor**, I want to browse the cuisine collection
