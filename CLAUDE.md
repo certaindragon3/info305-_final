@@ -31,8 +31,110 @@ A sophisticated, interactive virtual museum featuring:
 - **3D**: React Three Fiber + Three.js
 - **Styling**: Tailwind CSS v4 + shadcn/ui
 - **Icons**: Lucide React
-- **Animations**: tw-animate-css
+- **Animations**: Framer Motion (motion/react) + tw-animate-css
+- **UI Components**: shadcn/ui + Aceternity UI + Magic UI
 - **Deployment**: Static generation (no backend required)
+
+### Design System & Style Guidelines
+
+#### Color Palette
+- **Background**: `bg-slate-950` (deep black foundation)
+- **Text**:
+  - Primary: `text-white` / `text-slate-100`
+  - Secondary: `text-slate-300`
+  - Tertiary: `text-slate-400` / `text-slate-500`
+- **Accent Color** (Orange Spectrum):
+  - Primary: `text-orange-400` (main accent)
+  - Hover: `text-orange-500`
+  - Deep: `text-orange-600`
+  - Gradients: `from-orange-400 to-orange-600`
+- **Borders**:
+  - Subtle: `border-white/10` / `border-slate-700`
+  - Accent: `border-orange-500/20` ~ `border-orange-500/30`
+
+#### Typography Hierarchy
+- **Eyebrow/Label** (Small Headers):
+  - Classes: `text-xs font-semibold uppercase tracking-[0.35em] text-orange-400`
+  - Alternative: `tracking-[0.3em]` or `tracking-[0.45em]` for different spacing
+  - Usage: Section labels, badges, metadata
+
+- **Main Headings**:
+  - H1: `text-4xl font-extrabold tracking-tight text-white sm:text-6xl`
+  - H2: `text-3xl font-bold text-white sm:text-4xl`
+  - H3: `text-2xl font-bold text-white sm:text-3xl`
+
+- **Body Text**:
+  - Primary: `text-base leading-relaxed text-slate-300`
+  - Secondary: `text-sm text-slate-400`
+
+- **Accented Text**:
+  - Gradient: `bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent`
+  - Light: `text-orange-400/90`
+
+#### Component Patterns
+
+**Section Structure**:
+```tsx
+<section className="relative overflow-hidden bg-slate-950 py-24 text-slate-100 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+  {/* Gradient backgrounds */}
+  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.15),_transparent_60%)]" />
+
+  {/* Content container */}
+  <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-6 lg:px-8">
+    {/* Section header */}
+    <header className="relative z-[1] mx-auto max-w-3xl text-center">
+      <p className="text-sm font-semibold uppercase tracking-[0.35em] text-orange-400">
+        Eyebrow Label
+      </p>
+      <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">
+        Main Section Title
+      </h2>
+      <p className="mt-4 text-base text-slate-300">
+        Section description text
+      </p>
+    </header>
+  </div>
+</section>
+```
+
+**Card/Container Styling**:
+- Background: `bg-slate-900/80` or `bg-gradient-to-br from-orange-500/5 via-slate-900/80 to-slate-900/80`
+- Border: `border border-orange-500/30` or `border-white/10`
+- Effects: `backdrop-blur-xl shadow-2xl shadow-orange-500/10`
+- Rounded corners: `rounded-2xl` or `rounded-3xl`
+
+**Badge/Pill Components**:
+```tsx
+<span className="rounded-full bg-orange-500/10 px-4 py-2 text-xs font-medium uppercase tracking-wider text-orange-400 ring-1 ring-orange-500/30">
+  Label Text
+</span>
+```
+
+**Decorative Elements**:
+- Divider lines: `<div className="h-px bg-gradient-to-r from-orange-500/50 via-orange-500/20 to-transparent" />`
+- Glow orbs: `<div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-orange-500/20 blur-3xl" />`
+- Line accents: `<div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-400" />`
+
+#### Animation Guidelines
+- **Scroll Animations**: Use Framer Motion's `whileInView` with `viewport={{ once: true }}`
+- **Transitions**: `transition={{ type: "spring", stiffness: 100, damping: 20 }}`
+- **Hover Effects**: `transition-all duration-300` or `duration-500`
+- **Scale on Hover**: `hover:scale-105`
+- **Glow Effects**: `hover:shadow-orange-500/50`
+
+#### Content Guidelines
+- **NO EMOJIS** in production content (academic/professional context)
+- Use proper English academic writing style
+- Incorporate authentic fieldwork interview quotes
+- Maintain cultural sensitivity and accuracy
+- Focus on heritage preservation narrative
+
+#### Spacing & Layout
+- Section padding: `py-24`
+- Content gap: `gap-20` (between major sections)
+- Card padding: `p-10 md:p-16`
+- Max width: `max-w-7xl` (main container)
+- Centered content: `max-w-3xl` (for text blocks)
 
 ### Project Structure
 ```
@@ -201,21 +303,31 @@ interface Review {
 - Reviews display with star ratings and dates
 - Fixed hydration error by using stable date format
 
-#### Story 2.3: Gallery Exhibition Section
+#### Story 2.3: Gallery Exhibition Section ✅ COMPLETED
 **As a visitor**, I want to browse the cuisine collection
 **So that** I can discover different dishes and their significance
 
 **Acceptance Criteria**:
-- [ ] Feature松鼠桂鱼 as signature exhibition
-- [ ] Display 3 additional cuisine cards
-- [ ] Enable navigation to detailed dish pages
-- [ ] Implement hover effects and animations
+- [x] Feature 松鼠桂鱼 as signature exhibition
+- [ ] Display 3 additional cuisine cards (placeholder added)
+- [x] Enable navigation to detailed dish pages
+- [x] Implement hover effects and animations
 
 **Technical Implementation**:
-- Create `GallerySection.tsx` and `DishCard.tsx` components
-- Implement special `SignatureDish.tsx` component
-- Add CSS animations with tw-animate-css
-- Configure Next.js routing to dish detail pages
+- ✅ Created `GallerySection.tsx` component following design system
+- ✅ Implemented signature dish exhibition with Spotlight effect
+- ✅ Added Framer Motion scroll animations
+- ✅ Configured Next.js routing to dish detail pages
+- ✅ Applied consistent orange accent color scheme
+- ✅ Removed emojis, used professional academic style
+
+**Implementation Notes**:
+- Component location: `/src/components/sections/GallerySection.tsx`
+- Used Aceternity UI Spotlight component for dramatic lighting
+- Implemented decorative glow orbs and gradient backgrounds
+- Created "Chef's Insight" card with interview-based content
+- Badge design with line accents and uppercase tracking
+- Placeholder section for 3 additional dishes (to be implemented)
 
 #### Story 2.4: 3D Interactive Restaurant Scene
 **As a visitor**, I want to explore a 3D restaurant environment
