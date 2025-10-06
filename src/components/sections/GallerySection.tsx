@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 
 import { getSignatureDish, getRegularDishes } from '@/lib/data';
 import { Spotlight } from '@/components/ui/spotlight';
+import { HorizontalDishScroll } from '@/components/sections/HorizontalDishScroll';
 import { cn } from "@/lib/utils";
 
 export function GallerySection() {
@@ -146,22 +147,25 @@ export function GallerySection() {
           </div>
         </motion.div>
 
-        {/* Other Preserved Cuisines - Placeholder */}
-        <div className="relative z-[1]">
-          <div className="mb-8 text-center">
+      </div>
+
+      {/* Horizontal Scroll Section for Other Dishes */}
+      <div className="relative z-[1] mt-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mb-12 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.35em] text-orange-400">
               Additional Exhibitions
             </p>
-            <h3 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
-              More culinary masterworks
+            <h3 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
+              Scroll to explore more masterworks
             </h3>
-          </div>
-          <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/30 py-16 text-center backdrop-blur-sm">
-            <p className="text-sm uppercase tracking-[0.3em] text-slate-500">
-              {regularDishes.length} Additional Dishes · Coming Soon
+            <p className="mt-3 text-sm text-slate-400">
+              Swipe or scroll horizontally to discover three classic dishes
             </p>
           </div>
         </div>
+
+        <HorizontalDishScroll dishes={regularDishes} />
       </div>
     </section>
   );
