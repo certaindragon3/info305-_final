@@ -11,20 +11,55 @@ export default function AboutSection() {
     {
       title: "1992",
       content: (
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-8 backdrop-blur-xl">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 ring-1 ring-orange-500/30">
-                <Sparkles className="h-6 w-6 text-orange-400" />
+        <div className="group relative">
+          {/* Decorative background glow */}
+          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/20 via-transparent to-transparent opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />
+
+          <div className="relative space-y-6">
+            {/* Epic header with gradient */}
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl">
+              <div className="bg-gradient-to-r from-orange-500/10 to-transparent p-8">
+                <div className="mb-6 flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-500/40 shadow-lg shadow-orange-500/20">
+                      <Sparkles className="h-8 w-8 text-orange-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">
+                        The Pioneer Era
+                      </h3>
+                      <p className="text-sm text-orange-400">When dreams took shape</p>
+                    </div>
+                  </div>
+                  <div className="rounded-full bg-orange-500/10 px-4 py-1 text-xs font-bold text-orange-400 ring-1 ring-orange-500/30">
+                    CHAPTER I
+                  </div>
+                </div>
+
+                {/* Story content with dramatic formatting */}
+                <div className="space-y-4">
+                  <p className="text-lg font-semibold text-slate-200">
+                    In an era when private restaurants were revolutionary...
+                  </p>
+                  <p className="leading-relaxed text-slate-300">
+                    The first flames were lit in a modest kitchen. This wasn&apos;t just about cooking—it was about preserving a dying art. While state-owned restaurants dominated, one chef dared to dream of authentic Subang cuisine served with heart.
+                  </p>
+
+                  {/* Key highlight box */}
+                  <div className="mt-6 flex items-start gap-4 rounded-xl border-l-4 border-orange-500 bg-slate-950/50 p-5">
+                    <div className="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500/20">
+                      <span className="text-sm font-bold text-orange-400">!</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-orange-400">Historical Context</p>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                        Private dining was rare and risky. This wasn&apos;t just business—it was cultural rebellion, preserving techniques that were fading into obscurity.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white">The Beginning</h3>
             </div>
-            <p className="leading-relaxed text-slate-300">
-              The foundation was laid when the first private restaurant opened
-              during a time when privately-owned dining establishments were
-              still rare in society. This marked the beginning of a culinary
-              journey that would span generations.
-            </p>
           </div>
         </div>
       ),
@@ -32,48 +67,91 @@ export default function AboutSection() {
     {
       title: "1999",
       content: (
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 via-slate-900/80 to-slate-900/80 p-8 backdrop-blur-xl shadow-2xl shadow-orange-500/10">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20 ring-1 ring-orange-500/40">
-                <Store className="h-6 w-6 text-orange-400" />
+        <div className="group relative">
+          {/* Epic glow effect */}
+          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/30 via-orange-400/20 to-transparent opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
+
+          <div className="relative space-y-6">
+            <div className="overflow-hidden rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 via-slate-900/80 to-slate-900/80 shadow-2xl shadow-orange-500/10 backdrop-blur-xl">
+              <div className="p-8">
+                {/* Dramatic header */}
+                <div className="mb-6 flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/30 to-orange-600/20 ring-1 ring-orange-500/50 shadow-xl shadow-orange-500/30">
+                      <Store className="h-8 w-8 text-orange-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">
+                        Birth of a Legend
+                      </h3>
+                      <p className="text-sm text-orange-400">The Acheng story begins</p>
+                    </div>
+                  </div>
+                  <div className="rounded-full bg-orange-500/20 px-4 py-1 text-xs font-bold text-orange-400 ring-1 ring-orange-500/40">
+                    CHAPTER II
+                  </div>
+                </div>
+
+                {/* Story-driven content */}
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <p className="text-lg font-semibold text-slate-200">
+                      Fenghuang Street, 1999. A name is born.
+                    </p>
+                    <p className="leading-relaxed text-slate-300">
+                      <span className="font-semibold text-orange-400">&quot;Acheng&quot;</span> — simple, honest, grounded. The founder chose his own given name, rejecting flashy marketing for something real. This wasn&apos;t a restaurant for the elite. This was for <span className="italic text-slate-200">the people</span>.
+                    </p>
+                  </div>
+
+                  {/* Photo with dramatic reveal */}
+                  <div className="group/image relative overflow-hidden rounded-xl ring-1 ring-white/10 transition-all duration-500 hover:ring-orange-500/50">
+                    <Image
+                      src="/images/aboutsection/old.png"
+                      alt="Acheng Restaurant original storefront in 1999"
+                      width={800}
+                      height={600}
+                      className="w-full object-cover transition-transform duration-700 group-hover/image:scale-105"
+                      style={{ aspectRatio: "4/3" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover/image:opacity-100" />
+                    <div className="absolute bottom-4 left-4 translate-y-4 opacity-0 transition-all duration-500 group-hover/image:translate-y-0 group-hover/image:opacity-100">
+                      <p className="text-sm font-semibold text-white">Where it all started</p>
+                      <p className="text-xs text-slate-300">The original Fenghuang Street location</p>
+                    </div>
+                  </div>
+
+                  {/* Philosophy as a manifesto */}
+                  <div className="relative overflow-hidden rounded-xl border border-orange-500/30 bg-gradient-to-br from-orange-500/10 to-transparent p-6">
+                    <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-orange-500/20 blur-3xl" />
+                    <div className="relative space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="h-1 w-8 rounded-full bg-gradient-to-r from-orange-400 to-transparent" />
+                        <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-400">
+                          The Founding Manifesto
+                        </p>
+                      </div>
+                      <blockquote className="border-l-2 border-orange-500 pl-4 text-base italic leading-relaxed text-slate-200">
+                        &quot;The name sounds ordinary, but the meaning is to be grounded and align with the mass consumption route—high cost-performance ratio, not expensive, but the ingredients are genuine and fresh.&quot;
+                      </blockquote>
+                      <p className="text-xs font-semibold text-orange-400">
+                        — Shen Jiecheng, Founder
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Impact statement */}
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-lg bg-slate-950/50 p-4 ring-1 ring-white/5">
+                      <p className="mb-1 text-2xl font-bold text-orange-400">26+</p>
+                      <p className="text-xs text-slate-400">Years of legacy building</p>
+                    </div>
+                    <div className="rounded-lg bg-slate-950/50 p-4 ring-1 ring-white/5">
+                      <p className="mb-1 text-2xl font-bold text-orange-400">∞</p>
+                      <p className="text-xs text-slate-400">Authentic dishes served</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white">
-                Acheng Restaurant Established
-              </h3>
-            </div>
-            <p className="mb-6 leading-relaxed text-slate-300">
-              The Fenghuang Street location opened its doors, establishing what
-              would become a 26-year legacy of Subang cuisine excellence. The
-              name &quot;Acheng&quot; was chosen from the founder&apos;s given
-              name, symbolizing a down-to-earth approach to dining.
-            </p>
-
-            {/* Original Restaurant Photo */}
-            <div className="mb-6 overflow-hidden rounded-xl">
-              <Image
-                src="/images/aboutsection/old.png"
-                alt="Acheng Restaurant original storefront in 1999"
-                width={800}
-                height={600}
-                className="w-full object-cover"
-                style={{ aspectRatio: "4/3" }}
-              />
-            </div>
-
-            <div className="space-y-3 rounded-xl bg-slate-950/50 p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-orange-400">
-                Founding Philosophy
-              </p>
-              <blockquote className="border-l-2 border-orange-500/50 pl-4 italic text-slate-300">
-                &quot;The name sounds ordinary, but the meaning is to be
-                grounded and align with the mass consumption route - high
-                cost-performance ratio, not expensive, but the ingredients are
-                genuine and fresh.&quot;
-              </blockquote>
-              <p className="text-xs text-slate-400">
-                — Founder&apos;s Vision Statement
-              </p>
             </div>
           </div>
         </div>
@@ -82,63 +160,115 @@ export default function AboutSection() {
     {
       title: "2024",
       content: (
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 via-slate-900/80 to-slate-900/80 p-8 backdrop-blur-xl shadow-2xl shadow-orange-500/10">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20 ring-1 ring-orange-500/40">
-                <Paintbrush className="h-6 w-6 text-orange-400" />
+        <div className="group relative">
+          {/* Vibrant glow for transformation */}
+          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/40 via-pink-500/20 to-purple-500/20 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
+
+          <div className="relative space-y-6">
+            <div className="overflow-hidden rounded-2xl border border-orange-500/40 bg-gradient-to-br from-orange-500/10 via-slate-900/80 to-slate-900/80 shadow-2xl shadow-orange-500/20 backdrop-blur-xl">
+              <div className="p-8">
+                {/* Bold transformation header */}
+                <div className="mb-6 flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/40 to-pink-500/30 ring-1 ring-orange-500/60 shadow-xl shadow-orange-500/40">
+                      <Paintbrush className="h-8 w-8 text-orange-300" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">
+                        The Bold Transformation
+                      </h3>
+                      <p className="text-sm text-orange-400">Evolution meets heritage</p>
+                    </div>
+                  </div>
+                  <div className="rounded-full bg-orange-500/20 px-4 py-1 text-xs font-bold text-orange-400 ring-1 ring-orange-500/40">
+                    CHAPTER III
+                  </div>
+                </div>
+
+                {/* Transformation narrative */}
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <p className="text-lg font-semibold text-slate-200">
+                      25 years later. Time for a renaissance.
+                    </p>
+                    <p className="leading-relaxed text-slate-300">
+                      The walls that held decades of memories were ready for rebirth. <span className="font-semibold text-orange-400">Bold colors</span>, <span className="font-semibold text-pink-400">modern aesthetics</span>, <span className="font-semibold text-purple-400">youthful energy</span>—but the soul? That stays eternal.
+                    </p>
+                  </div>
+
+                  {/* Before/After concept box */}
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-xl border border-slate-700 bg-slate-950/50 p-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Heritage</p>
+                      <p className="text-sm text-slate-300">Traditional craftsmanship, authentic recipes, cultural roots</p>
+                    </div>
+                    <div className="rounded-xl border border-orange-500/30 bg-gradient-to-br from-orange-500/10 to-transparent p-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-orange-400">Innovation</p>
+                      <p className="text-sm text-slate-300">Contemporary design, youth appeal, Instagram-worthy aesthetics</p>
+                    </div>
+                  </div>
+
+                  {/* Video showcase with cinematic frame */}
+                  <div className="group/video relative overflow-hidden rounded-xl bg-black ring-2 ring-orange-500/30 transition-all duration-500 hover:ring-orange-500/60">
+                    <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 backdrop-blur-sm">
+                      <div className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-white">Watch Transformation</span>
+                    </div>
+                    <video
+                      className="w-full transition-transform duration-700 group-hover/video:scale-105"
+                      controls
+                      loop
+                      muted
+                      preload="metadata"
+                      style={{ aspectRatio: "16/9" }}
+                    >
+                      <source src="/videos/renovation.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+
+                  {/* Impact metrics */}
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    <div className="rounded-lg bg-gradient-to-br from-orange-500/10 to-transparent p-4 ring-1 ring-orange-500/20">
+                      <p className="mb-1 text-2xl font-bold text-orange-400">100%</p>
+                      <p className="text-xs text-slate-400">Exterior renewed</p>
+                    </div>
+                    <div className="rounded-lg bg-gradient-to-br from-pink-500/10 to-transparent p-4 ring-1 ring-pink-500/20">
+                      <p className="mb-1 text-2xl font-bold text-pink-400">Gen Z</p>
+                      <p className="text-xs text-slate-400">New audience reached</p>
+                    </div>
+                    <div className="rounded-lg bg-gradient-to-br from-purple-500/10 to-transparent p-4 ring-1 ring-purple-500/20">
+                      <p className="mb-1 text-2xl font-bold text-purple-400">0%</p>
+                      <p className="text-xs text-slate-400">Soul compromised</p>
+                    </div>
+                  </div>
+
+                  {/* Source with style */}
+                  <div className="flex items-center justify-between rounded-xl border border-slate-700/50 bg-slate-950/30 p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/10 ring-1 ring-red-500/30">
+                        <svg className="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-slate-400">Video Source</p>
+                        <a
+                          href="http://xhslink.com/o/4ihKxCnyPAZ"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm font-medium text-slate-300 transition-colors hover:text-orange-400"
+                        >
+                          Xiaohongshu
+                        </a>
+                      </div>
+                    </div>
+                    <svg className="h-5 w-5 text-slate-500 transition-colors hover:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white">
-                Modern Renovation
-              </h3>
-            </div>
-            <p className="mb-6 leading-relaxed text-slate-300">
-              A complete exterior renovation transformed the restaurant with
-              bold color schemes and contemporary design elements to appeal to
-              younger demographics while maintaining its cultural essence.
-            </p>
-
-            {/* Video Player */}
-            <div className="mb-6 overflow-hidden rounded-xl bg-black">
-              <video
-                className="w-full"
-                controls
-                loop
-                muted
-                preload="metadata"
-                style={{ aspectRatio: "16/9" }}
-              >
-                <source src="/videos/renovation.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            {/* Source Attribution */}
-            <div className="rounded-xl bg-slate-950/50 p-4">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-orange-400">
-                Video Source
-              </p>
-              <a
-                href="http://xhslink.com/o/4ihKxCnyPAZ"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-slate-300 transition-colors hover:text-orange-400"
-              >
-                <span>Xiaohongshu (Little Red Book)</span>
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
-              </a>
             </div>
           </div>
         </div>
@@ -147,39 +277,109 @@ export default function AboutSection() {
     {
       title: "2025",
       content: (
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-8 backdrop-blur-xl">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 ring-1 ring-orange-500/30">
-                <Heart className="h-6 w-6 text-orange-400" />
-              </div>
-              <h3 className="text-xl font-bold text-white">
-                Heritage Preservation
-              </h3>
-            </div>
-            <p className="mb-6 leading-relaxed text-slate-300">
-              Today, Acheng Restaurant continues to uphold traditional Subang
-              cuisine techniques while adapting to modern health consciousness
-              through reduced oil, sugar, and salt. The commitment to
-              handmade dishes and fresh ingredients remains unwavering.
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl bg-slate-950/50 p-5">
-                <p className="mb-2 text-sm font-semibold text-orange-400">
-                  Daily Fresh Supply
-                </p>
-                <p className="text-sm leading-relaxed text-slate-400">
-                  Orders placed at 9 PM, delivered by 9 AM for immediate
-                  processing
-                </p>
-              </div>
-              <div className="rounded-xl bg-slate-950/50 p-5">
-                <p className="mb-2 text-sm font-semibold text-orange-400">
-                  Zero Pre-made Dishes
-                </p>
-                <p className="text-sm leading-relaxed text-slate-400">
-                  Every dish prepared from scratch using traditional methods
-                </p>
+        <div className="group relative">
+          {/* Golden glow for the present */}
+          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/30 via-yellow-500/20 to-orange-500/30 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
+
+          <div className="relative space-y-6">
+            <div className="overflow-hidden rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 via-slate-900/80 to-slate-900/80 shadow-2xl shadow-orange-500/10 backdrop-blur-xl">
+              <div className="p-8">
+                {/* Present moment header */}
+                <div className="mb-6 flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/30 to-orange-600/20 ring-1 ring-orange-500/50 shadow-xl shadow-orange-500/30">
+                      <Heart className="h-8 w-8 text-orange-400" />
+                      <div className="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-orange-400 ring-2 ring-slate-900" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">
+                        The Living Legacy
+                      </h3>
+                      <p className="text-sm text-orange-400">Today and tomorrow</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-full bg-orange-500/20 px-4 py-1 ring-1 ring-orange-500/40">
+                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-orange-400" />
+                    <span className="text-xs font-bold text-orange-400">NOW</span>
+                  </div>
+                </div>
+
+                {/* Present day narrative */}
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <p className="text-lg font-semibold text-slate-200">
+                      2025. The story continues—stronger than ever.
+                    </p>
+                    <p className="leading-relaxed text-slate-300">
+                      Three decades of evolution. A new facade that turns heads. But step inside? The same <span className="font-semibold text-orange-400">unwavering commitment</span> to craft, the same <span className="font-semibold text-orange-400">obsession with freshness</span>, the same <span className="font-semibold text-orange-400">handmade soul</span> that started it all.
+                    </p>
+                  </div>
+
+                  {/* Core principles showcase */}
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {/* Principle 1 */}
+                    <div className="group/card relative overflow-hidden rounded-xl border border-orange-500/20 bg-gradient-to-br from-orange-500/10 to-transparent p-6 transition-all duration-300 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/10">
+                      <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-orange-500/10 blur-2xl transition-all duration-500 group-hover/card:bg-orange-500/20" />
+                      <div className="relative">
+                        <div className="mb-3 flex items-center gap-2">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/20 ring-1 ring-orange-500/30">
+                            <svg className="h-5 w-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <h4 className="font-bold text-orange-400">9PM → 9AM</h4>
+                        </div>
+                        <p className="text-sm font-semibold text-slate-200">Daily Fresh Supply Chain</p>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                          Orders placed at night, delivered at dawn. Every ingredient arrives fresh, ready for the day&apos;s magic.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Principle 2 */}
+                    <div className="group/card relative overflow-hidden rounded-xl border border-orange-500/20 bg-gradient-to-br from-orange-500/10 to-transparent p-6 transition-all duration-300 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/10">
+                      <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-orange-500/10 blur-2xl transition-all duration-500 group-hover/card:bg-orange-500/20" />
+                      <div className="relative">
+                        <div className="mb-3 flex items-center gap-2">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/20 ring-1 ring-orange-500/30">
+                            <svg className="h-5 w-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </div>
+                          <h4 className="font-bold text-orange-400">0% Pre-made</h4>
+                        </div>
+                        <p className="text-sm font-semibold text-slate-200">100% From Scratch</p>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                          No shortcuts. No frozen meals. No compromises. Every dish crafted by hand, the traditional way.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Health-conscious evolution */}
+                  <div className="rounded-xl border border-slate-700/50 bg-slate-950/30 p-6">
+                    <div className="mb-4 flex items-center gap-2">
+                      <div className="h-1 w-8 rounded-full bg-gradient-to-r from-orange-400 to-transparent" />
+                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-400">
+                        Modern Adaptation
+                      </p>
+                    </div>
+                    <p className="leading-relaxed text-slate-300">
+                      Tradition doesn&apos;t mean stubborn. We&apos;ve adapted: <span className="font-semibold text-slate-200">less oil, less sugar, less salt</span>—responding to modern health consciousness without sacrificing the essence of Subang cuisine.
+                    </p>
+                  </div>
+
+                  {/* Future vision */}
+                  <div className="relative overflow-hidden rounded-xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 to-transparent p-6">
+                    <div className="absolute right-0 top-0 h-32 w-32 -translate-y-8 translate-x-8 rounded-full bg-orange-500/20 blur-3xl" />
+                    <div className="relative space-y-3">
+                      <p className="text-sm font-semibold uppercase tracking-wider text-orange-400">The Question Ahead</p>
+                      <p className="text-base italic leading-relaxed text-slate-200">
+                        &quot;As society evolves and people change, who will carry the torch? Family succession? A trusted apprentice? The future is uncertain—but the mission is crystal clear: these techniques must survive.&quot;
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
