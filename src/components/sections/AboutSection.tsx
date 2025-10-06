@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { Timeline } from "@/components/ui/timeline";
+import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
 import { Store, Users, Heart, Sparkles } from "lucide-react";
 
 export default function AboutSection() {
@@ -112,6 +113,7 @@ export default function AboutSection() {
     {
       icon: Users,
       title: "Accessibility to All",
+      image: "/images/aboutsection/accessibility.png",
       description:
         "Positioned as a restaurant for ordinary people with affordable pricing and high cost-performance ratio, ensuring quality Subang cuisine is accessible to everyone.",
       quote:
@@ -120,6 +122,7 @@ export default function AboutSection() {
     {
       icon: Sparkles,
       title: "Freshness First",
+      image: "/images/aboutsection/freshness.png",
       description:
         "The degree of freshness is the primary quality control checkpoint. Experienced chefs employ the traditional method: look, smell, and touch to ensure ingredient quality.",
       quote:
@@ -128,6 +131,7 @@ export default function AboutSection() {
     {
       icon: Heart,
       title: "Craftsmanship Heritage",
+      image: "/images/aboutsection/craftsmanship.png",
       description:
         "From chef to business owner, the founder maintains the tradition of handcrafted dishes, refusing to adopt pre-made ingredients despite industry trends.",
       quote:
@@ -175,29 +179,37 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 p-8 backdrop-blur-xl transition-all duration-500 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/10"
               >
-                {/* Decorative glow */}
-                <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-orange-500/10 blur-3xl transition-all duration-500 group-hover:bg-orange-500/20" />
+                <DirectionAwareHover
+                  imageUrl={card.image}
+                  className="h-[400px] w-full rounded-2xl"
+                  imageClassName="object-cover"
+                  childrenClassName="w-full p-6"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/20 backdrop-blur-sm ring-1 ring-orange-500/40">
+                        <Icon className="h-5 w-5 text-orange-400" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white">
+                        {card.title}
+                      </h3>
+                    </div>
 
-                <div className="relative z-[1]">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-orange-500/10 ring-1 ring-orange-500/30 transition-all duration-500 group-hover:scale-110 group-hover:bg-orange-500/20">
-                    <Icon className="h-7 w-7 text-orange-400" />
+                    <p className="text-sm leading-relaxed text-slate-200">
+                      {card.description}
+                    </p>
+
+                    <div className="rounded-lg bg-black/30 p-3 backdrop-blur-sm">
+                      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-orange-400">
+                        Chef&apos;s Philosophy
+                      </p>
+                      <blockquote className="border-l-2 border-orange-500/50 pl-2 text-xs italic leading-relaxed text-slate-300">
+                        &quot;{card.quote}&quot;
+                      </blockquote>
+                    </div>
                   </div>
-
-                  <h3 className="mb-3 text-xl font-bold text-white">
-                    {card.title}
-                  </h3>
-                  <p className="mb-6 leading-relaxed text-slate-300">
-                    {card.description}
-                  </p>
-
-                  <div className="rounded-xl bg-slate-950/50 p-4">
-                    <blockquote className="border-l-2 border-orange-500/50 pl-3 text-sm italic leading-relaxed text-slate-400">
-                      &quot;{card.quote}&quot;
-                    </blockquote>
-                  </div>
-                </div>
+                </DirectionAwareHover>
               </motion.div>
             );
           })}
