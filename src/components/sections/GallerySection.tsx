@@ -79,6 +79,7 @@ export function GallerySection() {
                     modelPath={signatureDish.media.model3D}
                     dishName={signatureDish.name}
                     dishNameZh={signatureDish.nameZh}
+                    interactive={false}
                   />
                   {/* Hover glow effect */}
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-orange-500/5 to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100" />

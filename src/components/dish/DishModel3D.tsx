@@ -9,6 +9,7 @@ interface DishModel3DProps {
   modelPath: string;
   dishName: string;
   dishNameZh: string;
+  interactive?: boolean; // New prop to control interaction
 }
 
 function Model({ modelPath }: { modelPath: string }) {
@@ -16,25 +17,29 @@ function Model({ modelPath }: { modelPath: string }) {
 
   return (
     <Center>
-      <primitive object={scene} scale={1.5} />
+      <primitive object={scene} scale={3.5} />
     </Center>
   );
 }
 
-function ModelContent({ modelPath }: { modelPath: string }) {
+function ModelContent({ modelPath, interactive = true }: { modelPath: string; interactive?: boolean }) {
   return (
     <>
-      <ambientLight intensity={0.8} />
-      <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={1.2} />
-      <spotLight position={[-10, -10, -10]} angle={0.3} penumbra={1} intensity={0.8} />
-      <pointLight position={[0, 10, 0]} intensity={0.5} />
+      {/* Enhanced lighting for brighter models */}
+      <ambientLight intensity={1.2} />
+      <directionalLight position={[10, 10, 5]} intensity={2.0} />
+      <directionalLight position={[-10, -10, -5]} intensity={1.5} />
+      <spotLight position={[0, 15, 0]} angle={0.4} penumbra={1} intensity={1.8} />
+      <pointLight position={[5, 5, 5]} intensity={0.8} />
+      <pointLight position={[-5, -5, -5]} intensity={0.6} />
 
       <Model modelPath={modelPath} />
 
       <OrbitControls
-        enableZoom={true}
+        enableZoom={interactive}
         enablePan={false}
-        autoRotate
+        enableRotate={interactive}
+        autoRotate={true}
         autoRotateSpeed={1.5}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 1.5}
@@ -56,7 +61,7 @@ function LoadingFallback() {
   );
 }
 
-export function DishModel3D({ modelPath, dishName, dishNameZh }: DishModel3DProps) {
+export function DishModel3D({ modelPath, dishName, dishNameZh, interactive = true }: DishModel3DProps) {
   // If model path doesn't exist, show placeholder
   if (!modelPath || modelPath === '/models/placeholder.glb') {
     return <DishModel3DPlaceholder dishName={dishName} dishNameZh={dishNameZh} />;
@@ -66,10 +71,10 @@ export function DishModel3D({ modelPath, dishName, dishNameZh }: DishModel3DProp
     <div className="h-full w-full">
       <Canvas
         camera={{ position: [0, 2, 5], fov: 50 }}
-        className="touch-none"
+        className={interactive ? "touch-auto cursor-grab active:cursor-grabbing" : "touch-none pointer-events-none"}
       >
         <Suspense fallback={null}>
-          <ModelContent modelPath={modelPath} />
+          <ModelContent modelPath={modelPath} interactive={interactive} />
         </Suspense>
       </Canvas>
 

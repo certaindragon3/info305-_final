@@ -59,6 +59,7 @@ export function HorizontalDishScroll({ dishes }: HorizontalDishScrollProps) {
                     modelPath={dish.media.model3D}
                     dishName={dish.name}
                     dishNameZh={dish.nameZh}
+                    interactive={false}
                   />
                 </div>
 
