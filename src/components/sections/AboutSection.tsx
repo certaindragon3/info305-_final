@@ -315,6 +315,23 @@ export default function AboutSection() {
                     </p>
                   </div>
 
+                  {/* Renovated Storefront Photo */}
+                  <div className="group/image relative overflow-hidden rounded-xl ring-1 ring-white/10 transition-all duration-500 hover:ring-orange-500/50">
+                    <Image
+                      src="/images/aboutsection/renovated.jpeg"
+                      alt="Acheng Restaurant after 2024 renovation"
+                      width={800}
+                      height={600}
+                      className="w-full object-cover transition-transform duration-700 group-hover/image:scale-105"
+                      style={{ aspectRatio: "4/3" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover/image:opacity-100" />
+                    <div className="absolute bottom-4 left-4 translate-y-4 opacity-0 transition-all duration-500 group-hover/image:translate-y-0 group-hover/image:opacity-100">
+                      <p className="text-sm font-semibold text-white">The transformed storefront</p>
+                      <p className="text-xs text-slate-300">Bold colors, modern design, timeless soul</p>
+                    </div>
+                  </div>
+
                   {/* Core principles showcase */}
                   <div className="grid gap-4 md:grid-cols-2">
                     {/* Principle 1 */}

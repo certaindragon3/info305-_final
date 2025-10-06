@@ -330,21 +330,61 @@ interface Review {
 - Badge design with line accents and uppercase tracking
 - Placeholder section for 3 additional dishes (to be implemented)
 
-#### Story 2.4: About Restaurant Section
+#### Story 2.4: About Restaurant Section ✅ COMPLETED
 **As a visitor**, I want to learn about Acheng Restaurant's history
 **So that** I can appreciate the cultural context
 
 **Acceptance Criteria**:
-- [ ] Display restaurant history timeline
-- [ ] Show founder and philosophy information
-- [ ] Add contact and location details
-- [ ] Implement elegant typography layout
+- [x] Display restaurant history timeline
+- [x] Show founder and philosophy information
+- [x] Add contact and location details
+- [x] Implement elegant typography layout
 
 **Technical Implementation**:
-- Create `AboutSection.tsx` component
-- Use shadcn/ui Typography and Card components
-- Implement timeline design with CSS
-- Add responsive layout for different screen sizes
+- ✅ Created `AboutSection.tsx` component with story-driven timeline
+- ✅ Used Aceternity UI Timeline component with custom styling
+- ✅ Implemented DirectionAwareHover for philosophy cards
+- ✅ Added chapter-based narrative structure (1992, 1999, 2024, 2025)
+- ✅ Integrated historical photos and renovation video
+- ✅ Created founder badge with business philosophy attribution
+
+**Implementation Notes**:
+- Component location: `/src/components/sections/AboutSection.tsx`
+- Timeline features 4 chapters with dramatic storytelling approach
+- 1992: "The Pioneer Era" - Cultural rebellion context
+- 1999: "Birth of a Legend" - Restaurant establishment with original photo
+- 2024: "The Bold Transformation" - Renovation video showcase
+- 2025: "The Living Legacy" - Present-day operations and future vision
+- Philosophy cards use DirectionAwareHover with images from `/public/images/aboutsection/`
+- Founder badge highlights Shen Jiecheng's business philosophy
+- Custom timeline styling with orange accent colors and hover effects
+
+#### Story 2.5: Project Information Section
+**As a visitor**, I want to understand the virtual museum project itself
+**So that** I can appreciate the academic and preservation context
+
+**Acceptance Criteria**:
+- [ ] Display project overview and mission statement
+- [ ] Show academic research context and methodology
+- [ ] Include team information and acknowledgments
+- [ ] Add technical implementation details
+- [ ] Provide contact information for inquiries
+
+**Technical Implementation**:
+- Create `ProjectInfoSection.tsx` component
+- Use design system consistent with other sections
+- Implement academic-style content presentation
+- Add visual elements to showcase preservation goals
+- Include fieldwork methodology and data sources
+
+**Content Requirements**:
+- Project title and tagline
+- Cultural preservation mission
+- Academic research context
+- Fieldwork methodology overview
+- Technical stack showcase
+- Team and acknowledgments
+- Contact information
 
 ---
 
