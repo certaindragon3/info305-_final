@@ -1,338 +1,328 @@
 "use client";
 
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import {
-  Camera,
-  Mic,
-  Video,
-  Box,
-  Users,
-  MapPin,
-  Clock,
-  Database,
-  Sparkles,
-  BookOpen,
-  Lightbulb,
-  Target,
-} from "lucide-react";
+import { GridBeams } from "@/components/ui/grid-beams";
+import { cn } from "@/lib/utils";
 
 export default function ProjectInfoSection() {
   return (
     <section className="relative overflow-hidden bg-slate-950 py-24 text-slate-100 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
-      {/* Gradient backgrounds */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(251,146,60,0.15),_transparent_60%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(251,146,60,0.08),_transparent_50%)]" />
+      <GridBeams
+        className="absolute inset-0"
+        gridSize={48}
+        gridColor="rgba(251,146,60,0.15)"
+        rayCount={10}
+        rayOpacity={0.28}
+        rayLength="55vh"
+        backgroundColor="#0b1220"
+      >
+        {/* decorative grid only */}
+      </GridBeams>
 
-      {/* Content container */}
-      <div className="relative z-[1] mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 lg:px-8">
-        {/* Section header */}
-        <header className="mx-auto max-w-3xl text-center">
+      <div className="relative z-[1] mx-auto flex w-full max-w-7xl flex-col gap-20 px-6 lg:px-8">
+        {/* Header */}
+        <header className="mx-auto max-w-4xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">
-            Project Context
+            Project Manifesto
           </p>
-          <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">
-            Fieldwork Methodology & Data Collection
+          <h2 className="mt-4 bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-6xl">
+            A Research Atlas of Subang Cuisine
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-slate-300">
-            A comprehensive ethnographic study documenting Subang cuisine
-            heritage through multi-modal data collection at Acheng Restaurant
+          <p className="mt-5 text-base leading-relaxed text-slate-300">
+            An immersive, multi-modal documentation of Acheng Restaurant: four dishes, one shop, one community—preserved through photography, video, audio, 3D models, and structured data.
           </p>
         </header>
 
-        {/* Mission Statement Card */}
-        <div className="relative overflow-hidden rounded-3xl border border-orange-500/30 bg-gradient-to-br from-orange-500/10 via-slate-900/90 to-slate-900/90 p-10 backdrop-blur-xl shadow-2xl shadow-orange-500/10 md:p-12">
-          <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-orange-500/20 blur-3xl" />
-          <div className="relative z-[1] flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20 ring-1 ring-orange-500/40">
-                <Target className="h-6 w-6 text-orange-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">Research Mission</h3>
+        {/* Big Metrics Ledger */}
+        <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {metrics.map((m) => (
+            <MetricTile key={m.label} value={m.value} label={m.label} note={m.note} />
+          ))}
+        </section>
+
+        {/* Methods Vitrine (horizontal, image-friendly) */}
+        <section>
+          <div className="flex items-center gap-3">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-400" />
+            <h3 className="text-xl font-bold text-white">Field Methods — Modular Vitrine</h3>
+          </div>
+
+          <div className="mt-6 overflow-x-auto pb-4">
+            <div className="flex snap-x snap-mandatory gap-6">
+              {methods.map((m) => (
+                <MethodCard key={m.title} {...m} />
+              ))}
             </div>
-            <p className="text-lg leading-relaxed text-slate-200">
-              This virtual museum preserves the labor-intensive traditional
-              Subang cuisine techniques that are disappearing in modern
-              fast-paced society. Acheng Restaurant, established in 1999,
-              represents critical cultural heritage requiring digital
-              preservation through academic documentation and immersive
-              storytelling.
+          </div>
+        </section>
+
+        {/* Scrollytelling: From Consent to Archive */}
+        <section className="grid gap-10 md:grid-cols-[1.1fr_1.5fr]">
+          <div className="sticky top-24 h-fit self-start">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">
+              Workflow
             </p>
-          </div>
-        </div>
-
-        {/* Research Objectives */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-400" />
-            <h3 className="text-xl font-bold text-white">Research Objectives</h3>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {objectives.map((objective, idx) => (
-              <div
-                key={idx}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 p-6 transition-all duration-300 hover:border-orange-500/30 hover:shadow-xl hover:shadow-orange-500/10"
-              >
-                <div className="flex flex-col gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10 ring-1 ring-orange-500/20 transition-all duration-300 group-hover:bg-orange-500/20 group-hover:ring-orange-500/40">
-                    {objective.icon}
-                  </div>
-                  <h4 className="font-semibold text-white">
-                    {objective.title}
-                  </h4>
-                  <p className="text-sm leading-relaxed text-slate-400">
-                    {objective.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Fieldwork Execution */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-400" />
-            <h3 className="text-xl font-bold text-white">Fieldwork Execution</h3>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-slate-900/50 p-8 backdrop-blur-sm">
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-orange-400" />
-                  <span className="text-sm font-semibold uppercase tracking-wider text-slate-400">
-                    Location
-                  </span>
-                </div>
-                <p className="text-base text-slate-200">
-                  Acheng Restaurant, Shiquan Street, Suzhou
-                </p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-orange-400" />
-                  <span className="text-sm font-semibold uppercase tracking-wider text-slate-400">
-                    Duration
-                  </span>
-                </div>
-                <p className="text-base text-slate-200">
-                  4 hours (11:00 AM - 3:00 PM, Sept 21)
-                </p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-orange-400" />
-                  <span className="text-sm font-semibold uppercase tracking-wider text-slate-400">
-                    Researcher
-                  </span>
-                </div>
-                <p className="text-base text-slate-200">Solo ethnographic study</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Data Collection Methodology - Bento Grid */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-400" />
-            <h3 className="text-xl font-bold text-white">
-              Multi-Modal Data Collection
+            <h3 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
+              From Consent to Archive
             </h3>
+            <p className="mt-4 text-sm leading-relaxed text-slate-400">
+              A two-hour field pattern extended to a four-hour solo session (Sept 21, 11:00–15:00). Each step produces verifiable, linked materials that feed dish pages and the 3D gallery.
+            </p>
           </div>
-          <BentoGrid className="md:auto-rows-[20rem]">
-            {dataCollectionItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={item.header}
-                icon={item.icon}
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
-        </div>
 
-        {/* Technical Stack */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-400" />
-            <h3 className="text-xl font-bold text-white">Technical Stack</h3>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {techStack.map((tech, idx) => (
+          <div className="space-y-4">
+            {workflow.map((w, i) => (
               <div
-                key={idx}
-                className="rounded-xl border border-white/10 bg-slate-900/60 p-5 backdrop-blur-sm transition-all duration-300 hover:border-orange-500/30 hover:bg-slate-900/80"
+                key={i}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-6 transition-all duration-300 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/10"
               >
-                <div className="flex flex-col gap-2">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-orange-400">
-                    {tech.category}
-                  </span>
-                  <p className="text-sm font-medium text-slate-200">
-                    {tech.tools}
-                  </p>
+                <div className="absolute -top-10 -right-10 h-24 w-24 rounded-full bg-orange-500/10 blur-3xl" />
+                <div className="relative z-[1] flex items-start justify-between gap-6">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">
+                      Step {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h4 className="mt-2 text-lg font-semibold text-white">{w.title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-400">{w.desc}</p>
+                  </div>
+                  <div className="hidden min-w-[220px] shrink-0 md:block">
+                    <ImageSlot hint={w.hint} />
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Academic Context */}
-        <div className="relative overflow-hidden rounded-3xl border border-orange-500/20 bg-gradient-to-br from-slate-900/80 to-slate-900/60 p-10 backdrop-blur-sm md:p-12">
+        {/* Data Schema (concise) */}
+        <section className="relative overflow-hidden rounded-3xl border border-orange-500/20 bg-gradient-to-br from-slate-900/80 to-slate-900/60 p-8 md:p-12">
           <div className="absolute -bottom-16 -left-16 h-32 w-32 rounded-full bg-orange-500/10 blur-3xl" />
-          <div className="relative z-[1] flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 ring-1 ring-orange-500/30">
-                <BookOpen className="h-6 w-6 text-orange-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">Academic Framework</h3>
+          <div className="relative z-[1] grid gap-8 md:grid-cols-2">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">
+                Data Schema
+              </p>
+              <h3 className="mt-3 text-2xl font-bold text-white sm:text-3xl">Metadata for Dishes & Media</h3>
+              <p className="mt-4 text-sm leading-relaxed text-slate-400">
+                Unified naming and metadata enable cross-linking between photos, videos, audio notes, and 3D models. This powers the dish detail pages and search.
+              </p>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-400">
-                  Research Method
-                </p>
-                <p className="text-base leading-relaxed text-slate-300">
-                  Semi-structured ethnographic interviews combined with
-                  multi-modal documentation techniques
-                </p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-400">
-                  Documentation Standards
-                </p>
-                <p className="text-base leading-relaxed text-slate-300">
-                  Academic-quality content with authentic fieldwork quotes and
-                  comprehensive cultural analysis
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+            <pre className="overflow-x-auto rounded-xl border border-white/10 bg-slate-900/70 p-5 text-[12.5px] leading-relaxed text-slate-300">
+{`date_place_object_type_index
+2025-09-21_阿成_松鼠桂鱼_视频_01.mp4
 
-        {/* Key Achievement */}
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-6 py-3 ring-1 ring-orange-500/30">
-            <Sparkles className="h-5 w-5 text-orange-400" />
-            <p className="text-sm font-medium text-orange-400">
-              Comprehensive heritage documentation achieved through 25-minute
-              interview, 4 signature dishes with 3D models, and complete
-              restaurant environment capture
-            </p>
+Fields (CSV/JSON):
+- dish_zh, dish_en, alt_names
+- story_summary (≈200 chars)
+- ingredients (with weights/ratios)
+- technique_tags (e.g., 上浆, 走油, 收汁)
+- vessels_tools
+- timing_heat (判据: 声/色/闻)
+- season_festival
+- cost_time_constraints
+- audio_path, video_path, model_path
+- rights_consent_id, review_status
+- capture_date, location, photographer`}
+            </pre>
           </div>
-        </div>
+        </section>
+
+        {/* 3D Model Practical Notes */}
+        <section className="grid gap-6 md:grid-cols-2">
+          <ProcedureCard
+            title="SfM Photogrammetry (70–150 photos)"
+            bullets={[
+              "Route: outer ring → 45° top → top-down; ≥60% overlap",
+              "Lock exposure/WB/focus; softbox or umbrella lighting",
+              "Add CPL/cross polarization to kill grease reflections",
+              "Place scale (checkerboard/10cm ruler) for real-world size",
+              "Fragile/hot: stabilize temperature, then capture quickly",
+            ]}
+          />
+          <ProcedureCard
+            title="NeRF / Gaussian Splatting (30–60s video)"
+            bullets={[
+              "Steady orbit video at 30/60fps; lock exposure/focus",
+              "Path: outer → 45° → top; avoid self reflection",
+              "Export → clean floaters, decimate, bake textures",
+              "Deliver glTF/GLB with 2–4 annotated hotspots",
+              "Surface glare: prefer polarized soft light, minimal steam",
+            ]}
+          />
+        </section>
+
+        {/* Technology Strip (textual, no icons) */}
+        <section className="rounded-2xl border border-white/10 bg-slate-900/60 p-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {techText.map((t) => (
+              <div
+                key={t.category}
+                className="rounded-xl border border-white/10 bg-slate-900/60 p-5 transition-all duration-300 hover:border-orange-500/30 hover:bg-slate-900/80"
+              >
+                <div className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">
+                  {t.category}
+                </div>
+                <div className="mt-2 text-sm font-medium text-slate-200">{t.tools}</div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </section>
   );
 }
 
-// Research Objectives Data
-const objectives = [
+function MetricTile({ value, label, note }: { value: string; label: string; note?: string }) {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-500/10 via-slate-900/90 to-slate-900/90 p-6 shadow-2xl shadow-orange-500/10">
+      <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-orange-500/10 blur-3xl" />
+      <div className="relative z-[1]">
+        <div className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">{value}</div>
+        <div className="mt-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">{label}</div>
+        {note ? <p className="mt-2 text-xs text-slate-400">{note}</p> : null}
+      </div>
+    </div>
+  );
+}
+
+function MethodCard({
+  title,
+  lines,
+  slotLabel,
+}: {
+  title: string;
+  lines: string[];
+  slotLabel: string;
+}) {
+  return (
+    <div className="snap-center min-w-[280px] max-w-[320px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-4 backdrop-blur-sm">
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-orange-500/5 to-slate-900/60">
+        <ImageSlot hint={slotLabel} tall={false} />
+      </div>
+      <h4 className="mt-4 text-base font-semibold text-white">{title}</h4>
+      <ul className="mt-2 space-y-1">
+        {lines.map((l, i) => (
+          <li key={i} className="text-xs leading-relaxed text-slate-400">{l}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ImageSlot({ hint, tall = true }: { hint: string; tall?: boolean }) {
+  return (
+    <div
+      className={cn(
+        "relative flex items-center justify-center rounded-xl border border-dashed border-orange-500/30 text-center",
+        tall ? "h-36" : "h-full min-h-40",
+      )}
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.15),_transparent_60%)]" />
+      <div className="relative z-[1] px-4 py-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">Image Placeholder</p>
+        <p className="mt-1 text-xs text-slate-400">{hint}</p>
+      </div>
+    </div>
+  );
+}
+
+function ProcedureCard({ title, bullets }: { title: string; bullets: string[] }) {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-6 transition-all duration-300 hover:border-orange-500/30">
+      <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-orange-500/10 blur-3xl" />
+      <div className="relative z-[1]">
+        <h4 className="text-lg font-semibold text-white">{title}</h4>
+        <ul className="mt-3 space-y-2">
+          {bullets.map((b, i) => (
+            <li key={i} className="text-sm leading-relaxed text-slate-300">• {b}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+const metrics = [
+  { value: "4", label: "Signature Dishes", note: "松鼠桂鱼 · 荷塘小炒 · 响油鳝糊 · 碧螺虾仁" },
+  { value: "600MP", label: "Photo Capture", note: "Multi-angle studio images with 5000K lighting" },
+  { value: "4 h", label: "Field Session", note: "Sept 21, 11:00–15:00 (solo)" },
+  { value: "25 min", label: "Interview", note: "Owner interview + chef voice notes" },
+];
+
+const methods = [
   {
-    icon: <Users className="h-5 w-5 text-orange-400" />,
-    title: "Generational Transfer",
-    description:
-      "Document father-to-son transmission and pre/post-renovation evolution",
+    title: "Photography Setup",
+    slotLabel: "Add dish close-ups / plating stage",
+    lines: [
+      "A7R4 + 50mm f/1.2; 3-point soft light at 5000K",
+      "Consistent angles per dish for cross-comparison",
+      "Use CPL / cross polarization to reduce glare",
+    ],
   },
   {
-    icon: <Database className="h-5 w-5 text-orange-400" />,
-    title: "Multi-Modal Archives",
-    description:
-      "Build comprehensive archives with stories, recipes, techniques, and 3D models for 4-5 signature dishes",
+    title: "3D Capture (GLB/USDZ)",
+    slotLabel: "Add scan screenshot / mesh preview",
+    lines: [
+      "Dual path: AI GLB + iPhone LiDAR USDZ",
+      "3 rings: outer → 45° → top; keep overlap",
+      "鳝糊: heavy glare; used AI model only",
+    ],
   },
   {
-    icon: <Lightbulb className="h-5 w-5 text-orange-400" />,
-    title: "Cultural Insights",
-    description:
-      "Semi-structured interviews exploring ingredients, techniques, market pressures, and succession planning",
+    title: "Video & Atmosphere",
+    slotLabel: "Add kitchen still / street view",
+    lines: [
+      "Street exterior & dining ambience clips",
+      "Process segments: 配料→上浆→走油→收汁→装盘",
+      "60fps for action; mix to 24fps in edit",
+    ],
+  },
+  {
+    title: "Audio Notes",
+    slotLabel: "Add waveform / recording moment",
+    lines: [
+      "30–60s chef notes per dish: origin + 判据",
+      "Clip-on lav; 10s room tone per location",
+      "Oral markers for scene changes",
+    ],
   },
 ];
 
-// Data Collection Bento Grid Items
-const dataCollectionItems = [
+const workflow = [
   {
-    title: "High-Resolution Photography",
-    description:
-      "Sony A7R4 with 50mm f/1.2 lens, professional lighting studio setup (3-point lighting, 5000K color temp), 600-megapixel multi-angle captures for 4 signature dishes",
-    header: (
-      <div className="flex h-full min-h-[6rem] w-full flex-1 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500/20 to-slate-800/80">
-        <Camera className="h-12 w-12 text-orange-400/60" />
-      </div>
-    ),
-    icon: <Camera className="h-4 w-4 text-orange-400" />,
-    className: "md:col-span-2",
+    title: "Consent & Orientation",
+    desc: "Trusted access via concise consent form; align goals and privacy (renovation, recipes, visibility levels).",
+    hint: "Insert photo of signed consent / briefing scene",
   },
   {
-    title: "3D Model Generation",
-    description:
-      "Dual-method approach: AI-generated GLB models (Tencent Hunyuan 3.0) and LiDAR scanning (iPhone Reality Composer) with multi-angle capture",
-    header: (
-      <div className="flex h-full min-h-[6rem] w-full flex-1 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500/20 to-slate-800/80">
-        <Box className="h-12 w-12 text-orange-400/60" />
-      </div>
-    ),
-    icon: <Box className="h-4 w-4 text-orange-400" />,
-    className: "md:col-span-1",
+    title: "Space & Ambience",
+    desc: "Exterior street context → dining room ambience; establish environmental baseline for narrative continuity.",
+    hint: "Insert exterior or interior ambience still",
   },
   {
-    title: "Video Documentation",
-    description:
-      "Complete cooking process recordings for each signature dish, street context footage, and dining atmosphere captures",
-    header: (
-      <div className="flex h-full min-h-[6rem] w-full flex-1 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500/20 to-slate-800/80">
-        <Video className="h-12 w-12 text-orange-400/60" />
-      </div>
-    ),
-    icon: <Video className="h-4 w-4 text-orange-400" />,
-    className: "md:col-span-1",
+    title: "Dish Capture",
+    desc: "Four dishes documented with studio photos, process videos, and 3D capture. Maintain angle and lighting consistency.",
+    hint: "Insert plated dish hero shot",
   },
   {
-    title: "Audio Interviews",
-    description:
-      "25-minute semi-structured interview with owner Shen Jiecheng, plus 30-second chef voice notes for each dish covering origin stories and technique essentials",
-    header: (
-      <div className="flex h-full min-h-[6rem] w-full flex-1 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500/20 to-slate-800/80">
-        <Mic className="h-12 w-12 text-orange-400/60" />
-      </div>
-    ),
-    icon: <Mic className="h-4 w-4 text-orange-400" />,
-    className: "md:col-span-2",
+    title: "Interview & Voice Notes",
+    desc: "25-minute semi-structured owner interview + 30s chef voice cards (what’s hard, how to judge ‘到位’).",
+    hint: "Insert interview still / waveform",
+  },
+  {
+    title: "Data & Naming",
+    desc: "3-2-1 backups; unified filenames and metadata table link media to dish pages and 3D exhibits.",
+    hint: "Insert screenshot of your metadata sheet",
   },
 ];
 
-// Technical Stack Data
-const techStack = [
-  {
-    category: "Frontend",
-    tools: "Next.js 15, React 19, TypeScript",
-  },
-  {
-    category: "3D Graphics",
-    tools: "React Three Fiber, Three.js",
-  },
-  {
-    category: "Styling",
-    tools: "Tailwind CSS v4, shadcn/ui",
-  },
-  {
-    category: "UI Components",
-    tools: "Aceternity UI, Magic UI",
-  },
-  {
-    category: "Photography",
-    tools: "Sony A7R4, 50mm f/1.2",
-  },
-  {
-    category: "3D Capture",
-    tools: "iPhone LiDAR, Reality Composer",
-  },
-  {
-    category: "AI Tools",
-    tools: "Tencent Hunyuan 3.0",
-  },
-  {
-    category: "Deployment",
-    tools: "Static Generation",
-  },
+const techText = [
+  { category: "Frontend", tools: "Next.js 15 · React 19 · TypeScript" },
+  { category: "3D", tools: "React Three Fiber · Three.js" },
+  { category: "Styling", tools: "Tailwind CSS v4 · shadcn/ui" },
+  { category: "UI", tools: "Aceternity UI · Magic UI" },
+  { category: "Capture", tools: "Sony A7R4 · 50mm f/1.2" },
+  { category: "3D Capture", tools: "iPhone LiDAR · Reality Composer" },
+  { category: "Models", tools: "GLB · USDZ (AI + LiDAR)" },
+  { category: "Build", tools: "Static Generation" },
 ];
+
