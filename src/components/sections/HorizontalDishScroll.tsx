@@ -1,7 +1,7 @@
 "use client";
 
 import { PinContainer } from '@/components/ui/3d-pin';
-import { DishModel3DPlaceholder } from '@/components/dish/DishModel3DPlaceholder';
+import { DishModel3D } from '@/components/dish/DishModel3D';
 import type { Dish } from '@/lib/types';
 import { motion } from 'motion/react';
 
@@ -55,7 +55,8 @@ export function HorizontalDishScroll({ dishes }: HorizontalDishScrollProps) {
               <div className="flex w-full flex-col gap-4 p-4">
                 {/* 3D Model Display */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-                  <DishModel3DPlaceholder
+                  <DishModel3D
+                    modelPath={dish.media.model3D}
                     dishName={dish.name}
                     dishNameZh={dish.nameZh}
                   />

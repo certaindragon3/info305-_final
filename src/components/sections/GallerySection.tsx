@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { getSignatureDish, getRegularDishes } from '@/lib/data';
 import { Spotlight } from '@/components/ui/spotlight';
 import { HorizontalDishScroll } from '@/components/sections/HorizontalDishScroll';
+import { DishModel3D } from '@/components/dish/DishModel3D';
 import { cn } from "@/lib/utils";
 
 export function GallerySection() {
@@ -74,20 +75,13 @@ export function GallerySection() {
               <div className="grid gap-12 md:grid-cols-2 md:items-center">
                 {/* Left: 3D Model Preview */}
                 <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="space-y-6 text-center">
-                      <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-500/30">
-                        <div className="text-sm font-medium uppercase tracking-wider text-orange-400/60">
-                          3D Model
-                        </div>
-                      </div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-                        Interactive Preview
-                      </p>
-                    </div>
-                  </div>
+                  <DishModel3D
+                    modelPath={signatureDish.media.model3D}
+                    dishName={signatureDish.name}
+                    dishNameZh={signatureDish.nameZh}
+                  />
                   {/* Hover glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-orange-500/5 to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-orange-500/5 to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100" />
                 </div>
 
                 {/* Right: Dish Information */}
