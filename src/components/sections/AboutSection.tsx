@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Timeline } from "@/components/ui/timeline";
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
-import { Store, Users, Heart, Sparkles } from "lucide-react";
+import { Store, Users, Heart, Sparkles, Paintbrush } from "lucide-react";
 
 export default function AboutSection() {
   const timelineData = [
@@ -60,6 +60,71 @@ export default function AboutSection() {
               <p className="text-xs text-slate-400">
                 — Founder&apos;s Vision Statement
               </p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2024",
+      content: (
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 via-slate-900/80 to-slate-900/80 p-8 backdrop-blur-xl shadow-2xl shadow-orange-500/10">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20 ring-1 ring-orange-500/40">
+                <Paintbrush className="h-6 w-6 text-orange-400" />
+              </div>
+              <h3 className="text-xl font-bold text-white">
+                Modern Renovation
+              </h3>
+            </div>
+            <p className="mb-6 leading-relaxed text-slate-300">
+              A complete exterior renovation transformed the restaurant with
+              bold color schemes and contemporary design elements to appeal to
+              younger demographics while maintaining its cultural essence.
+            </p>
+
+            {/* Video Player */}
+            <div className="mb-6 overflow-hidden rounded-xl bg-black">
+              <video
+                className="w-full"
+                controls
+                loop
+                muted
+                preload="metadata"
+                style={{ aspectRatio: "16/9" }}
+              >
+                <source src="/videos/renovation.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            {/* Source Attribution */}
+            <div className="rounded-xl bg-slate-950/50 p-4">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-orange-400">
+                Video Source
+              </p>
+              <a
+                href="http://xhslink.com/o/4ihKxCnyPAZ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-slate-300 transition-colors hover:text-orange-400"
+              >
+                <span>Xiaohongshu (Little Red Book)</span>
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -175,7 +240,7 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-12"
+          className="mb-16"
         >
           <div className="mx-auto max-w-2xl text-center">
             <div className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-500/10 to-orange-600/10 px-6 py-3 ring-1 ring-orange-500/30">
@@ -223,7 +288,7 @@ export default function AboutSection() {
                     </p>
 
                     <div className="rounded-lg bg-black/30 p-3 backdrop-blur-sm">
-                      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-orange-400">
+                      <p className="mb-12 text-xs font-semibold uppercase tracking-wider text-orange-400">
                         Chef&apos;s Philosophy
                       </p>
                       <blockquote className="border-l-2 border-orange-500/50 pl-2 text-xs italic leading-relaxed text-slate-300">
@@ -240,6 +305,28 @@ export default function AboutSection() {
 
       {/* Timeline Section */}
       <div className="relative">
+        {/* Timeline Header Badge */}
+        <div className="relative z-[1] mx-auto w-full max-w-7xl px-6 pt-24 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto mb-2 max-w-2xl text-center"
+          >
+            <div className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-500/10 to-orange-600/10 px-6 py-3 ring-1 ring-orange-500/30">
+              <div className="h-2 w-2 rounded-full bg-orange-400" />
+              <p className="text-sm font-semibold text-slate-200">
+                Restaurant Evolution Timeline
+              </p>
+              <div className="h-px w-8 bg-gradient-to-r from-orange-400 to-transparent" />
+              <p className="text-sm font-bold text-orange-400">
+                Heritage Journey
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
         {/* Custom styling override for timeline */}
         <style jsx global>{`
           .timeline-section .dark\:bg-neutral-950 {

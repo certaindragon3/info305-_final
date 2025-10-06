@@ -156,6 +156,7 @@ src/
     ├── models/              # GLB 3D models
     ├── images/              # Photography assets
     └── audio/               # Chef voice notes
+    └── videos/               # Supporting videos
 ```
 
 ---
