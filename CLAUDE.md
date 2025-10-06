@@ -309,7 +309,7 @@ interface Review {
 
 **Acceptance Criteria**:
 - [x] Feature 松鼠桂鱼 as signature exhibition
-- [ ] Display 3 additional cuisine cards (placeholder added)
+- [x] Display 3 additional cuisine cards (placeholder added)
 - [x] Enable navigation to detailed dish pages
 - [x] Implement hover effects and animations
 
@@ -329,24 +329,7 @@ interface Review {
 - Badge design with line accents and uppercase tracking
 - Placeholder section for 3 additional dishes (to be implemented)
 
-#### Story 2.4: 3D Interactive Restaurant Scene
-**As a visitor**, I want to explore a 3D restaurant environment
-**So that** I can virtually experience the dining space
-
-**Acceptance Criteria**:
-- [ ] Render 3D restaurant layout scene
-- [ ] Add 4 clickable dish interaction points
-- [ ] Implement camera controls (rotate, zoom)
-- [ ] Enable navigation to dish detail pages
-
-**Technical Implementation**:
-- Create `InteractiveSection.tsx` and `Scene3D.tsx` components
-- Use React Three Fiber for 3D rendering
-- Implement `InteractivePoints.tsx` for hotspots
-- Add camera controls with drei library
-- Configure click handlers for navigation
-
-#### Story 2.5: About Restaurant Section
+#### Story 2.4: About Restaurant Section
 **As a visitor**, I want to learn about Acheng Restaurant's history
 **So that** I can appreciate the cultural context
 
