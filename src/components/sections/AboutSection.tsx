@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Timeline } from "@/components/ui/timeline";
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
@@ -41,12 +42,25 @@ export default function AboutSection() {
                 Acheng Restaurant Established
               </h3>
             </div>
-            <p className="mb-4 leading-relaxed text-slate-300">
+            <p className="mb-6 leading-relaxed text-slate-300">
               The Fenghuang Street location opened its doors, establishing what
               would become a 26-year legacy of Subang cuisine excellence. The
               name &quot;Acheng&quot; was chosen from the founder&apos;s given
               name, symbolizing a down-to-earth approach to dining.
             </p>
+
+            {/* Original Restaurant Photo */}
+            <div className="mb-6 overflow-hidden rounded-xl">
+              <Image
+                src="/images/aboutsection/old.png"
+                alt="Acheng Restaurant original storefront in 1999"
+                width={800}
+                height={600}
+                className="w-full object-cover"
+                style={{ aspectRatio: "4/3" }}
+              />
+            </div>
+
             <div className="space-y-3 rounded-xl bg-slate-950/50 p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-orange-400">
                 Founding Philosophy
