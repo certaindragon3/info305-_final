@@ -169,6 +169,28 @@ export default function AboutSection() {
           </p>
         </motion.header>
 
+        {/* Founder Philosophy Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-12"
+        >
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-500/10 to-orange-600/10 px-6 py-3 ring-1 ring-orange-500/30">
+              <div className="h-2 w-2 rounded-full bg-orange-400" />
+              <p className="text-sm font-semibold text-slate-200">
+                Founder&apos;s 3 Business Philosophy
+              </p>
+              <div className="h-px w-8 bg-gradient-to-r from-orange-400 to-transparent" />
+              <p className="text-sm font-bold text-orange-400">
+                Shen Jiecheng (沈洁成)
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="grid gap-8 lg:grid-cols-3">
           {philosophyCards.map((card, index) => {
             const Icon = card.icon;

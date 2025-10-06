@@ -77,7 +77,7 @@ export const DirectionAwareHover = ({
           whileHover={direction}
           exit="exit"
         >
-          <motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
+          <motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/70 z-10 transition duration-500" />
           <motion.div
             variants={variants}
             className="h-full w-full relative bg-gray-50 dark:bg-black"
@@ -98,13 +98,14 @@ export const DirectionAwareHover = ({
             />
           </motion.div>
           <motion.div
-            variants={textVariants}
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
             transition={{
-              duration: 0.5,
+              duration: 0.3,
               ease: "easeOut",
             }}
             className={cn(
-              "text-white absolute bottom-4 left-4 z-40",
+              "text-white absolute inset-0 flex items-center justify-center z-40",
               childrenClassName
             )}
           >
