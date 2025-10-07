@@ -8,6 +8,7 @@ import Carousel from "@/components/ui/carousel";
 import { Spotlight } from "@/components/ui/spotlight";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { FlipWords } from "@/components/ui/flip-words";
 import { culturalContext, photoGallery, restaurant } from "@/lib/data";
 
 const heroPhotos = photoGallery.slice(0, 5);
@@ -27,7 +28,7 @@ export default function HeroSection() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/60 to-transparent" />
         <Spotlight className="left-1/2 top-[-10%] h-[120%] w-[120%] -translate-x-1/2 opacity-60" fill="rgba(249,115,22,0.55)" />
 
-        <div className="relative z-10 grid w-full max-w-6xl gap-16 lg:grid-cols-[minmax(0,_1fr)_minmax(0,_0.9fr)]">
+        <div className="relative z-10 grid w-full max-w-6xl gap-16 lg:grid-cols-[minmax(0,_1fr)_minmax(0,_0.9fr)] lg:items-center">
           <motion.div
             className="flex flex-col gap-8"
             initial={{ opacity: 0, y: 40 }}
@@ -49,7 +50,18 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.55, ease: "easeOut" }}
             >
-              Safeguarding Acheng Restaurant&apos;s Subang legacy.
+              Safeguarding{" "}
+              <span className="inline-block min-w-[280px] sm:min-w-[480px]">
+                <FlipWords
+                  words={["Acheng Restaurant", "阿成饭店"]}
+                  duration={4000}
+                  className="text-orange-400 px-0"
+                />
+              </span>
+              <br />
+              <span className="inline-block">
+                &apos;s Subang legacy.
+              </span>
             </motion.h1>
 
             <TextGenerateEffect
@@ -58,15 +70,6 @@ export default function HeroSection() {
               textClassName="text-lg text-slate-300"
               duration={0.6}
             />
-
-            <motion.p
-              className="max-w-xl text-sm leading-relaxed text-slate-400"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
-            >
-              Focus: {restaurant.name} • Est. {restaurant.established} • {restaurant.location}
-            </motion.p>
 
             <motion.div
               className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center"

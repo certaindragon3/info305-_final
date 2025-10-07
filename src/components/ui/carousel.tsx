@@ -72,14 +72,6 @@ const Carousel = ({ slides, className, autoAdvanceMs = 6000 }: CarouselProps) =>
                 {slide.phrase && (
                   <p className="text-sm text-slate-300">{slide.phrase}</p>
                 )}
-                {slide.button && (
-                  <button
-                    type="button"
-                    className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] text-white transition hover:border-orange-400 hover:text-orange-200"
-                  >
-                    {slide.button}
-                  </button>
-                )}
               </figcaption>
             </figure>
           ))}

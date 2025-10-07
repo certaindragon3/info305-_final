@@ -248,6 +248,14 @@ export const culturalContext: CulturalContext = {
 
 export const photoGallery: PhotoGallery[] = [
   {
+    id: '3',
+    title: 'Chef Portrait',
+    description: 'Master Chef Chen in traditional chef attire',
+    category: 'chef',
+    imageUrl: '/images/gallery/chef-portrait.jpg',
+    alt: 'Portrait of Master Chef Chen'
+  },
+  {
     id: '1',
     title: 'Traditional Dining Hall',
     description: 'The main dining area showcasing classic Chinese round tables',
@@ -262,14 +270,6 @@ export const photoGallery: PhotoGallery[] = [
     category: 'kitchen',
     imageUrl: '/images/gallery/chef-work.jpg',
     alt: 'Chef working in traditional Chinese kitchen'
-  },
-  {
-    id: '3',
-    title: 'Chef Portrait',
-    description: 'Master Chef Chen in traditional chef attire',
-    category: 'chef',
-    imageUrl: '/images/gallery/chef-portrait.jpg',
-    alt: 'Portrait of Master Chef Chen'
   },
   {
     id: '4',

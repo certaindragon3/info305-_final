@@ -15,7 +15,7 @@ export default function ProjectInfoSection() {
         rayLength="55vh"
         backgroundColor="#0b1220"
       >
-        {/* decorative grid only */}
+        <></>
       </GridBeams>
 
       <div className="relative z-[1] mx-auto flex w-full max-w-7xl flex-col gap-20 px-6 lg:px-8">
