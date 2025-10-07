@@ -22,7 +22,6 @@ export type Annotation = { id: string; title: string; subtitle?: string; body: s
 
 interface DishSubpageExperienceProps {
   aiModelUrl: string;
-  scanModelUrl?: string;
   dishName: string;
   dishNameZh: string;
   annotations: [Annotation, Annotation, Annotation, Annotation];
