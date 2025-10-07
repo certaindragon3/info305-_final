@@ -10,6 +10,7 @@ import { DishSubpageExperience } from '@/components/dish/DishSubpageExperience'
 import { DishImageCarousel } from '@/components/dish/DishImageCarousel'
 import { DishBentoCards } from '@/components/dish/DishBentoCards'
 import { DishInteractiveWindow } from '@/components/dish/DishInteractiveWindow'
+import { ScrollLockGate } from '@/components/dish/ScrollLockGate'
 
 type Params = { params: { slug: string } }
 
@@ -208,7 +209,6 @@ export default function DishPage({ params }: Params) {
         {/* Rotation-driven stage (AI only) */}
         <DishSubpageExperience
           aiModelUrl={aiModelUrl}
-          scanModelUrl={scanModelUrl}
           dishName={dish.name}
           dishNameZh={dish.nameZh}
           annotations={annotationsEn as any}
@@ -216,8 +216,13 @@ export default function DishPage({ params }: Params) {
           modelScale={2.5}
         />
 
+        {/* Invisible scroll lock just after guided rotation to prevent overshoot */}
+        <div className="mt-12">
+          <ScrollLockGate direction="down" threshold={900} once />
+        </div>
+
         {/* High-res image carousel with lightbox */}
-        <div className="mt-14">
+        <div className="mt-10">
           <DishImageCarousel images={photoImages} />
         </div>
 
@@ -266,10 +271,7 @@ export default function DishPage({ params }: Params) {
           </div>
         </section>
 
-        {/* Field photos */}
-        <div className="mt-14">
-          <DishPhotoGallery images={photoImages} title="Field Photography" />
-        </div>
+        {/* end */}
       </div>
     </main>
   )
