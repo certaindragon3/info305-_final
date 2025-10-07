@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { InteractiveDishViewer } from "./InteractiveDishViewer";
-import { DishPerspectiveCards, type PerspectiveCardItem } from "./DishPerspectiveCards";
+import { InteractiveDishViewer } from "../3d/InteractiveDishViewer";
+import { DishPerspectiveCards, type PerspectiveCardItem } from "../annotations/DishPerspectiveCards";
 
 interface SubpageViewerSectionProps {
   aiModelUrl: string;

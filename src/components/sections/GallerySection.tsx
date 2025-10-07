@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { getSignatureDish, getRegularDishes } from '@/lib/data';
 import { Spotlight } from '@/components/ui/spotlight';
 import { HorizontalDishScroll } from '@/components/sections/HorizontalDishScroll';
-import { DishModel3D } from '@/components/dish/DishModel3D';
+import { DishModel3D } from '@/components/dish/3d/DishModel3D';
 import { cn } from "@/lib/utils";
 
 export function GallerySection() {

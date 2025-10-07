@@ -139,10 +139,6 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
     );
   }
 
-  // Current quadrant index for annotations (map 0..4 steps => 0..3 index)
-  const seg = segState;
-
-  // bubble positions
   const bubbleBase = "rounded-2xl border border-white/10 bg-slate-900/70 p-4 backdrop-blur-xl shadow-2xl shadow-orange-500/10 max-w-xs";
 
   return (
@@ -161,9 +157,9 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
         <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">AI Model — Guided Rotation</p>
       </div>
 
-      {/* Annotation bubbles (diagonal corners with refined animations) */}
+      {/* Annotation bubbles */}
       <AnimatePresence mode="wait">
-        {seg === 0 && (
+        {segState === 0 && (
           <motion.div key="ann-tl" initial={{ x: -24, y: -16, scale: 0.95, opacity: 0 }} animate={{ x: 0, y: 0, scale: 1, opacity: 1 }} exit={{ x: -24, y: -16, opacity: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 16 }} className={`absolute left-6 top-6 ${bubbleBase}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">Technique</p>
             <h3 className="mt-1 text-white font-bold">{annotations[0].title}</h3>
@@ -171,7 +167,7 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
             <p className="mt-2 text-sm text-slate-300">{annotations[0].body}</p>
           </motion.div>
         )}
-        {seg === 1 && (
+        {segState === 1 && (
           <motion.div key="ann-tr" initial={{ x: 24, y: -16, scale: 0.95, opacity: 0 }} animate={{ x: 0, y: 0, scale: 1, opacity: 1 }} exit={{ x: 24, y: -16, opacity: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 16 }} className={`absolute right-6 top-6 ${bubbleBase}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">Craft</p>
             <h3 className="mt-1 text-white font-bold">{annotations[1].title}</h3>
@@ -179,7 +175,7 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
             <p className="mt-2 text-sm text-slate-300">{annotations[1].body}</p>
           </motion.div>
         )}
-        {seg === 2 && (
+        {segState === 2 && (
           <motion.div key="ann-br" initial={{ x: 24, y: 16, scale: 0.95, opacity: 0 }} animate={{ x: 0, y: 0, scale: 1, opacity: 1 }} exit={{ x: 24, y: 16, opacity: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 16 }} className={`absolute right-6 bottom-6 ${bubbleBase}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">Flavor</p>
             <h3 className="mt-1 text-white font-bold">{annotations[2].title}</h3>
@@ -187,7 +183,7 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
             <p className="mt-2 text-sm text-slate-300">{annotations[2].body}</p>
           </motion.div>
         )}
-        {seg === 3 && (
+        {segState === 3 && (
           <motion.div key="ann-bl" initial={{ x: -24, y: 16, scale: 0.95, opacity: 0 }} animate={{ x: 0, y: 0, scale: 1, opacity: 1 }} exit={{ x: -24, y: 16, opacity: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 16 }} className={`absolute left-6 bottom-6 ${bubbleBase}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">Form</p>
             <h3 className="mt-1 text-white font-bold">{annotations[3].title}</h3>
@@ -234,3 +230,4 @@ export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annota
     </div>
   );
 }
+

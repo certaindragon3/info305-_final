@@ -71,3 +71,4 @@ export function DishImageCarousel({ images }: DishImageCarouselProps) {
     </section>
   );
 }
+

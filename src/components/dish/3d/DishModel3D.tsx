@@ -5,6 +5,8 @@ import { OrbitControls, Center, useGLTF } from '@react-three/drei';
 import { Suspense } from 'react';
 import { DishModel3DPlaceholder } from './DishModel3DPlaceholder';
 
+// For mainpage gallery section
+
 interface DishModel3DProps {
   modelPath: string;
   dishName: string;
@@ -87,3 +89,4 @@ export function DishModel3D({ modelPath, dishName, dishNameZh, interactive = tru
     </div>
   );
 }
+

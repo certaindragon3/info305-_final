@@ -1,7 +1,7 @@
 "use client";
 
 import { PinContainer } from '@/components/ui/3d-pin';
-import { DishModel3D } from '@/components/dish/DishModel3D';
+import { DishModel3D } from '@/components/dish/3d/DishModel3D';
 import type { Dish } from '@/lib/types';
 import { motion } from 'motion/react';
 

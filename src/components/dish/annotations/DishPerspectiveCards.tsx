@@ -47,3 +47,4 @@ export function DishPerspectiveCards({ activeIndex, items }: DishPerspectiveCard
     </div>
   );
 }
+

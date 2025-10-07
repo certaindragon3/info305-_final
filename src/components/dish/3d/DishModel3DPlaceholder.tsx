@@ -4,6 +4,8 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Center, Text3D } from '@react-three/drei';
 import { Suspense } from 'react';
 
+// For mainpage gallery section
+
 interface DishModel3DPlaceholderProps {
   dishName: string;
   dishNameZh: string;
@@ -65,3 +67,4 @@ export function DishModel3DPlaceholder({ dishName, dishNameZh }: DishModel3DPlac
     </div>
   );
 }
+
