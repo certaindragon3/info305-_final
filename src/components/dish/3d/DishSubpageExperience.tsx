@@ -5,6 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Center, OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { motion, AnimatePresence } from "motion/react";
+import { lockScroll, unlockScroll } from "@/components/dish/helpers/scroll-lock";
 
 // Reuse AnyModel loader logic through a local definition to avoid circular deps
 function GLBModel({ url }: { url: string }) {
@@ -89,8 +90,9 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
     if (animRef.current.active) return;
     const floatPos = progress * 4; // segment space
     const step = stepRef.current;
-    const forwardTrigger = 0.65;
-    const backwardTrigger = 0.35;
+    // Increased hysteresis: require deeper scroll into the next/prev segment
+    const forwardTrigger = 0.9;
+    const backwardTrigger = 0.9;
     if (floatPos > step + forwardTrigger && step < 4) {
       // animate to next step
       const nextStep = step + 1;
@@ -200,6 +202,8 @@ export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annota
   const sectionRef = useRef<HTMLElement>(null);
   const progress = useSectionProgress(sectionRef); // 0..1
   const [holdComplete, setHoldComplete] = useState(false);
+  const [gateActive, setGateActive] = useState(false);
+  const gateConsumedRef = useRef(false);
 
   // Listen for interactive window leave events to hold rotation at end
   useEffect(() => {
@@ -216,6 +220,83 @@ export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annota
   // Calibrate section height: N viewport heights
   const sectionStyle = { height: `${rotationSectionVh}vh` } as const;
 
+  // Activate an internal gate when rotation has completed (last annotation shown)
+  useEffect(() => {
+    if (gateConsumedRef.current) return;
+    // Trigger earlier to preempt momentum; gate once per visit
+    if (progress >= 0.88) {
+      setGateActive(true);
+    }
+  }, [progress]);
+
+  useEffect(() => {
+    if (!gateActive) return;
+    let accumulated = 0;
+    const threshold = 2400; // stronger gesture required to pass the gate
+    const currentScroll = window.scrollY;
+    const freeze = () => window.scrollTo({ top: currentScroll });
+
+    const endGate = () => {
+      setGateActive(false);
+      gateConsumedRef.current = true;
+      unlockScroll();
+      window.removeEventListener('scroll', freeze as any);
+      window.removeEventListener('wheel', onWheel as any, { capture: true } as any);
+      window.removeEventListener('touchmove', onTouchMove as any, { capture: true } as any);
+      window.removeEventListener('touchstart', onTouchStart as any, { capture: true } as any);
+      window.removeEventListener('touchend', onTouchEnd as any, { capture: true } as any);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      // Only allow downward gestures to accumulate; upwards cancels gate
+      const dirDown = e.deltaY > 0;
+      e.preventDefault();
+      e.stopPropagation();
+      if (!dirDown) return endGate();
+      accumulated += Math.abs(e.deltaY);
+      if (accumulated >= threshold) endGate();
+    };
+    let lastY: number | null = null;
+    const onTouchStart = (e: TouchEvent) => { lastY = e.touches[0]?.clientY ?? null; };
+    const onTouchMove = (e: TouchEvent) => {
+      const y = e.touches[0]?.clientY ?? 0;
+      const dy = (lastY ?? y) - y; // down positive
+      lastY = y;
+      e.preventDefault();
+      e.stopPropagation();
+      if (dy <= 0) return endGate();
+      accumulated += Math.abs(dy);
+      if (accumulated >= threshold) endGate();
+    };
+    const onTouchEnd = () => { lastY = null; };
+
+    // Lock page scroll at the body level to suppress momentum
+    lockScroll();
+    window.addEventListener('scroll', freeze, { passive: true });
+    window.addEventListener('wheel', onWheel as any, { passive: false, capture: true } as any);
+    window.addEventListener('touchstart', onTouchStart as any, { passive: true, capture: true } as any);
+    window.addEventListener('touchmove', onTouchMove as any, { passive: false, capture: true } as any);
+    window.addEventListener('touchend', onTouchEnd as any, { passive: true, capture: true } as any);
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      const keys = [' ', 'Spacebar', 'PageDown', 'ArrowDown'];
+      if (keys.includes(e.key)) {
+        e.preventDefault();
+        e.stopPropagation();
+        accumulated += 200; // count a chunk
+        if (accumulated >= threshold) endGate();
+      } else if (['PageUp', 'ArrowUp'].includes(e.key)) {
+        endGate();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown as any, { capture: true } as any);
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown as any, { capture: true } as any);
+      endGate();
+    };
+  }, [gateActive]);
+
   return (
     <div className="relative w-full">
       {/* Rotation section */}
@@ -223,6 +304,9 @@ export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annota
         <div className="sticky top-0 h-screen">
           {/* Clean full-bleed Canvas without framing */}
           <RotationStage url={aiModelUrl} progress={Math.min(progress, 1)} dishName={dishName} dishNameZh={dishNameZh} annotations={annotations} modelScale={modelScale} holdComplete={holdComplete} />
+          {gateActive && (
+            <div aria-hidden className="fixed inset-0 z-[60] touch-none" />
+          )}
         </div>
       </section>
 
@@ -230,4 +314,3 @@ export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annota
     </div>
   );
 }
-

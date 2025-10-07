@@ -9,7 +9,6 @@ import { DishSubpageExperience } from '@/components/dish/3d/DishSubpageExperienc
 import { DishImageCarousel } from '@/components/dish/gallery/DishImageCarousel'
 import { DishBentoCards } from '@/components/dish/info/DishBentoCards'
 import { DishInteractiveWindow } from '@/components/dish/3d/DishInteractiveWindow'
-import { ScrollLockGate } from '@/components/dish/helpers/ScrollLockGate'
 
 type Params = { params: { slug: string } }
 
@@ -215,10 +214,7 @@ export default function DishPage({ params }: Params) {
           modelScale={2.5}
         />
 
-        {/* Invisible scroll lock just after guided rotation to prevent overshoot */}
-        <div className="mt-12">
-          <ScrollLockGate direction="down" threshold={900} once />
-        </div>
+        {/* Guided rotation has its own internal scroll gate; no spacer/gate needed here */}
 
         {/* High-res image carousel with lightbox */}
         <div className="mt-10">
