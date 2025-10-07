@@ -14,7 +14,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!dish) return {}
   const title = `${dish.nameZh} | ${dish.name} — Acheng Museum`
   const description = dish.description
-  return { title, description }
+  return {
+    title,
+    description,
+    alternates: { canonical: `/dishes/${dish.slug}` },
+    openGraph: {
+      title,
+      description,
+      type: 'article'
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description
+    }
+  }
 }
 
 export default function DishPage({ params }: Params) {
@@ -23,9 +37,22 @@ export default function DishPage({ params }: Params) {
 
   return (
     <main className="min-h-screen py-10 px-6 md:px-10">
-      <div className="mb-6">
-        <Link href="/" className="text-sm text-primary hover:underline">← 返回博物馆 Back to Museum</Link>
-      </div>
+      {/* Breadcrumbs */}
+      <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+        <ol className="flex items-center gap-2">
+          <li>
+            <Link href="/" className="hover:text-foreground hover:underline">Museum</Link>
+          </li>
+          <li aria-hidden="true" className="text-foreground/40">/</li>
+          <li>
+            <Link href="/#gallery-exhibition" className="hover:text-foreground hover:underline">Dishes</Link>
+          </li>
+          <li aria-hidden="true" className="text-foreground/40">/</li>
+          <li aria-current="page" className="text-foreground">
+            {dish.nameZh}
+          </li>
+        </ol>
+      </nav>
 
       <header className="mb-6">
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
@@ -80,4 +107,3 @@ export default function DishPage({ params }: Params) {
     </main>
   )
 }
-
