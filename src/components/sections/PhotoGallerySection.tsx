@@ -28,7 +28,7 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
   const testimonials = useMemo(() => reviews.map((review) => ({
     quote: review.content,
     name: review.author,
-    title: `${"⭐".repeat(review.rating)} · ${review.date}`,
+    title: review.date,
   })), []);
 
   return (

@@ -87,26 +87,54 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item, idx) => (
           <li
-            className="relative w-[350px] max-w-full shrink-0 rounded-2xl border border-b-0 border-zinc-200 bg-[linear-gradient(180deg,#fafafa,#f5f5f5)] px-8 py-6 md:w-[450px] dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#27272a,#18181b)]"
+            className="relative w-[350px] max-w-full shrink-0 rounded-2xl border border-orange-500/20 bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-slate-800/90 px-8 py-6 backdrop-blur-xl shadow-xl shadow-orange-500/5 md:w-[450px]"
             key={item.name}
           >
             <blockquote>
+              {/* Decorative gradient border effect */}
               <div
                 aria-hidden="true"
-                className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+                className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-orange-500/10 via-transparent to-orange-400/5 opacity-50"
               ></div>
-              <span className="relative z-20 text-sm leading-[1.6] font-normal text-neutral-800 dark:text-gray-100">
+
+              {/* Five-star rating with gradient effect */}
+              <div className="relative z-20 mb-4 flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <svg
+                    key={i}
+                    className="h-5 w-5 drop-shadow-[0_0_8px_rgba(251,146,60,0.6)]"
+                    fill="url(#starGradient)"
+                    viewBox="0 0 20 20"
+                  >
+                    <defs>
+                      <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#fb923c" />
+                        <stop offset="100%" stopColor="#f97316" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+
+              <p className="relative z-20 text-sm leading-relaxed font-normal text-slate-300">
                 {item.quote}
-              </span>
-              <div className="relative z-20 mt-6 flex flex-row items-center">
-                <span className="flex flex-col gap-1">
-                  <span className="text-sm leading-[1.6] font-normal text-neutral-500 dark:text-gray-400">
-                    {item.name}
+              </p>
+
+              <div className="relative z-20 mt-6 border-t border-white/5 pt-4">
+                <div className="flex flex-row items-center justify-between">
+                  <span className="flex flex-col gap-1">
+                    <span className="text-sm font-semibold text-orange-400">
+                      {item.name}
+                    </span>
+                    <span className="text-xs text-slate-500">
+                      {item.title}
+                    </span>
                   </span>
-                  <span className="text-sm leading-[1.6] font-normal text-neutral-500 dark:text-gray-400">
-                    {item.title}
+                  <span className="rounded-full bg-orange-500/10 px-3 py-1 text-xs font-medium text-orange-400 ring-1 ring-orange-500/20">
+                    Verified
                   </span>
-                </span>
+                </div>
               </div>
             </blockquote>
           </li>

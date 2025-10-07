@@ -153,7 +153,7 @@ Fields (CSV/JSON):
         {/* 3D Model Practical Notes */}
         <section className="grid gap-6 md:grid-cols-2">
           <ProcedureCard
-            title="SfM Photogrammetry (70–150 photos)"
+            title="SfM Photogrammetry"
             bullets={[
               "Route: outer ring → 45° top → top-down; ≥60% overlap",
               "Lock exposure/WB/focus; softbox or umbrella lighting",

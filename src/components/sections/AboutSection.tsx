@@ -626,7 +626,7 @@ export default function AboutSection() {
                     Address
                   </p>
                   <p className="text-base text-slate-300">
-                    Fenghuang Street, Suzhou, Jiangsu Province
+                    66 Fenghuang Street, Suzhou, Jiangsu Province
                   </p>
                 </div>
                 <div>
