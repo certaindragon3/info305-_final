@@ -9,6 +9,7 @@
     "lint": "eslint",
     "preview": "wrangler pages dev out",
     "deploy": "npm run build && wrangler pages deploy out --project-name=acheng-restaurant-museum",
+    "pages:deploy": "echo 'Static files ready in out/ directory'",
     "cf:login": "wrangler login"
   },
   "dependencies": {
