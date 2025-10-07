@@ -15,7 +15,6 @@ const ITEMS: Item[] = [
 
 export default function FloatingDockNav({ className }: { className?: string }) {
   const [active, setActive] = useState<string>("hero");
-
   const observers = useMemo(() => new Map<string, IntersectionObserver>(), []);
 
   useEffect(() => {
@@ -50,26 +49,32 @@ export default function FloatingDockNav({ className }: { className?: string }) {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // no magnetic scaling — highlight only
+
   return (
     <div className={cn("pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center", className)}>
-      <nav className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-2 py-2 backdrop-blur-2xl shadow-2xl shadow-orange-500/10">
-        {ITEMS.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => onJump(item.id)}
-            className={cn(
-              "relative rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] transition-all",
-              active === item.id
-                ? "bg-orange-500/20 text-orange-300 ring-1 ring-orange-500/30"
-                : "bg-black/10 text-slate-300 ring-1 ring-white/10 hover:text-white",
-            )}
-          >
-            {item.label}
-          </button>
-        ))}
+      <nav
+        className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-2 py-2 backdrop-blur-2xl shadow-2xl shadow-orange-500/10"
+      >
+        {ITEMS.map((item) => {
+          const isActive = active === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onJump(item.id)}
+              className={cn(
+                "group relative rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] transition-colors transition-shadow",
+                isActive
+                  ? "bg-orange-500/25 text-orange-200 ring-1 ring-orange-500/40 shadow-[0_0_0_1px_rgba(251,146,60,0.28),0_0_34px_0_rgba(251,146,60,0.38)]"
+                  : "bg-black/10 text-slate-300 ring-1 ring-white/10 hover:bg-orange-500/15 hover:text-orange-200 hover:ring-orange-500/40 hover:shadow-[0_0_0_1px_rgba(251,146,60,0.20),0_0_28px_0_rgba(251,146,60,0.28)]",
+              )}
+            >
+              {item.label}
+            </button>
+          );
+        })}
       </nav>
     </div>
   );
 }
-
