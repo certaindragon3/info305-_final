@@ -5,13 +5,13 @@ import { Canvas } from "@react-three/fiber";
 import { Center, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
 import * as THREE from "three";
 
-function GLBModel({ url }: { url: string }) {
+function GLBModel({ url, scale = 1 }: { url: string; scale?: number }) {
   const { scene } = useGLTF(url);
 
   // Clone the scene to prevent shared material/geometry issues
   const clonedScene = useMemo(() => scene.clone(true), [scene]);
 
-  return <primitive object={clonedScene} />;
+  return <primitive object={clonedScene} scale={scale} />;
 }
 
 function LoaderOverlay() {
@@ -27,14 +27,15 @@ function LoaderOverlay() {
   );
 }
 
-export function DishInteractiveWindow({ aiModelUrl, scanModelUrl, hideVariantSwitch }: { aiModelUrl: string; scanModelUrl?: string; hideVariantSwitch?: boolean }) {
+export function DishInteractiveWindow({ aiModelUrl, scanModelUrl, hideVariantSwitch, aiModelScale = 5, scanModelScale = 15 }: { aiModelUrl: string; scanModelUrl?: string; hideVariantSwitch?: boolean; aiModelScale?: number; scanModelScale?: number }) {
   const [variant, setVariant] = useState<'ai' | 'scan'>('ai');
   const [isVisible, setIsVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const derivedScan = useMemo(() => aiModelUrl.replace(/\.glb$/i, '_scan.glb'), [aiModelUrl]);
 
-  // Compute the current model URL
+  // Compute the current model URL and scale
   const currentModelUrl = variant === 'ai' ? aiModelUrl : (scanModelUrl || derivedScan || aiModelUrl);
+  const currentModelScale = variant === 'ai' ? aiModelScale : scanModelScale;
 
   // Preload both models on mount
   useEffect(() => {
@@ -101,7 +102,7 @@ export function DishInteractiveWindow({ aiModelUrl, scanModelUrl, hideVariantSwi
               <hemisphereLight intensity={0.5} groundColor={new THREE.Color('#111827')} />
               <Suspense fallback={null}>
                 <Center disableZ>
-                  <GLBModel url={currentModelUrl} />
+                  <GLBModel url={currentModelUrl} scale={currentModelScale} />
                 </Center>
               </Suspense>
               <OrbitControls
