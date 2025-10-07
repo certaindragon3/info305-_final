@@ -1,42 +1,82 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Center, OrbitControls, useGLTF } from "@react-three/drei";
+import { Center, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
 import * as THREE from "three";
 
 function GLBModel({ url }: { url: string }) {
   const { scene } = useGLTF(url);
-  return <primitive object={scene} />;
+
+  // Clone the scene to prevent shared material/geometry issues
+  const clonedScene = useMemo(() => scene.clone(true), [scene]);
+
+  return <primitive object={clonedScene} />;
 }
 
-function AnyModel({ url }: { url: string }) {
-  // GLB only
-  return <GLBModel url={url} />;
+function LoaderOverlay() {
+  const { active } = useProgress();
+  if (!active) return null;
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-orange-500/30 border-t-orange-500" />
+        <p className="text-xs uppercase tracking-wider text-orange-400/80">Loading 3D Model</p>
+      </div>
+    </div>
+  );
 }
 
 export function DishInteractiveWindow({ aiModelUrl, scanModelUrl, hideVariantSwitch }: { aiModelUrl: string; scanModelUrl?: string; hideVariantSwitch?: boolean }) {
   const [variant, setVariant] = useState<'ai' | 'scan'>('ai');
+  const [isVisible, setIsVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const derivedScan = useMemo(() => aiModelUrl.replace(/\.glb$/i, '_scan.glb'), [aiModelUrl]);
 
+  // Compute the current model URL
+  const currentModelUrl = variant === 'ai' ? aiModelUrl : (scanModelUrl || derivedScan || aiModelUrl);
+
+  // Preload both models on mount
+  useEffect(() => {
+    useGLTF.preload(aiModelUrl);
+    if (scanModelUrl) {
+      useGLTF.preload(scanModelUrl);
+    } else {
+      useGLTF.preload(derivedScan);
+    }
+  }, [aiModelUrl, scanModelUrl, derivedScan]);
+
+  // Handle visibility with IntersectionObserver
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
+
     const io = new IntersectionObserver(
-      ([e]) => {
-        const visible = e.isIntersecting && e.intersectionRatio > 0.2;
+      ([entry]) => {
+        const visible = entry.isIntersecting && entry.intersectionRatio > 0.2;
+        setIsVisible(visible);
+
         if (!visible) {
-          // inform rotation stage to hold completed state and reset variant
+          // Reset variant when leaving viewport
           setVariant('ai');
           window.dispatchEvent(new Event('dish-free-leave'));
         }
       },
       { threshold: [0, 0.2, 0.6, 1] }
     );
+
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  // Cleanup GLTF cache on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      useGLTF.clear(aiModelUrl);
+      if (scanModelUrl) useGLTF.clear(scanModelUrl);
+      useGLTF.clear(derivedScan);
+    };
+  }, [aiModelUrl, scanModelUrl, derivedScan]);
 
   return (
     <section ref={containerRef} className="relative overflow-hidden rounded-3xl border border-orange-500/30 bg-gradient-to-br from-orange-500/5 via-slate-900/80 to-slate-900/80 p-4 md:p-6 backdrop-blur-xl shadow-2xl shadow-orange-500/10">
@@ -48,16 +88,34 @@ export function DishInteractiveWindow({ aiModelUrl, scanModelUrl, hideVariantSwi
         </div>
 
         <div className="relative h-[60vh] min-h-[420px] w-full">
-          <Canvas camera={{ position: [0, 2.2, 5.2], fov: 52 }} className="cursor-grab active:cursor-grabbing">
-            <ambientLight intensity={1.15} />
-            <directionalLight position={[7, 10, 7]} intensity={1.7} />
-            <spotLight position={[0, 12, 2]} angle={0.4} penumbra={1} intensity={1.6} />
-            <hemisphereLight intensity={0.5} groundColor={new THREE.Color('#111827')} />
-            <Center disableZ>
-              <AnyModel url={variant === 'ai' ? aiModelUrl : (scanModelUrl || derivedScan || aiModelUrl)} />
-            </Center>
-            <OrbitControls enablePan={false} enableZoom={true} enableRotate={true} minPolarAngle={Math.PI / 5} maxPolarAngle={Math.PI / 1.7} minDistance={2.8} maxDistance={7.5} />
-          </Canvas>
+          {isVisible && (
+            <Canvas
+              key={currentModelUrl}
+              camera={{ position: [0, 2.2, 5.2], fov: 52 }}
+              frameloop="demand"
+              className="cursor-grab active:cursor-grabbing"
+            >
+              <ambientLight intensity={1.15} />
+              <directionalLight position={[7, 10, 7]} intensity={1.7} />
+              <spotLight position={[0, 12, 2]} angle={0.4} penumbra={1} intensity={1.6} />
+              <hemisphereLight intensity={0.5} groundColor={new THREE.Color('#111827')} />
+              <Suspense fallback={null}>
+                <Center disableZ>
+                  <GLBModel url={currentModelUrl} />
+                </Center>
+              </Suspense>
+              <OrbitControls
+                enablePan={false}
+                enableZoom={true}
+                enableRotate={true}
+                minPolarAngle={Math.PI / 5}
+                maxPolarAngle={Math.PI / 1.7}
+                minDistance={2.8}
+                maxDistance={7.5}
+              />
+            </Canvas>
+          )}
+          <LoaderOverlay />
         </div>
 
         {/* Capsule switch */}
