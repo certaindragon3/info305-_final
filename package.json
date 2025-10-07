@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "preview": "wrangler pages dev out",
-    "deploy": "npm run build && wrangler deploy",
-    "deploy:production": "npm run build && wrangler deploy --env production",
+    "deploy": "npm run build && wrangler pages deploy out --project-name=acheng-restaurant-museum",
     "cf:login": "wrangler login"
   },
   "dependencies": {
