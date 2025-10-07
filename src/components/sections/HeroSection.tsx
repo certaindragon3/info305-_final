@@ -21,7 +21,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 text-slate-100">
+    <section id="hero" className="relative overflow-hidden bg-slate-950 text-slate-100">
       <div className="relative mx-auto flex min-h-screen w-full items-center justify-center px-6 py-24 lg:px-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(248,113,113,0.18),_transparent_60%)]" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/60 to-transparent" />

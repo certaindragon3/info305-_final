@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export default function ProjectInfoSection() {
   return (
-    <section className="relative overflow-hidden bg-slate-950 py-24 text-slate-100 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+    <section id="project" className="relative overflow-hidden bg-slate-950 py-24 text-slate-100 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
       <GridBeams
         className="absolute inset-0"
         gridSize={48}
@@ -91,6 +91,30 @@ export default function ProjectInfoSection() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Interview Clip (single video) */}
+        <section className="rounded-2xl border border-white/10 bg-slate-900/70 p-6">
+          <div className="flex items-center gap-3">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-400" />
+            <h3 className="text-xl font-bold text-white">Interview Clip</h3>
+          </div>
+          <p className="mt-3 text-sm text-slate-400">
+            Owner interview excerpt documenting heritage, technique, and preservation mindset.
+          </p>
+          <div className="mt-5 overflow-hidden rounded-xl border border-white/10 bg-black">
+            <video
+              className="aspect-video h-full w-full"
+              controls
+              playsInline
+              preload="metadata"
+            >
+              <source src="/videos/renovation.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <p className="mt-3 text-xs text-slate-500">
+            Replace video source with your interview file if different.
+          </p>
         </section>
 
         {/* Data Schema (concise) */}
@@ -325,4 +349,3 @@ const techText = [
   { category: "Models", tools: "GLB · USDZ (AI + LiDAR)" },
   { category: "Build", tools: "Static Generation" },
 ];
-

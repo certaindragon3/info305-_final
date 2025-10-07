@@ -3,6 +3,7 @@ import PhotoGallerySection from "@/components/sections/PhotoGallerySection";
 import { GallerySection } from "@/components/sections/GallerySection";
 import AboutSection from "@/components/sections/AboutSection";
 import ProjectInfoSection from "@/components/sections/ProjectInfoSection";
+import FloatingDockNav from "@/components/ui/floating-dock-nav";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <GallerySection />
       <AboutSection />
       <ProjectInfoSection />
+      <FloatingDockNav />
     </div>
   );
 }

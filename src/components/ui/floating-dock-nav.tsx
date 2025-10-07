@@ -1,0 +1,75 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
+
+type Item = { id: string; label: string };
+
+const ITEMS: Item[] = [
+  { id: "hero", label: "Overview" },
+  { id: "photo-gallery", label: "Photos" },
+  { id: "gallery-exhibition", label: "Exhibition" },
+  { id: "about", label: "About" },
+  { id: "project", label: "Project" },
+];
+
+export default function FloatingDockNav({ className }: { className?: string }) {
+  const [active, setActive] = useState<string>("hero");
+
+  const observers = useMemo(() => new Map<string, IntersectionObserver>(), []);
+
+  useEffect(() => {
+    const handleIntersect = (id: string) => (entries: IntersectionObserverEntry[]) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          setActive(id);
+        }
+      }
+    };
+
+    ITEMS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(handleIntersect(id), {
+        root: null,
+        rootMargin: "-40% 0px -55% 0px",
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+      });
+      observer.observe(el);
+      observers.set(id, observer);
+    });
+
+    return () => {
+      observers.forEach((obs, _id) => obs.disconnect());
+      observers.clear();
+    };
+  }, [observers]);
+
+  const onJump = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <div className={cn("pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center", className)}>
+      <nav className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-2 py-2 backdrop-blur-2xl shadow-2xl shadow-orange-500/10">
+        {ITEMS.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onJump(item.id)}
+            className={cn(
+              "relative rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] transition-all",
+              active === item.id
+                ? "bg-orange-500/20 text-orange-300 ring-1 ring-orange-500/30"
+                : "bg-black/10 text-slate-300 ring-1 ring-white/10 hover:text-white",
+            )}
+          >
+            {item.label}
+          </button>
+        ))}
+      </nav>
+    </div>
+  );
+}
+
