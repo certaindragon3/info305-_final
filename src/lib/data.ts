@@ -252,7 +252,7 @@ export const photoGallery: PhotoGallery[] = [
     title: 'Chef Portrait',
     description: 'Master Chef Chen in traditional chef attire',
     category: 'chef',
-    imageUrl: '/images/gallery/chef-portrait.jpg',
+    imageUrl: '/images/gallery/chef.jpg',
     alt: 'Portrait of Master Chef Chen'
   },
   {
