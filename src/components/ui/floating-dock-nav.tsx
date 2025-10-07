@@ -15,6 +15,7 @@ const ITEMS: Item[] = [
 
 export default function FloatingDockNav({ className }: { className?: string }) {
   const [active, setActive] = useState<string>("hero");
+  const [isHeroVisible, setIsHeroVisible] = useState<boolean>(true);
   const observers = useMemo(() => new Map<string, IntersectionObserver>(), []);
 
   useEffect(() => {
@@ -44,6 +45,30 @@ export default function FloatingDockNav({ className }: { className?: string }) {
     };
   }, [observers]);
 
+  // Separate observer for hero section visibility
+  useEffect(() => {
+    const heroEl = document.getElementById("hero");
+    if (!heroEl) return;
+
+    const heroObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          setIsHeroVisible(entry.isIntersecting);
+        }
+      },
+      {
+        root: null,
+        threshold: 0.1,
+      }
+    );
+
+    heroObserver.observe(heroEl);
+
+    return () => {
+      heroObserver.disconnect();
+    };
+  }, []);
+
   const onJump = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -54,7 +79,10 @@ export default function FloatingDockNav({ className }: { className?: string }) {
   return (
     <div className={cn("pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center", className)}>
       <nav
-        className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-2 py-2 backdrop-blur-2xl shadow-2xl shadow-orange-500/10"
+        className={cn(
+          "pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-2 py-2 backdrop-blur-2xl shadow-2xl shadow-orange-500/10 transition-all duration-500 ease-in-out",
+          isHeroVisible ? "translate-y-32 opacity-0" : "translate-y-0 opacity-100"
+        )}
       >
         {ITEMS.map((item) => {
           const isActive = active === item.id;
