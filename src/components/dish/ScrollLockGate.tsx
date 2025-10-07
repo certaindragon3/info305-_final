@@ -8,7 +8,7 @@ interface ScrollLockGateProps {
   once?: boolean; // lock only once
 }
 
-export function ScrollLockGate({ direction = 'down', threshold = 900, once = true }: ScrollLockGateProps) {
+export function ScrollLockGate({ direction = 'down', threshold = 1500, once = true }: ScrollLockGateProps) {
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
   const consumedRef = useRef(false);

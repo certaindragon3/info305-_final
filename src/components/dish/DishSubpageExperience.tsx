@@ -49,7 +49,7 @@ interface DishSubpageExperienceProps {
   modelScale?: number; // scale multiplier for both stages
 }
 
-function useSectionProgress(ref: React.RefObject<HTMLElement>) {
+function useSectionProgress(ref: React.RefObject<HTMLElement | null>) {
   const [p, setP] = useState(0);
   useEffect(() => {
     const handler = () => {
@@ -201,7 +201,7 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
 }
 
 export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annotations, rotationSectionVh = 500, modelScale = 3 }: DishSubpageExperienceProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const progress = useSectionProgress(sectionRef); // 0..1
   const [holdComplete, setHoldComplete] = useState(false);
 
