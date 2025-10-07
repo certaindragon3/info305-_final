@@ -13,29 +13,9 @@ function GLBModel({ url }: { url: string }) {
   return <primitive object={scene} />;
 }
 
-function USDZModel({ url }: { url: string }) {
-  const ref = useRef<THREE.Group | null>(null);
-  const [loaded, setLoaded] = useState<THREE.Object3D | null>(null);
-  useEffect(() => {
-    let active = true;
-    (async () => {
-      const mod: any = await import("three/examples/jsm/loaders/USDZLoader.js");
-      const loader = new mod.USDZLoader();
-      loader.load(url, (obj: THREE.Object3D) => {
-        if (!active) return;
-        setLoaded(obj);
-      });
-    })();
-    return () => {
-      active = false;
-    };
-  }, [url]);
-  return loaded ? <primitive ref={ref as any} object={loaded} /> : null;
-}
-
+// GLB only — rotation stage always uses AI GLB
 function AnyModel({ url }: { url: string }) {
-  const isUSDZ = url.toLowerCase().endsWith(".usdz");
-  return isUSDZ ? <USDZModel url={url} /> : <GLBModel url={url} />;
+  return <GLBModel url={url} />;
 }
 
 export type Annotation = { id: string; title: string; subtitle?: string; body: string };

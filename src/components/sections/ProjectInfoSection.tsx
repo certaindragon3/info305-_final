@@ -283,10 +283,10 @@ const methods = [
     ],
   },
   {
-    title: "3D Capture (GLB/USDZ)",
+    title: "3D Capture (GLB)",
     slotLabel: "Add scan screenshot / mesh preview",
     lines: [
-      "Dual path: AI GLB + iPhone LiDAR USDZ",
+      "Dual path: AI GLB + iPhone LiDAR GLB",
       "3 rings: outer → 45° → top; keep overlap",
       "鳝糊: heavy glare; used AI model only",
     ],
@@ -346,6 +346,6 @@ const techText = [
   { category: "UI", tools: "Aceternity UI · Magic UI" },
   { category: "Capture", tools: "Sony A7R4 · 50mm f/1.2" },
   { category: "3D Capture", tools: "iPhone LiDAR · Reality Composer" },
-  { category: "Models", tools: "GLB · USDZ (AI + LiDAR)" },
+  { category: "Models", tools: "GLB (AI + LiDAR)" },
   { category: "Build", tools: "Static Generation" },
 ];
