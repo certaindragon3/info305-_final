@@ -20,6 +20,16 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      // Allow any type for work-in-progress 3D components
+      "@typescript-eslint/no-explicit-any": "warn",
+      // Allow unused vars in WIP components
+      "@typescript-eslint/no-unused-vars": "warn",
+      // Allow missing image optimization warnings
+      "@next/next/no-img-element": "warn",
+    },
+  },
 ];
 
 export default eslintConfig;

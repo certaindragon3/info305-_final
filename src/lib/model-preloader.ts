@@ -19,8 +19,17 @@ export function preloadDishModels() {
 }
 
 /**
- * Clear the GLB cache if needed
+ * Clear the GLB cache for a specific model
  */
-export function clearModelCache() {
-  useGLTF.clear();
+export function clearModelCache(modelPath: string) {
+  useGLTF.clear(modelPath);
+}
+
+/**
+ * Clear all GLB caches
+ */
+export function clearAllModelCaches() {
+  DISH_MODELS.forEach((modelPath) => {
+    useGLTF.clear(modelPath);
+  });
 }

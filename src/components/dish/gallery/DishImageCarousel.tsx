@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 
 interface DishImageCarouselProps {
   images: string[];
@@ -10,7 +9,6 @@ interface DishImageCarouselProps {
 
 export function DishImageCarousel({ images }: DishImageCarouselProps) {
   const [index, setIndex] = useState(0);
-  const [lightbox, setLightbox] = useState(false);
   if (!images?.length) return null;
 
   const go = (delta: number) => {
@@ -42,32 +40,7 @@ export function DishImageCarousel({ images }: DishImageCarouselProps) {
           </div>
           <button onClick={() => go(1)} className="rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs text-white transition hover:border-orange-400 hover:text-orange-200">Next</button>
         </div>
-        <div className="mt-4 flex justify-center">
-          <button onClick={() => setLightbox(true)} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-medium uppercase tracking-[0.3em] text-white transition hover:border-orange-400 hover:text-orange-200">
-            View High‑Res
-          </button>
-        </div>
       </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-            <motion.div initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.96, opacity: 0 }} transition={{ type: 'spring', stiffness: 140, damping: 18 }} className="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-slate-900/90">
-              <div className="relative aspect-[16/10] w-full">
-                <Image src={images[index]} alt="Dish photo large" fill sizes="100vw" className="object-contain" />
-              </div>
-              <div className="absolute top-3 left-3 flex items-center gap-2">
-                <button onClick={() => go(-1)} className="rounded-full bg-slate-900/80 px-3 py-1.5 text-xs text-slate-200 ring-1 ring-white/15 hover:text-white">Prev</button>
-                <button onClick={() => go(1)} className="rounded-full bg-slate-900/80 px-3 py-1.5 text-xs text-slate-200 ring-1 ring-white/15 hover:text-white">Next</button>
-              </div>
-              <div className="absolute top-3 right-3 flex items-center gap-2">
-                <button onClick={() => setLightbox(false)} className="rounded-full bg-slate-900/80 px-3 py-1.5 text-xs text-slate-200 ring-1 ring-white/15 hover:text-white">Close</button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

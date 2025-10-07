@@ -98,11 +98,11 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
               </div>
 
               <h3 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
-                "Food lovers call Acheng the pulse of{" "}
+                &ldquo;Food lovers call Acheng the pulse of{" "}
                 <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
                   authentic Subang cuisine
                 </span>
-                "
+                &rdquo;
               </h3>
 
               <p className="mt-6 text-base leading-relaxed text-slate-300">
