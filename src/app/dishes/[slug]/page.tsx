@@ -46,7 +46,7 @@ export default function DishPage({ params }: Params) {
   const aiModelUrl = dish.media.model3D
   const file = path.basename(aiModelUrl)
   const nameNoExt = file.replace(/\.glb$/i, '')
-  const scanFile = `${nameNoExt}_scan.usdz`
+  const scanFile = `${nameNoExt}_scan.glb`
   const scanFsPath = path.join(process.cwd(), 'public', 'models', scanFile)
   const scanExists = fs.existsSync(scanFsPath)
   const scanModelUrl = scanExists ? `/models/${scanFile}` : undefined
@@ -245,7 +245,16 @@ export default function DishPage({ params }: Params) {
 
         {/* Interactive window */}
         <div className="mt-8">
-          <DishInteractiveWindow aiModelUrl={aiModelUrl} scanModelUrl={scanModelUrl} />
+          <DishInteractiveWindow
+            aiModelUrl={aiModelUrl}
+            scanModelUrl={scanModelUrl}
+            hideVariantSwitch={dish.slug === 'hot-oil-eel'}
+          />
+          {dish.slug === 'hot-oil-eel' && (
+            <p className="mt-2 text-center text-[11px] text-slate-400">
+              No photogrammetry model: specular reflection prevented reliable scanning.
+            </p>
+          )}
         </div>
 
         {/* Recipe & Steps */}

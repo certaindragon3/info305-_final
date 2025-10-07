@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Center, OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -10,34 +10,15 @@ function GLBModel({ url }: { url: string }) {
   return <primitive object={scene} />;
 }
 
-function USDZModel({ url }: { url: string }) {
-  const ref = useRef<THREE.Group | null>(null);
-  const [loaded, setLoaded] = useState<THREE.Object3D | null>(null);
-  useEffect(() => {
-    let active = true;
-    (async () => {
-      const mod: any = await import("three/examples/jsm/loaders/USDZLoader.js");
-      const loader = new mod.USDZLoader();
-      loader.load(url, (obj: THREE.Object3D) => {
-        if (!active) return;
-        setLoaded(obj);
-      });
-    })();
-    return () => {
-      active = false;
-    };
-  }, [url]);
-  return loaded ? <primitive ref={ref as any} object={loaded} /> : null;
-}
-
 function AnyModel({ url }: { url: string }) {
-  const isUSDZ = url.toLowerCase().endsWith(".usdz");
-  return isUSDZ ? <USDZModel url={url} /> : <GLBModel url={url} />;
+  // GLB only
+  return <GLBModel url={url} />;
 }
 
-export function DishInteractiveWindow({ aiModelUrl, scanModelUrl }: { aiModelUrl: string; scanModelUrl?: string }) {
+export function DishInteractiveWindow({ aiModelUrl, scanModelUrl, hideVariantSwitch }: { aiModelUrl: string; scanModelUrl?: string; hideVariantSwitch?: boolean }) {
   const [variant, setVariant] = useState<'ai' | 'scan'>('ai');
   const containerRef = useRef<HTMLDivElement>(null);
+  const derivedScan = useMemo(() => aiModelUrl.replace(/\.glb$/i, '_scan.glb'), [aiModelUrl]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -73,24 +54,25 @@ export function DishInteractiveWindow({ aiModelUrl, scanModelUrl }: { aiModelUrl
             <spotLight position={[0, 12, 2]} angle={0.4} penumbra={1} intensity={1.6} />
             <hemisphereLight intensity={0.5} groundColor={new THREE.Color('#111827')} />
             <Center disableZ>
-              <AnyModel url={variant === 'ai' ? aiModelUrl : (scanModelUrl || aiModelUrl)} />
+              <AnyModel url={variant === 'ai' ? aiModelUrl : (scanModelUrl || derivedScan || aiModelUrl)} />
             </Center>
             <OrbitControls enablePan={false} enableZoom={true} enableRotate={true} minPolarAngle={Math.PI / 5} maxPolarAngle={Math.PI / 1.7} minDistance={2.8} maxDistance={7.5} />
           </Canvas>
         </div>
 
         {/* Capsule switch */}
-        <div className="mt-4 flex items-center justify-center">
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-1 py-1 backdrop-blur-xl">
-            <button onClick={() => setVariant('ai')} className={`rounded-full px-3 py-1.5 text-xs transition-all duration-300 ${variant === 'ai' ? 'bg-orange-500/20 text-orange-300 ring-1 ring-orange-500/30' : 'text-slate-300 hover:text-white'}`}>AI Model</button>
-            <button onClick={() => setVariant('scan')} disabled={!scanModelUrl} className={`rounded-full px-3 py-1.5 text-xs transition-all duration-300 ${variant === 'scan' ? 'bg-orange-500/20 text-orange-300 ring-1 ring-orange-500/30' : scanModelUrl ? 'text-slate-300 hover:text-white' : 'text-slate-500'}`}>Scan Model</button>
+        {!hideVariantSwitch && (
+          <div className="mt-4 flex items-center justify-center">
+            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-1 py-1 backdrop-blur-xl">
+              <button onClick={() => setVariant('ai')} className={`rounded-full px-3 py-1.5 text-xs transition-all duration-300 ${variant === 'ai' ? 'bg-orange-500/20 text-orange-300 ring-1 ring-orange-500/30' : 'text-slate-300 hover:text-white'}`}>AI Model</button>
+              <button onClick={() => setVariant('scan')} disabled={!scanModelUrl} className={`rounded-full px-3 py-1.5 text-xs transition-all duration-300 ${variant === 'scan' ? 'bg-orange-500/20 text-orange-300 ring-1 ring-orange-500/30' : scanModelUrl ? 'text-slate-300 hover:text-white' : 'text-slate-500'}`}>Scan Model</button>
+            </div>
           </div>
-        </div>
-        {!scanModelUrl && (
+        )}
+        {!hideVariantSwitch && !scanModelUrl && (
           <p className="mt-2 text-center text-[11px] text-slate-400">Scan model unavailable due to specular reflection during capture.</p>
         )}
       </div>
     </section>
   );
 }
-

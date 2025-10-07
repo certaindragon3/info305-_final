@@ -10,7 +10,7 @@ type ModelVariant = "ai" | "scan";
 
 export interface InteractiveDishViewerProps {
   aiModelUrl: string; // e.g. /models/squirrel-fish.glb
-  scanModelUrl?: string; // e.g. /models/squirrel-fish_scan.usdz
+  scanModelUrl?: string; // e.g. /models/squirrel-fish_scan.glb
   dishName: string;
   dishNameZh: string;
   unlockAtProgress?: number; // 0..1
@@ -42,41 +42,9 @@ function GLBModel({ url }: { url: string }) {
   const { scene } = useGLTF(url);
   return <primitive object={scene} />;
 }
-
-function USDZModel({ url }: { url: string }) {
-  const ref = useRef<THREE.Group | null>(null);
-  const [loaded, setLoaded] = useState<THREE.Object3D | null>(null);
-
-  useEffect(() => {
-    let active = true;
-    (async () => {
-      // Lazy import USDZLoader from three examples to avoid extra deps
-      const mod: any = await import("three/examples/jsm/loaders/USDZLoader.js");
-      const loader = new mod.USDZLoader();
-      loader.load(
-        url,
-        (obj: THREE.Object3D) => {
-          if (!active) return;
-          setLoaded(obj);
-        },
-        undefined,
-        () => {
-          // eslint-disable-next-line no-console
-          console.warn("Failed to load USDZ: ", url);
-        }
-      );
-    })();
-    return () => {
-      active = false;
-    };
-  }, [url]);
-
-  return loaded ? <primitive ref={ref as any} object={loaded} /> : null;
-}
-
+// GLB only — scanned assets now use `_scan.glb`
 function AnyModel({ url }: { url: string }) {
-  const isUSDZ = url.toLowerCase().endsWith(".usdz");
-  return isUSDZ ? <USDZModel url={url} /> : <GLBModel url={url} />;
+  return <GLBModel url={url} />;
 }
 
 export function InteractiveDishViewer({
@@ -117,7 +85,10 @@ export function InteractiveDishViewer({
 
   const handleVariantChange = useCallback((next: ModelVariant) => setVariant(next), []);
 
-  const modelUrl = variant === "ai" ? aiModelUrl : scanModelUrl || aiModelUrl;
+  // When switching to scan variant, prefer explicit `scanModelUrl`,
+  // else derive from ai by replacing .glb with _scan.glb (convention).
+  const derivedScan = useMemo(() => aiModelUrl.replace(/\.glb$/i, "_scan.glb"), [aiModelUrl]);
+  const modelUrl = variant === "ai" ? aiModelUrl : (scanModelUrl || derivedScan || aiModelUrl);
 
   function SceneContent({ url, unlocked, targetAngle }: { url: string; unlocked: boolean; targetAngle: number }) {
     const groupRef = useRef<THREE.Group>(null);
@@ -205,4 +176,3 @@ export function InteractiveDishViewer({
     </div>
   );
 }
-
