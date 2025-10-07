@@ -7,6 +7,9 @@ import { dishes, getDishBySlug } from '@/lib/data'
 import { DishPhotoGallery } from '@/components/dish/DishPhotoGallery'
 import type { PerspectiveCardItem } from '@/components/dish/DishPerspectiveCards'
 import { DishSubpageExperience } from '@/components/dish/DishSubpageExperience'
+import { DishImageCarousel } from '@/components/dish/DishImageCarousel'
+import { DishBentoCards } from '@/components/dish/DishBentoCards'
+import { DishInteractiveWindow } from '@/components/dish/DishInteractiveWindow'
 
 type Params = { params: { slug: string } }
 
@@ -69,7 +72,7 @@ export default function DishPage({ params }: Params) {
     }
   } catch {}
 
-  // Perspective cards content per dish
+  // Perspective cards content per dish (English annotations for rotation stage)
   const cards: PerspectiveCardItem[] = (() => {
     const d = dish.slug
     if (d === 'squirrel-fish') {
@@ -133,6 +136,39 @@ export default function DishPage({ params }: Params) {
     ]
   })()
 
+  const annotationsEn = (() => {
+    switch (dish.slug) {
+      case 'squirrel-fish':
+        return [
+          { id: 'sf-1', title: 'Knife Work Architecture', subtitle: '2mm grid, crisp geometry', body: 'The lattice cuts are structural—controlling crispness, volume, and the iconic silhouette once fried.' },
+          { id: 'sf-2', title: 'Oil & Form', subtitle: 'Precise set in hot oil', body: 'Shaping happens in the oil: exterior must lift and hold, while fibers remain juicy and resilient.' },
+          { id: 'sf-3', title: 'The “Live” Sauce', subtitle: 'Sweet–sour, transparent, mobile', body: 'A freshly balanced syrup coats without masking fish—a luminous glaze that stays alive on the plate.' },
+          { id: 'sf-4', title: 'Form • Aroma • Texture', subtitle: 'Three-point standard', body: 'Evaluation hinges on silhouette, fragrance, and bite—a classic Suzhou rubric for a master-level result.' },
+        ] as const
+      case 'lotus-stir-fry':
+        return [
+          { id: 'lt-1', title: 'Crisp–Tender Timing', subtitle: 'Blanch then flash-fry', body: 'Heat exposure is minimal and tiered by hardness to preserve vegetal sweetness and snap.' },
+          { id: 'lt-2', title: 'Palette Discipline', subtitle: 'Lotus pond tones', body: 'Pearl white, jade green, and accents of orange deliver a calm Jiangnan color grammar.' },
+          { id: 'lt-3', title: 'Light Seasoning', subtitle: 'Salt + faint sweetness', body: 'Seasoning stays quiet to foreground freshness; oil and temperature complete the clarity.' },
+          { id: 'lt-4', title: 'Knife • Shape • Order', subtitle: 'Uniform geometry', body: 'Even cuts align mouthfeel and presentation—order and restraint as aesthetic practice.' },
+        ] as const
+      case 'biluochun-shrimp':
+        return [
+          { id: 'bs-1', title: 'Tea–Sea Dialogue', subtitle: 'Biluochun infusion', body: 'Aromatics are feather-light and short-lived: enough to perfume, never to overpower shrimp sweetness.' },
+          { id: 'bs-2', title: 'Velveting', subtitle: 'Protein set “just-so”', body: 'Egg white and starch secure tenderness; remove the moment opacity arrives.' },
+          { id: 'bs-3', title: 'Aroma Placement', subtitle: 'Leaves as garnish', body: 'A few leaves and a whisper of tea liquor bind aroma to the surface with elegance.' },
+          { id: 'bs-4', title: 'Temperature Discipline', subtitle: 'Low, even heat', body: 'Controlled heat prevents cottony texture—the defining risk in this delicate dish.' },
+        ] as const
+      default: // hot-oil-eel
+        return [
+          { id: 'he-1', title: 'Silky, Not Mushy', subtitle: 'Texture as doctrine', body: 'Shreds must be supple yet structured; a thin sheen—not a heavy gloss—keeps the flow.' },
+          { id: 'he-2', title: 'The Sizzle Finish', subtitle: 'Aroma release', body: 'Scallion oil poured sizzlingly at the end—the signature sound as fragrance blooms.' },
+          { id: 'he-3', title: 'Sweet–Savory Calibration', subtitle: 'Suzhou palate', body: 'A gentle sweetness supports savory depth, updated for contemporary preferences.' },
+          { id: 'he-4', title: 'Knife and Fire', subtitle: 'Even shreds, quick set', body: 'Uniform cuts with a rapid set prevent breakage and water loss.' },
+        ] as const
+    }
+  })()
+
   return (
     <main className="relative min-h-screen bg-slate-950 py-24 text-slate-100">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.12),_transparent_60%)]" />
@@ -169,20 +205,48 @@ export default function DishPage({ params }: Params) {
           </div>
         </header>
 
-        {/* Rotation-driven stage leading to interactive stage */}
+        {/* Rotation-driven stage (AI only) */}
         <DishSubpageExperience
           aiModelUrl={aiModelUrl}
           scanModelUrl={scanModelUrl}
           dishName={dish.name}
           dishNameZh={dish.nameZh}
-          annotations={[
-            { id: cards[0].id, title: cards[0].title, subtitle: cards[0].subtitle, body: cards[0].description },
-            { id: cards[1].id, title: cards[1].title, subtitle: cards[1].subtitle, body: cards[1].description },
-            { id: cards[2].id, title: cards[2].title, subtitle: cards[2].subtitle, body: cards[2].description },
-            { id: cards[3].id, title: cards[3].title, subtitle: cards[3].subtitle, body: cards[3].description },
-          ]}
-          rotationSectionVh={300}
+          annotations={annotationsEn as any}
+          rotationSectionVh={500}
+          modelScale={2.5}
         />
+
+        {/* High-res image carousel with lightbox */}
+        <div className="mt-14">
+          <DishImageCarousel images={photoImages} />
+        </div>
+
+        {/* Bento cards with concise detail points */}
+        <div className="mt-14">
+          <DishBentoCards
+            cards={[
+              { id: 'c1', label: 'Essence', title: dish.culturalSignificance.split(' ')[0] ? 'Heritage Technique' : 'Heritage', body: dish.culturalSignificance },
+              { id: 'c2', label: 'Difficulty', title: dish.recipe.difficulty.toUpperCase(), body: `Typical timing: ${dish.recipe.cookingTime}. Precision and pacing define success.` },
+              { id: 'c3', label: 'Ingredients', title: 'Core Inputs', body: dish.recipe.ingredients.slice(0, 4).join(' · ') + (dish.recipe.ingredients.length > 4 ? ' · …' : '') },
+              { id: 'c4', label: 'Chef Note', title: dish.chef?.name ?? 'Chef Insight', body: dish.chef?.note ?? 'Technique-driven flavor with restrained seasoning in the Jiangnan idiom.' },
+            ]}
+          />
+        </div>
+
+        {/* Interactive window title badge */}
+        <div className="mt-16 mx-auto max-w-2xl text-center">
+          <div className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-500/10 to-orange-600/10 px-6 py-3 ring-1 ring-orange-500/30">
+            <div className="h-2 w-2 rounded-full bg-orange-400" />
+            <p className="text-sm font-semibold text-slate-200">3D Interactive Mode</p>
+            <div className="h-px w-8 bg-gradient-to-r from-orange-400 to-transparent" />
+            <p className="text-sm font-bold text-orange-400">{dish.nameZh} · {dish.name}</p>
+          </div>
+        </div>
+
+        {/* Interactive window */}
+        <div className="mt-8">
+          <DishInteractiveWindow aiModelUrl={aiModelUrl} scanModelUrl={scanModelUrl} />
+        </div>
 
         {/* Recipe & Steps */}
         <section className="mt-14 grid gap-8 md:grid-cols-2">
