@@ -54,8 +54,7 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
             Immersive glimpses from the heart of Subang cuisine
           </h2>
           <p className="mt-4 text-base text-slate-300">
-            A curated photo sequence documenting work-in-progress preservation imagery. Final archival assets will
-            include chef craftsmanship, dining rituals, and the textures of Acheng&apos;s beloved space.
+            Cuisine visual documentation sourced from Dianping.com
           </p>
         </header>
 
@@ -78,11 +77,24 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
             <div className="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-orange-400/20 blur-2xl" />
 
             <div className="relative">
-              <div className="flex items-center gap-3">
-                <div className="h-1 w-12 bg-gradient-to-r from-orange-400 to-orange-600" />
-                <p className="text-xs font-bold uppercase tracking-[0.45em] text-orange-400">
-                  大众点评网 · Dianping.com
-                </p>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-1 w-12 bg-gradient-to-r from-orange-400 to-orange-600" />
+                  <p className="text-xs font-bold uppercase tracking-[0.45em] text-orange-400">
+                    大众点评网 · Dianping.com
+                  </p>
+                </div>
+                <a
+                  href="http://m.dianping.com/shop/540562?msource=applemaps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-orange-400 transition-all duration-300 hover:border-orange-500/50 hover:bg-orange-500/20 hover:text-orange-300 hover:shadow-lg hover:shadow-orange-500/20"
+                >
+                  Visit Page
+                  <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               </div>
 
               <h3 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -103,10 +115,10 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
                   <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  4.9/5.0 Rating
+                  4.5/5.0 Rating
                 </span>
                 <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/20">
-                  1000+ Reviews
+                  4000+ Reviews
                 </span>
                 <span className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/20">
                   Verified Customers
