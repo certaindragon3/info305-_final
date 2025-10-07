@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
 
 import { cn } from "@/lib/utils";
@@ -58,11 +59,13 @@ const Carousel = ({ slides, className, autoAdvanceMs = 6000 }: CarouselProps) =>
               )}
               aria-hidden={index !== current}
             >
-              <img
+              <Image
                 src={slide.src}
                 alt={slide.title}
-                className="absolute inset-0 h-full w-full object-cover"
-                loading={index === current ? "eager" : "lazy"}
+                fill
+                className="object-cover"
+                priority={index === 0}
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
               <figcaption className="relative z-[1] space-y-2 bg-gradient-to-t from-black/80 via-black/50 to-transparent px-6 py-8">
                 <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-300">
