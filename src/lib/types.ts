@@ -69,7 +69,7 @@ export interface PhotoGallery {
   id: string;
   title: string;
   description: string;
-  category: 'dining-hall' | 'kitchen' | 'chef' | 'interior' | 'process';
+  category: 'chef' | 'dining-hall' | 'mascot' | 'food' | 'preparation';
   imageUrl: string;
   alt: string;
 }

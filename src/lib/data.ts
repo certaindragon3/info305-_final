@@ -265,27 +265,27 @@ export const photoGallery: PhotoGallery[] = [
   },
   {
     id: '2',
-    title: 'Master Chef at Work',
-    description: 'Chef Chen demonstrating traditional knife techniques',
-    category: 'kitchen',
-    imageUrl: '/images/gallery/chef-work.jpg',
-    alt: 'Chef working in traditional Chinese kitchen'
+    title: 'Restaurant Mascot',
+    description: 'The beloved mascot of Acheng Restaurant',
+    category: 'mascot',
+    imageUrl: '/images/gallery/restaurant-mascot.jpg',
+    alt: 'Acheng Restaurant mascot'
   },
   {
     id: '4',
-    title: 'Restaurant Interior',
-    description: 'Traditional Suzhou-style interior design',
-    category: 'interior',
-    imageUrl: '/images/gallery/interior.jpg',
-    alt: 'Traditional restaurant interior design'
+    title: 'Tempting Food',
+    description: 'Delicious Subang cuisine dishes',
+    category: 'food',
+    imageUrl: '/images/gallery/tempting-food.jpg',
+    alt: 'Tempting Subang cuisine dishes'
   },
   {
     id: '5',
-    title: 'Cooking Process',
-    description: 'Traditional cooking techniques in action',
-    category: 'process',
-    imageUrl: '/images/gallery/cooking-process.jpg',
-    alt: 'Traditional Chinese cooking process'
+    title: 'Ingredient Preparation',
+    description: 'Fresh ingredients carefully prepared for cooking',
+    category: 'preparation',
+    imageUrl: '/images/gallery/ingredient-preparation.jpg',
+    alt: 'Fresh ingredients preparation'
   }
 ];
 
