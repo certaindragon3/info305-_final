@@ -16,11 +16,14 @@
 Labor-intensive traditional Subang cuisine techniques are disappearing in modern fast-paced society. Acheng Restaurant, established in 1999, represents a critical cultural heritage that needs digital preservation.
 
 ### Solution
-A sophisticated, interactive virtual museum featuring:
-- Immersive 3D experiences with GLB models
-- Comprehensive cultural storytelling
-- Academic-quality content presentation
-- Modern, engaging user interface
+A research-driven digital micro-museum that translates academic fieldwork into an engaging public interface:
+- Ethnographic documentation with interactive 3D models
+- Theory-grounded cultural analysis (human-food interaction, intangible heritage)
+- Multi-vocal storytelling (chef, customers, researcher perspectives)
+- Accessible academic content without sacrificing visual appeal
+
+### Project Positioning
+**Between academic rigor and public engagement** — not a commercial website with academic polish, but a serious research project with public-friendly presentation. Think: NYT Interactive Features meets academic ethnography.
 
 ---
 
@@ -124,10 +127,14 @@ A sophisticated, interactive virtual museum featuring:
 
 #### Content Guidelines
 - **NO EMOJIS** in production content (academic/professional context)
-- Use proper English academic writing style
-- Incorporate authentic fieldwork interview quotes
+- Use proper English academic writing style with accessible language
+- Incorporate authentic fieldwork interview quotes with proper attribution
 - Maintain cultural sensitivity and accuracy
 - Focus on heritage preservation narrative
+- **Tone**: Academic but not dense; informative but not promotional
+- **Voice**: From "marketing persuasion" to "ethnographic exposition"
+- Replace subjective praise ("amazing", "best") with objective description
+- Add source citations and methodological transparency where appropriate
 
 #### Spacing & Layout
 - Section padding: `py-24`
@@ -227,6 +234,119 @@ interface Review {
   date: string;
   verified: boolean;
 }
+
+interface Philosophy {
+  id: string;
+  slug: string; // 'seasonal-sourcing' | 'sincerity-craft' | 'grounded-approach'
+  titleZh: string;
+  titleEn: string;
+  subtitle: string; // Academic positioning from final_report
+  heroVisual: {
+    type: 'video' | 'image' | '3d-scene';
+    src: string;
+  };
+
+  // Core concept map (for React Flow visualization)
+  conceptMap: {
+    nodes: Array<{
+      id: string;
+      label: string;
+      description: string;
+      category: 'core-value' | 'practice' | 'outcome' | 'constraint';
+    }>;
+    edges: Array<{
+      from: string;
+      to: string;
+      relationship: 'enables' | 'conflicts-with' | 'derives-from';
+    }>;
+  };
+
+  // Ethnographic evidence
+  fieldworkEvidence: {
+    interviewQuotes: Array<{
+      speaker: '沈师傅' | '顾客' | '观察笔记';
+      timestamp?: string; // Audio timestamp if available
+      content: string;
+      context: string;
+      audioClip?: string; // 5-15 second audio snippet
+    }>;
+    observationalData: {
+      photos: string[];
+      videos: string[];
+      captions: string[]; // Field note-style descriptions
+    };
+  };
+
+  // Academic framing
+  academicContext: {
+    researchQuestion: string;
+    theoreticalLens: string[]; // e.g., ['embodied knowledge', 'intangible heritage']
+    keyReferences: Array<{
+      citation: string;
+      relevance: string;
+    }>;
+  };
+
+  // Cross-references
+  relatedDishes: string[]; // dish slugs
+  relatedPhilosophies: string[];
+}
+
+interface EthnographicEntry {
+  // Spatial entry (street to kitchen)
+  spatialEntry: {
+    streetView: {
+      video: string;
+      voiceoverScript: string; // Academic narration
+    };
+    layoutDiagram: {
+      type: 'interactive-svg' | 'three-js-floorplan';
+      zones: Array<{
+        id: string;
+        nameZh: string;
+        nameEn: string;
+        dimensions: string;
+        activities: string[];
+        observationalNote: string;
+      }>;
+    };
+    ethnographicNote: string; // From final_report
+  };
+
+  // Methodology transparency
+  methodologyDisclosure: {
+    date: string;
+    duration: string;
+    methods: Array<{
+      method: string;
+      description: string;
+      constraints?: string;
+      audioAvailable?: boolean;
+    }>;
+    ethicsStatement: {
+      consent: string;
+      privacy: string;
+      ownerReview: string;
+    };
+  };
+
+  // Labor ethnography
+  laborEthnography: {
+    videoSegments: Array<{
+      title: string;
+      video: string;
+      duration: string;
+      annotation: string; // From final_report
+      tacitCues: string[];
+    }>;
+    qualityControlFramework: {
+      title: string;
+      quote: string;
+      speaker: string;
+      analysis: string;
+    };
+  };
+}
 ```
 
 ---
@@ -279,6 +399,41 @@ interface Review {
 - Integrated InteractiveHoverButton from Aceternity UI
 - Implemented dual-language title (English + Chinese)
 
+#### Story 2.1.5: Ethnographic Entry Section 🆕
+**As a visitor**, I want to understand the research context and spatial setting
+**So that** I can appreciate the ethnographic foundation of this project
+
+**Acceptance Criteria**:
+- [ ] Display street-to-kitchen video entry with academic narration
+- [ ] Show interactive restaurant floor plan with labor zones
+- [ ] Present methodology disclosure (fieldwork protocol)
+- [ ] Include annotated kitchen video segments showcasing craft
+- [ ] Document quality control framework with chef's philosophy
+
+**Technical Implementation**:
+- Create `EthnographicEntrySection.tsx` component
+- Integrate video player with optional voiceover subtitles
+- Build interactive floor plan (SVG or Three.js based)
+- Add methodology panel with ethics statement
+- Create video annotation system for tacit cues
+- Use Framer Motion for spatial transitions
+
+**Content Requirements**:
+- Street view video with academic voiceover script
+- Floor plan with zones: 初加工 (prep), 蒸板 (steam bench), 梅炉 (sauté line), 打荷 (plating)
+- Fieldwork date: 2025-09-21, Duration: 11:00–15:00 (4 hours)
+- Methods: Participant observation, semi-structured interview, dual 3D capture
+- Kitchen videos: knife work, oil temperature judgment, sauce finishing
+- Quality framework: "新鲜度是第一道门" analysis
+
+**Visual Style**:
+- Documentary-style long takes (not commercial quick cuts)
+- Eye-level angles (not Instagram overhead shots)
+- Environmental audio + low-key academic narration
+- Field note-style text overlays on videos
+
+**Position**: Between Hero Section (Story 2.1) and Photo Gallery (Story 2.2)
+
 #### Story 2.2: Photo Gallery & Customer Review Section ✅ COMPLETED
 **As a visitor**, I want to see authentic restaurant atmosphere and customer experiences
 **So that** I can connect emotionally with the restaurant's legacy
@@ -288,6 +443,7 @@ interface Review {
 - [x] Show verified customer reviews with ratings
 - [x] Implement responsive image grid layout
 - [x] Add review carousel (infinite moving cards)
+- [ ] 🔧 Add "Ethnographic Testimonials" framing to reviews
 
 **Technical Implementation**:
 - ✅ Created `PhotoGallerySection.tsx` component (integrated gallery + reviews)
@@ -295,6 +451,8 @@ interface Review {
 - ✅ Implemented InfiniteMovingCards from Aceternity UI for reviews
 - ✅ Added 6 authentic Chinese reviews from Dianping.com
 - ✅ Configured responsive grid with Tailwind CSS
+- 🔧 Update review section header to: "Ethnographic Testimonials: Community Voice"
+- 🔧 Add explanatory text: "These reviews from Dianping.com offer lay perspectives on taste, atmosphere, and value that complement our observational data."
 
 **Implementation Notes**:
 - Component location: `/src/components/sections/PhotoGallerySection.tsx`
@@ -313,6 +471,7 @@ interface Review {
 - [x] Display 3 additional cuisine cards (placeholder added)
 - [x] Enable navigation to detailed dish pages
 - [x] Implement hover effects and animations
+- [ ] 🔧 Retitle section to "Representative Cuisines: Case Studies"
 
 **Technical Implementation**:
 - ✅ Created `GallerySection.tsx` component following design system
@@ -321,10 +480,12 @@ interface Review {
 - ✅ Configured Next.js routing to dish detail pages
 - ✅ Applied consistent orange accent color scheme
 - ✅ Removed emojis, used professional academic style
+- 🔧 Update eyebrow text from "Gallery" to "Culinary Archive"
+- 🔧 Update section description to emphasize "technique as cultural practice"
 
 **Implementation Notes**:
 - Component location: `/src/components/sections/GallerySection.tsx`
-- Used Aceternity UI Spotlight component for dramatic lighting
+- Used Aceternity UI Spotlight component for dramatic lighting (pedagogical instrument)
 - Implemented decorative glow orbs and gradient backgrounds
 - Created "Chef's Insight" card with interview-based content
 - Badge design with line accents and uppercase tracking
@@ -369,6 +530,9 @@ interface Review {
 - [x] Include team information and acknowledgments
 - [x] Add technical implementation details
 - [x] Provide contact information for inquiries
+- [ ] 🔧 Expand with research framework from final_report
+- [ ] 🔧 Add limitations and future work section
+- [ ] 🔧 Include key theoretical references
 
 **Technical Implementation**:
 - Create `ProjectInfoSection.tsx` component
@@ -376,12 +540,18 @@ interface Review {
 - Implement academic-style content presentation
 - Add visual elements to showcase preservation goals
 - Include fieldwork methodology and data sources
+- 🔧 Add expandable panels for detailed methodology
+- 🔧 Include citation system for theoretical framework
 
 **Content Requirements**:
 - Project title and tagline
-- Cultural preservation mission
-- Academic research context
-- Fieldwork methodology overview
+- **Research Questions**:
+  - How is tacit culinary knowledge embedded in spatial, material, and temporal routines?
+  - How can digital media preserve embodied skills for future generations?
+- **Theoretical Framework**: Human-food interaction, intangible cultural heritage, embodied knowledge
+- **Methodology**: Participant observation, semi-structured interviews, dual 3D capture pipeline
+- **Limitations**: Narrow aisles limited equipment placement, single-day snapshot, etc.
+- **Future Work**: Full-day documentary, expanded dish coverage
 - Technical stack showcase
 - Team and acknowledgments
 - Contact information
@@ -433,6 +603,7 @@ interface Review {
 - [x] Show cultural and historical significance
 - [x] Include chef notes and audio playback
 - [x] Add nutritional and difficulty information
+- [ ] 🔧 Add tacit decision cues to recipe steps
 
 **Technical Implementation**:
 - Create `DishInfo.tsx` component
@@ -440,6 +611,12 @@ interface Review {
 - Add audio player for chef voice notes
 - Use typography components for content hierarchy
 - Implement progress indicators for cooking process
+- 🔧 Enhance recipe steps format:
+  - Each step includes observable signal (e.g., "oil shimmer", "bubble size")
+  - Add chef's decision criterion
+  - Retitle "Ingredients" to "Material Inventory and Sourcing Notes"
+  - Retitle "Steps" to "Procedural Sequence with Tacit Decision Cues"
+  - Retitle "Chef's Secret" to "Embodied Knowledge: What the Chef Sees and Feels"
 
 #### Story 3.4: Related Dishes Navigation
 **As a visitor**, I want to discover related dishes
@@ -456,6 +633,179 @@ interface Review {
 - Implement navigation components
 - Add smooth page transitions with CSS
 - Configure Next.js Link optimization
+
+---
+
+### Epic 3.5: Research Translation Layer 🆕
+**Goal**: Translate academic fieldwork into engaging, accessible public interface while maintaining scholarly rigor
+
+#### Story 3.5.1: Philosophy Deep-Dive Pages with Interactive Concept Maps
+**As a visitor**, I want to explore the restaurant's culinary philosophies in depth
+**So that** I can understand the theoretical underpinnings of craft practices
+
+**Acceptance Criteria**:
+- [ ] Create dynamic routing for `/philosophy` and `/philosophy/[slug]`
+- [ ] Implement interactive concept maps using React Flow
+- [ ] Integrate fieldwork evidence (quotes, photos, videos)
+- [ ] Add academic contextualization with theoretical references
+- [ ] Build cross-referencing system to related dishes and philosophies
+- [ ] Implement breadcrumb navigation from AboutSection
+
+**URL Structure**:
+```
+/philosophy                      # Overview page
+/philosophy/seasonal-sourcing    # 应时应季 (First Gate to Guard)
+/philosophy/sincerity-craft      # 诚与工 (Sincerity & Craft)
+/philosophy/grounded-approach    # 接地气 (Grounded Community Model)
+```
+
+**Breadcrumb Navigation**:
+```
+Home → About → Philosophy: [理念名]           # From AboutSection
+Philosophy Overview → [specific philosophy]    # Within philosophy section
+Home → Dish: 松鼠桂鱼 → Related Philosophy     # Cross-reference from dishes
+```
+
+**Technical Implementation**:
+- Create `app/philosophy/page.tsx` (overview)
+- Create `app/philosophy/[slug]/page.tsx` (detail pages)
+- Install and configure React Flow (`reactflow`)
+- Create `PhilosophyConceptMap.tsx` component
+- Implement `PhilosophyContent.tsx` with fieldwork integration
+- Add `PhilosophyCrossRef.tsx` for related content navigation
+- Configure `generateStaticParams` for static generation
+
+**Page Structure**:
+Each philosophy page includes:
+1. **Hero Section**:
+   - Title (ZH + EN)
+   - Academic subtitle from final_report
+   - Hero visual (video/image/3D scene)
+
+2. **Interactive Concept Map** (React Flow):
+   - Visual graph of philosophy → practices → outcomes
+   - Clickable nodes with detailed descriptions
+   - Relationship edges (enables, conflicts-with, derives-from)
+   - Node categories: core-value, practice, outcome, constraint
+   - Example nodes for "应时应季":
+     - Core: "第一道门 (First Gate to Guard)"
+     - Practice: "市场清晨采购 (Morning Market Sourcing)"
+     - Practice: "触感测试 (Tactile Assessment)"
+     - Outcome: "菜品时令调整 (Seasonal Dish Adaptation)"
+
+3. **Ethnographic Evidence**:
+   - Interview quotes with audio snippets (5-15s)
+   - Observational photos and videos
+   - Field note-style captions
+   - Proper attribution and timestamps
+
+4. **Academic Context Panel**:
+   - Research question this philosophy addresses
+   - Theoretical lens (embodied knowledge, intangible heritage)
+   - Key academic references with relevance notes
+
+5. **Cross-References**:
+   - Related dishes where this philosophy is practiced
+   - Related philosophies (complementary or contrasting)
+
+**Content Requirements** (from final_report):
+- **应时应季 (Seasonal Sourcing)**:
+  - Quote: "新鲜度是第一道门" (Mr. Shen)
+  - Practice: Morning market tactile assessment
+  - Connects to: 松鼠桂鱼, 荷塘小炒
+
+- **诚与工 (Sincerity & Craft)**:
+  - Knife work precision, oil temperature judgment
+  - "活卤" (lively sauce) technique
+  - Connects to: 松鼠桂鱼
+
+- **接地气 (Grounded Approach)**:
+  - Community-embedded model vs. destination dining
+  - Neighborhood relationships and pricing strategy
+  - Connects to: Restaurant history, customer testimonials
+
+**Visual Design**:
+- React Flow custom node styling with orange accent colors
+- Smooth zoom/pan interactions
+- Animated edge connections on hover
+- Mobile-responsive node layout
+- Dark theme consistent with site design
+
+**Data Structure**:
+Reference the `Philosophy` interface in Data Structure Design section for complete type definitions.
+
+#### Story 3.5.2: Academic Tone Calibration (Surgical Copy Edits)
+**As a visitor**, I want content that feels scholarly yet accessible
+**So that** I trust the information while staying engaged
+
+**Acceptance Criteria**:
+- [ ] Update Hero Section copy from promotional to descriptive
+- [ ] Retitle Gallery Section to "Representative Cuisines: Case Studies"
+- [ ] Reframe Photo Gallery reviews as "Ethnographic Testimonials"
+- [ ] Add academic framing to dish detail pages
+- [ ] Include source citations throughout site
+- [ ] Implement footnote/tooltip system for references
+
+**Copy Transformation Checklist**:
+
+**Hero Section**:
+- ❌ "Discover the art of Suzhou cuisine"
+- ✅ "A digital micro-museum documenting culinary knowledge at Acheng Fandian, a neighborhood Suzhou eatery in continuous operation since 1999"
+
+- ❌ "Experience authentic flavors"
+- ✅ "Preserving tacit technique, spatial routines, and oral histories that root craft in situated practice"
+
+**Gallery Section**:
+- ❌ Section title: "Signature Dishes"
+- ✅ Section title: "Representative Cuisines: Case Studies"
+
+- ❌ Eyebrow: "Gallery"
+- ✅ Eyebrow: "Culinary Archive"
+
+- ❌ "Exquisite presentation meets cultural heritage"
+- ✅ "Technique as cultural practice: embodied skills, material cues, and decision criteria"
+
+**Dish Detail Pages**:
+- ❌ Tab: "Ingredients"
+- ✅ Tab: "Material Inventory and Sourcing Notes"
+  - Add: "Seasonal variations observed during fieldwork"
+
+- ❌ Tab: "Cooking Steps"
+- ✅ Tab: "Procedural Sequence with Tacit Decision Cues"
+  - Each step format: [Action] → [Observable Signal] → [Chef's Criterion]
+
+- ❌ Section: "Chef's Secret"
+- ✅ Section: "Embodied Knowledge: What the Chef Sees and Feels"
+
+**Photo Gallery Section**:
+- ❌ "Customer Reviews"
+- ✅ "Ethnographic Testimonials: Community Voice"
+  - Add intro: "These reviews, collected from Dianping.com (2024-2025), offer lay perspectives on taste, atmosphere, and value that complement our observational data."
+
+**About Section**:
+- ✅ Already scholarly (Timeline structure)
+- 🔧 Add citation for "1992 cultural context" → Reference Suzhou economic reform history
+- 🔧 Add source attribution to historical photos
+
+**Button Text Updates**:
+- ❌ "Explore" → ✅ "View Documentation"
+- ❌ "Learn More" → ✅ "Read Full Analysis"
+- ❌ "Discover" → ✅ "Examine Case Study"
+
+**Technical Implementation**:
+- Create `FootnoteTooltip.tsx` component for inline citations
+- Create `MethodBadge.tsx` for methodology indicators
+- Create `DataSourceIndicator.tsx` for data attribution
+- Update all section components with new copy
+- Add hover tooltips for academic terms
+- Implement citation numbering system
+
+**Tone Principles**:
+- Replace subjective praise → objective description
+- Remove marketing language → use descriptive exposition
+- Add source citations → build credibility
+- Include methodology notes → transparency
+- Preserve visual effects → maintain engagement
 
 ---
 
@@ -524,12 +874,18 @@ interface Review {
 - [ ] Add restaurant historical information
 - [ ] Include authentic customer reviews
 - [ ] Populate all placeholder content
+- [ ] 🔧 Add `philosophies` data array with concept maps
+- [ ] 🔧 Add `ethnographicEntry` data with fieldwork content
+- [ ] 🔧 Populate fieldwork evidence (quotes, videos, photos)
 
 **Technical Implementation**:
 - Populate `/lib/data.ts` with authentic content
 - Add proper TypeScript typing
 - Implement data validation
 - Create content management utilities
+- 🔧 Structure philosophy data with React Flow node/edge format
+- 🔧 Organize ethnographic videos with timestamps and annotations
+- 🔧 Add academic references and citations
 
 #### Story 5.2: Visual Polish & Animations
 **As a visitor**, I want visually stunning interactions
@@ -556,12 +912,129 @@ interface Review {
 - [ ] Implement ARIA accessibility features
 - [ ] Configure SEO metadata
 - [ ] Test with accessibility tools
+- [ ] 🔧 Add academic metadata (keywords from final_report)
 
 **Technical Implementation**:
 - Use semantic HTML elements
 - Add ARIA labels and descriptions
 - Configure Next.js metadata API
 - Implement keyboard navigation support
+- 🔧 Add academic keywords: "intangible cultural heritage", "embodied knowledge", "culinary ethnography", "digital preservation"
+- 🔧 Configure Open Graph tags for academic sharing
+
+---
+
+### Epic 6: Academic Infrastructure 🆕
+**Goal**: Build transparent research documentation and citation systems
+
+#### Story 6.1: Citation & Reference System
+**As a visitor**, I want to verify sources and academic claims
+**So that** I can trust the research quality
+
+**Acceptance Criteria**:
+- [ ] Implement inline footnote tooltips for citations
+- [ ] Create `/references` page with full bibliography
+- [ ] Add "Cite this project" functionality with multiple formats
+- [ ] Include DOI/permalink for academic referencing
+
+**Technical Implementation**:
+- Create `FootnoteTooltip.tsx` component
+  - Hover to show citation details
+  - Click to navigate to full reference
+  - Numbered footnote system
+- Create `app/references/page.tsx`
+  - Organized by section/topic
+  - APA and Chicago style formatting
+  - Filterable by content type (book, article, interview)
+- Add citation export functionality
+  - BibTeX format
+  - RIS format
+  - Plain text APA/Chicago
+
+**Content Requirements**:
+- Key references from final_report:
+  - Abbate (2021) - Phenomenology of making
+  - Mirri et al. (2017) - Embodied interaction
+  - UNESCO Intangible Cultural Heritage Convention
+  - Suzhou economic reform history sources
+- Fieldwork citation:
+  - Interview with Mr. Shen Jiecheng (2025-09-21)
+  - Dianping.com reviews (2024-2025)
+  - Personal observations and photos
+
+#### Story 6.2: Methodology Appendix
+**As a visitor**, I want to understand how this research was conducted
+**So that** I can evaluate its validity
+
+**Acceptance Criteria**:
+- [ ] Create `/methodology` page with detailed protocol
+- [ ] Document 3D capture pipeline with technical specs
+- [ ] Explain interview protocol and consent process
+- [ ] Include limitations and challenges section
+
+**Technical Implementation**:
+- Create `app/methodology/page.tsx`
+- Use expandable accordion sections for detailed protocols
+- Add visual diagrams of 3D capture workflow
+- Include sample consent form (anonymized)
+- Link to relevant sections from main site
+
+**Content Structure**:
+1. **Research Design**:
+   - Ethnographic approach rationale
+   - Fieldwork site selection criteria
+   - Temporal scope (single-day snapshot)
+
+2. **Data Collection Methods**:
+   - **Participant Observation**:
+     - Date: 2025-09-21
+     - Duration: 11:00–15:00 (4 hours)
+     - Constraints: Narrow aisles, heat, steam
+   - **Semi-structured Interview**:
+     - Participant: Mr. Shen Jiecheng (owner-chef)
+     - Duration: 25 minutes
+     - Key topics: Philosophy, techniques, business model
+   - **Dual 3D Capture Pipeline**:
+     - Method 1: AI-assisted mesh from photos
+     - Method 2: LiDAR USDZ scans
+     - Challenges: Glossy surfaces, steam interference
+
+3. **Ethics & Consent**:
+   - Written informed consent obtained
+   - Staff/patron privacy protection protocols
+   - Owner pre-publication review rights
+   - Data storage and anonymization
+
+4. **Limitations**:
+   - Single-day observation (temporal snapshot)
+   - Equipment constraints (narrow space)
+   - Language barriers (technical Suzhou dialect terms)
+   - Researcher positionality (outsider perspective)
+
+#### Story 6.3: Data Transparency & Accessibility
+**As a researcher**, I want access to underlying data
+**So that** I can verify findings and build upon this work
+
+**Acceptance Criteria**:
+- [ ] Add "View raw data" links where appropriate
+- [ ] Provide downloadable interview transcripts (with consent)
+- [ ] Include metadata for all media assets
+- [ ] Link to institutional repository (if available)
+
+**Technical Implementation**:
+- Create download links for:
+  - Interview audio segments (with timestamps)
+  - Photo metadata (camera settings, date, location)
+  - 3D model technical specs (poly count, texture resolution)
+- Add data licensing information (Creative Commons)
+- Include ORCID or institutional affiliation
+- Provide contact for data access requests
+
+**Privacy Considerations**:
+- Anonymize customer faces in photos
+- Redact personal identifying information
+- Require data use agreement for full transcripts
+- Respect owner's review rights
 
 ---
 
@@ -592,10 +1065,66 @@ interface Review {
 - **SEO**: Lighthouse score > 90
 
 ### Academic Metrics:
-- **Content Depth**: Comprehensive cultural documentation
+- **Content Depth**: Comprehensive cultural documentation with theoretical grounding
 - **User Engagement**: Average session duration > 5 minutes
 - **Educational Value**: Clear learning outcomes achieved
 - **Cultural Preservation**: Authentic heritage representation
+- **Research Transparency**: Full methodology disclosure and data attribution
+- **Scholarly Impact**: Citable with proper academic referencing
+
+### Dual Audience Success:
+- **For Scholars**: Rigorous methodology, transparent data, academic citations
+- **For General Public**: Engaging visuals, accessible language, progressive disclosure
+- **For Heritage Community**: Respectful representation, authentic voice, practical preservation
+
+---
+
+## 🎯 Project Value Proposition
+
+### Core Innovation
+This project demonstrates a new model for digital heritage preservation that bridges academic rigor and public engagement. Unlike traditional academic publications (text-heavy, paywalled) or commercial websites (superficial, promotional), this platform offers:
+
+1. **Scholarly Foundation**:
+   - Grounded in ethnographic fieldwork and theory
+   - Transparent methodology and limitations
+   - Proper citations and academic framing
+
+2. **Public Accessibility**:
+   - Visually engaging with interactive 3D models
+   - Progressive information disclosure (casual browser → deep researcher)
+   - No sacrifice of visual appeal for academic credibility
+
+3. **Methodological Contribution**:
+   - Showcases web-native research presentation
+   - Models how to translate dense academic content for broader audiences
+   - Provides template for community-led cultural preservation
+
+### Target Impact
+
+**For Academic Community**:
+- Demonstrates effective use of digital media in ethnographic research
+- Contributes to intangible cultural heritage scholarship
+- Showcases embodied knowledge preservation techniques
+
+**For Cultural Preservation Field**:
+- Provides replicable model for documenting disappearing crafts
+- Shows how to balance authenticity with accessibility
+- Bridges gap between academic research and community practice
+
+**For General Public**:
+- Makes serious scholarship accessible without dumbing down
+- Reveals invisible labor and skill behind everyday food
+- Fosters appreciation for cultural heritage preservation
+
+### Positioning Statement
+**"A public-friendly academic project, not an academicized commercial website."**
+
+This is research-first storytelling: every visual element serves a pedagogical purpose, every interaction deepens understanding, and every design choice balances rigor with engagement.
+
+**Reference Models**:
+- NYT Interactive Features (visual storytelling + deep reporting)
+- MIT Media Lab Projects (technical innovation + academic foundation)
+- The Pudding (data visualization + narrative rigor)
 
 ---
 
@@ -621,4 +1150,114 @@ interface Review {
 
 ---
 
+## 🚀 Implementation Phases
+
+### Phase 1: Quick Academic Calibration (1-2 days) 🎯 PRIORITY
+**Goal**: Immediate tone improvements with minimal code changes
+
+**Tasks**:
+- [ ] Story 3.5.2: Surgical copy edits (Hero, Gallery, Reviews, About sections)
+- [ ] Add source citations to Hero and Project Info sections
+- [ ] Update button text (Explore → View Documentation)
+- [ ] Add "Ethnographic Testimonials" framing to reviews
+- [ ] Include limitations statement in About section
+
+**Why First**: Quick wins that immediately shift perception from commercial to academic
+
+### Phase 2: Core Research Translation (3-5 days)
+**Goal**: Build the substantive academic infrastructure
+
+**Tasks**:
+- [ ] Story 2.1.5: Ethnographic Entry Section
+  - Street-to-kitchen video with narration
+  - Interactive floor plan
+  - Methodology disclosure panel
+  - Annotated kitchen videos (3-4 segments)
+- [ ] Story 3.5.1: Philosophy Deep-Dive Pages
+  - Create at least ONE complete philosophy page as template
+  - Implement React Flow concept map
+  - Integrate fieldwork quotes and evidence
+  - Set up cross-referencing system
+
+**Why Second**: These are the core value-add features that distinguish this from typical websites
+
+### Phase 3: Academic Infrastructure (2-3 days)
+**Goal**: Complete the scholarly apparatus
+
+**Tasks**:
+- [ ] Epic 6.1: Citation system with footnote tooltips
+- [ ] Epic 6.2: Methodology page with detailed protocols
+- [ ] Epic 6.3: Data transparency features
+- [ ] Create `/references` page with full bibliography
+
+**Why Third**: These enhance credibility and make the project truly citable
+
+### Phase 4: Polish & Optimization (1-2 days)
+**Goal**: Final refinements and performance tuning
+
+**Tasks**:
+- [ ] Complete remaining philosophy pages (if time permits)
+- [ ] Cross-browser testing
+- [ ] Performance optimization
+- [ ] Accessibility audit
+- [ ] Final content review
+
+---
+
+## 📝 Developer Notes
+
+### Key Dependencies to Install
+```bash
+npm install reactflow  # For philosophy concept maps
+# All other dependencies already installed
+```
+
+### File Structure for New Features
+```
+src/
+├── app/
+│   ├── philosophy/
+│   │   ├── page.tsx              # Overview
+│   │   └── [slug]/page.tsx       # Detail pages
+│   ├── methodology/page.tsx      # Research protocol
+│   └── references/page.tsx       # Bibliography
+├── components/
+│   ├── sections/
+│   │   └── EthnographicEntrySection.tsx
+│   ├── philosophy/
+│   │   ├── PhilosophyConceptMap.tsx
+│   │   ├── PhilosophyContent.tsx
+│   │   └── PhilosophyCrossRef.tsx
+│   └── academic/
+│       ├── FootnoteTooltip.tsx
+│       ├── MethodBadge.tsx
+│       └── DataSourceIndicator.tsx
+├── lib/
+│   ├── data/
+│   │   ├── philosophies.ts      # Philosophy data
+│   │   └── ethnographic.ts      # Fieldwork data
+│   └── types.ts                 # Updated with new interfaces
+```
+
+### Content Priorities
+1. **Must-Have** (for academic credibility):
+   - Methodology disclosure
+   - Citations and references
+   - Limitations statement
+   - Ethical consent documentation
+
+2. **Should-Have** (for depth):
+   - At least one complete philosophy page
+   - Ethnographic entry section
+   - Cross-reference system
+
+3. **Nice-to-Have** (if time permits):
+   - All three philosophy pages
+   - Downloadable data
+   - Advanced citation export
+
+---
+
 *This document serves as the master reference for the Acheng Restaurant Virtual Museum project. All development should align with these specifications and success criteria.*
+
+*Last Updated: 2025-10-10 | Status: Ready for Phase 1 Implementation*
