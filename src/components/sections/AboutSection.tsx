@@ -597,6 +597,66 @@ export default function AboutSection() {
 
       {/* Contact Information */}
       <div className="relative z-[1] mx-auto w-full max-w-7xl px-6 pb-24 lg:px-8">
+        {/* Research Context & Limitations */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-xl"
+        >
+          <div className="p-10 md:p-16">
+            <div className="mb-8">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-orange-400">
+                Research Context
+              </p>
+              <h3 className="text-2xl font-bold text-white sm:text-3xl">
+                Methodology & Limitations
+              </h3>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <p className="mb-3 text-sm font-semibold text-orange-400">Fieldwork Scope</p>
+                <p className="text-sm leading-relaxed text-slate-300">
+                  This documentation is based on a four-hour fieldwork session (September 21, 2025, 11:00–15:00) combining participant observation, photography, video capture, and a semi-structured interview with owner-chef Mr. Shen Jiecheng. A dual 3D capture pipeline (AI-assisted mesh + LiDAR USDZ scans) was employed for dish models.
+                </p>
+              </div>
+
+              <div>
+                <p className="mb-3 text-sm font-semibold text-orange-400">Limitations</p>
+                <ul className="space-y-2 text-sm leading-relaxed text-slate-300">
+                  <li className="flex gap-3">
+                    <span className="text-orange-400">•</span>
+                    <span><strong>Temporal snapshot:</strong> Single-day observation captures routines but not seasonal or long-term variations</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-orange-400">•</span>
+                    <span><strong>Equipment constraints:</strong> Narrow aisles, heat, and steam limited camera placement and LiDAR stability for glossy dishes</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-orange-400">•</span>
+                    <span><strong>Community voice:</strong> Planned patron interviews could not be executed; Dianping reviews supplement but do not replace direct testimony</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-orange-400">•</span>
+                    <span><strong>Perspective:</strong> Documentation reflects owner-chef&apos;s managerial and didactic frames; head chef&apos;s preference for privacy shifted narrative balance</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <p className="mb-3 text-sm font-semibold text-orange-400">Future Work</p>
+                <p className="text-sm leading-relaxed text-slate-300">
+                  Next phase: full-day documentary from supply intake through closing, community interviews across age cohorts, improved 3D fidelity with controlled lighting, and institutional repository deposit for long-term access.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="h-10"></div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

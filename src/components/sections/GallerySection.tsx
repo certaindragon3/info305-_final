@@ -30,13 +30,13 @@ export function GallerySection() {
         {/* Section Header */}
         <header className="relative z-[1] mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-orange-400">
-            Culinary Heritage Exhibition
+            Culinary Archive
           </p>
           <h2 className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
-            Masterworks of Subang cuisine tradition
+            Representative Cuisines: Case Studies
           </h2>
           <p className="mt-4 text-base text-slate-300">
-            Each dish represents decades of refinement, passed down through generations of master chefs dedicated to preserving authentic flavors and techniques.
+            Technique as cultural practice: embodied skills, material cues, and decision criteria documented through fieldwork at Acheng Fandian.
           </p>
         </header>
 
@@ -102,16 +102,16 @@ export function GallerySection() {
 
                   {/* Description */}
                   <p className="text-base leading-relaxed text-slate-300">
-                    The crown jewel of Subang cuisine—a masterpiece demanding extraordinary knife work, precise oil temperature control, and the perfect balance of sweet-sour flavors. Three critical techniques define this dish: intricate crosshatch scoring, controlled deep-frying for sculptural form, and a living sauce that harmonizes acidity and sweetness.
+                    Squirrel Fish (松鼠桂鱼) embodies tacit skill transmission in Su cuisine. The owner identifies three decisive competencies: precise knife work that creates the characteristic lattice without rupturing membranes, deep-fry shaping that holds form in oil, and a lively sweet-sour sauce (活卤) that must be blended and finished correctly for gloss and balance.
                   </p>
 
                   {/* Chef's Insight */}
                   <div className="rounded-xl border border-orange-500/20 bg-slate-900/50 p-5 backdrop-blur-sm">
                     <p className="text-sm font-semibold uppercase tracking-[0.3em] text-orange-400/80">
-                      Chef&apos;s Insight
+                      Fieldwork Documentation
                     </p>
                     <p className="mt-3 text-sm leading-relaxed text-slate-400">
-                      &quot;This dish represents Subang cuisine&apos;s pinnacle achievement. The knife work, the oil technique, the sauce choreography—three pillars that transform fresh mandarin fish into a work of art with striking visual presence and exquisite flavor layers.&quot;
+                      &quot;Knife work, oil-shaping, and live sauce harmony—three technical points. The knife work must be complex, the deep-frying must create a distinctive shape, and the sauce must balance sweet and sour flavors properly.&quot; — Mr. Shen Jiecheng, owner-chef (Interview, Sept 21, 2025)
                     </p>
                   </div>
 
@@ -133,7 +133,7 @@ export function GallerySection() {
                     href={`/dishes/${signatureDish.slug}`}
                     className="group mt-6 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-4 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-lg shadow-orange-500/30 transition-all duration-300 hover:shadow-orange-500/50 hover:scale-105"
                   >
-                    Enter Exhibition
+                    Examine Case Study
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
@@ -149,13 +149,13 @@ export function GallerySection() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.35em] text-orange-400">
-              Additional Exhibitions
+              More Subtle Dishes
             </p>
             <h3 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
-              Scroll to explore more masterworks
+              Three Su Cuisine Techniques
             </h3>
             <p className="mt-3 text-sm text-slate-400">
-              Swipe or scroll horizontally to discover three classic dishes
+              Click the card below to explore more dishes from the fieldwork session
             </p>
           </div>
         </div>

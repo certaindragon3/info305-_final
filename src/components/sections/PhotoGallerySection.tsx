@@ -48,13 +48,13 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
         {/* Header */}
         <header className="relative z-[1] mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-orange-400">
-            Acheng Restaurant Atmosphere
+            Visual Documentation
           </p>
           <h2 className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
-            Immersive glimpses from the heart of Subang cuisine
+            Spatial and Social Context
           </h2>
           <p className="mt-4 text-base text-slate-300">
-            Cuisine visual documentation sourced from Dianping.com
+            Photographic evidence from fieldwork and community sources documenting restaurant atmosphere and daily operations.
           </p>
         </header>
 
@@ -98,16 +98,14 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
               </div>
 
               <h3 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
-                &ldquo;Food lovers call Acheng the pulse of{" "}
+                Dianping as{" "}
                 <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                  authentic Subang cuisine
+                  Community Data Source
                 </span>
-                &rdquo;
               </h3>
 
               <p className="mt-6 text-base leading-relaxed text-slate-300">
-                Verified impressions sourced from the Dianping (大众点评网) community spotlight Acheng&apos;s unwavering dedication to
-                heritage techniques, communal dining warmth, and the choreography of the kitchen.
+                Review data from Dianping.com (大众点评网) provides lay perspectives on taste, atmosphere, and value that complement our observational fieldwork. These testimonials capture community voice and reveal how neighborhood diners experience Acheng Fandian&apos;s approach to Su cuisine.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -138,10 +136,10 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
         >
           <div className="mb-12 text-center">
             <h3 className="text-2xl font-bold text-white sm:text-3xl">
-              Real voices from <span className="text-orange-400">food lovers</span>
+              Ethnographic Testimonials: <span className="text-orange-400">Community Voice</span>
             </h3>
             <p className="mt-3 text-sm text-slate-400">
-              Browse authentic customer experiences shared on Dianping
+              Selected reviews from Dianping.com (2024-2025, n=6) offering patron perspectives
             </p>
           </div>
 
