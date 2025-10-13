@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { Timeline } from "@/components/ui/timeline";
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
-import { Store, Users, Heart, Sparkles, Paintbrush } from "lucide-react";
+import { Store, Users, Heart, Sparkles, Paintbrush, ArrowRight } from "lucide-react";
 
 export default function AboutSection() {
   const timelineData = [
@@ -414,6 +415,7 @@ export default function AboutSection() {
         "Positioned as a restaurant for ordinary people with affordable pricing and high cost-performance ratio, ensuring quality Subang cuisine is accessible to everyone.",
       quote:
         "It can attract more diners to visit and consume - this is the main business philosophy.",
+      philosophySlug: "grounded-approach",
     },
     {
       icon: Sparkles,
@@ -423,6 +425,7 @@ export default function AboutSection() {
         "The degree of freshness is the primary quality control checkpoint. Experienced chefs employ the traditional method: look, smell, and touch to ensure ingredient quality.",
       quote:
         "For Subang cuisine, the main ingredients must be very fresh. If the main ingredient is not fresh, the dish fails.",
+      philosophySlug: "seasonal-sourcing",
     },
     {
       icon: Heart,
@@ -432,6 +435,7 @@ export default function AboutSection() {
         "From chef to business owner, the founder maintains the tradition of handcrafted dishes, refusing to adopt pre-made ingredients despite industry trends.",
       quote:
         "For Subang cuisine, following the traditional approach yields better results.",
+      philosophySlug: "sincerity-craft",
     },
   ];
 
@@ -519,13 +523,21 @@ export default function AboutSection() {
                     </p>
 
                     <div className="rounded-lg bg-black/30 p-3 backdrop-blur-sm">
-                      <p className="mb-12 text-xs font-semibold uppercase tracking-wider text-orange-400">
+                      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-orange-400">
                         Chef&apos;s Philosophy
                       </p>
                       <blockquote className="border-l-2 border-orange-500/50 pl-2 text-xs italic leading-relaxed text-slate-300">
                         &quot;{card.quote}&quot;
                       </blockquote>
                     </div>
+
+                    <Link
+                      href={`/philosophy/${card.philosophySlug}`}
+                      className="inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-4 py-2 text-xs font-semibold text-orange-400 ring-1 ring-orange-500/30 backdrop-blur-sm transition-all duration-300 hover:bg-orange-500/20 hover:ring-orange-500/50"
+                    >
+                      <span>Explore Philosophy</span>
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
                   </div>
                 </DirectionAwareHover>
               </motion.div>

@@ -4,6 +4,7 @@ import FloatingDockNav from "@/components/ui/floating-dock-nav";
 import { SectionLoader, GallerySkeleton } from "@/components/loading/SectionLoader";
 
 // Lazy load heavy sections for better initial load performance
+const EthnographicEntrySection = lazy(() => import("@/components/sections/EthnographicEntrySection"));
 const PhotoGallerySection = lazy(() => import("@/components/sections/PhotoGallerySection"));
 const GallerySection = lazy(() => import("@/components/sections/GallerySection").then(mod => ({ default: mod.GallerySection })));
 const AboutSection = lazy(() => import("@/components/sections/AboutSection"));
@@ -14,6 +15,11 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero loads immediately - first contentful paint */}
       <HeroSection />
+
+      {/* Ethnographic entry section */}
+      <Suspense fallback={<SectionLoader text="Loading Fieldwork Documentation" />}>
+        <EthnographicEntrySection />
+      </Suspense>
 
       {/* Gallery sections lazy load on scroll */}
       <Suspense fallback={<GallerySkeleton />}>

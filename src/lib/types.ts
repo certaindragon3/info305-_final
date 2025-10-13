@@ -98,3 +98,61 @@ export interface SectionProps {
   className?: string;
   children?: React.ReactNode;
 }
+
+// Philosophy types for deep-dive pages
+export interface Philosophy {
+  id: string;
+  slug: string;
+  titleZh: string;
+  titleEn: string;
+  subtitle: string;
+  heroVisual: {
+    type: 'video' | 'image' | '3d-scene';
+    src: string;
+  };
+
+  // Core concept map (for React Flow visualization)
+  conceptMap: {
+    nodes: Array<{
+      id: string;
+      label: string;
+      description: string;
+      category: 'core-value' | 'practice' | 'outcome' | 'constraint';
+    }>;
+    edges: Array<{
+      from: string;
+      to: string;
+      relationship: 'enables' | 'conflicts-with' | 'derives-from';
+    }>;
+  };
+
+  // Ethnographic evidence
+  fieldworkEvidence: {
+    interviewQuotes: Array<{
+      speaker: '沈师傅' | '顾客' | '观察笔记';
+      timestamp?: string; // Audio timestamp if available
+      content: string;
+      context: string;
+      audioClip?: string; // 5-15 second audio snippet
+    }>;
+    observationalData: {
+      photos: string[];
+      videos: string[];
+      captions: string[]; // Field note-style descriptions
+    };
+  };
+
+  // Academic framing
+  academicContext: {
+    researchQuestion: string;
+    theoreticalLens: string[]; // e.g., ['embodied knowledge', 'intangible heritage']
+    keyReferences: Array<{
+      citation: string;
+      relevance: string;
+    }>;
+  };
+
+  // Cross-references
+  relatedDishes: string[]; // dish slugs
+  relatedPhilosophies: string[];
+}

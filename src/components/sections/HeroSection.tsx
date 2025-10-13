@@ -15,7 +15,7 @@ const heroPhotos = photoGallery.slice(0, 5);
 
 export default function HeroSection() {
   const scrollToNext = () => {
-    const nextSection = document.getElementById("photo-gallery");
+    const nextSection = document.getElementById("ethnographic-entry");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" });
     }
