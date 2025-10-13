@@ -135,7 +135,7 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
 
       {/* Minimal overlay: keep labels subtle, no framing */}
       <div className="pointer-events-none absolute top-4 left-1/2 -translate-x-1/2">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">AI Model — Guided Rotation</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">Guided Recipe Essense Exhibition</p>
       </div>
 
       {/* Annotation bubbles */}

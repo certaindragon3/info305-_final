@@ -66,8 +66,13 @@ export default function DishPage({ params }: Params) {
       const files = fs.readdirSync(dir)
       photoImages = files
         .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
-        .sort()
-        .map((f) => `/images/${folderName}/${encodeURIComponent(f).replace(/%2F/g, '/')}`)
+        .sort((a, b) => {
+          // Sort numerically by filename (1.JPG, 2.JPG, 3.JPG)
+          const aNum = parseInt(a.match(/\d+/)?.[0] || '0')
+          const bNum = parseInt(b.match(/\d+/)?.[0] || '0')
+          return aNum - bNum
+        })
+        .map((f) => `/images/${folderName}/${f}`)
     }
   } catch {}
 
