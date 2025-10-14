@@ -312,10 +312,6 @@ function ImageSlot({ hint, tall = true }: { hint: string; tall?: boolean }) {
         alt={hint}
         className="absolute inset-0 h-full w-full object-cover opacity-90"
       />
-      <div className="relative z-[1] px-4 py-3 bg-black/40 rounded-lg backdrop-blur-sm">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">Field Documentation</p>
-        <p className="mt-1 text-xs text-slate-200">{hint}</p>
-      </div>
     </div>
   );
 }
