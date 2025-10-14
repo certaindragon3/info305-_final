@@ -1,9 +1,11 @@
 "use client";
 
 import { GridBeams } from "@/components/ui/grid-beams";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { X } from "lucide-react";
 
 export default function ProjectInfoSection() {
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   return (
     <section id="project" className="relative overflow-hidden bg-slate-950 py-24 text-slate-100 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
       <GridBeams
@@ -85,7 +87,20 @@ export default function ProjectInfoSection() {
                     <p className="mt-2 text-sm leading-relaxed text-slate-400">{w.desc}</p>
                   </div>
                   <div className="hidden min-w-[220px] shrink-0 md:block">
-                    <ImageSlot hint={w.hint} />
+                    <button
+                      onClick={() => setLightboxImage(w.imagePath)}
+                      className="relative h-36 w-full cursor-pointer overflow-hidden rounded-xl border border-dashed border-orange-500/30 transition-all duration-300 hover:border-orange-500/50 hover:scale-105"
+                    >
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.15),_transparent_60%)]" />
+                      <img
+                        src={w.imagePath}
+                        alt={w.title}
+                        className="absolute inset-0 h-full w-full object-cover opacity-90"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/20 group-hover:opacity-100">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-white">Click to Enlarge</span>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -231,6 +246,29 @@ Fields (CSV/JSON):
           </div>
         </section>
       </div>
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            onClick={() => setLightboxImage(null)}
+            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white transition-all duration-300 hover:bg-white/20 hover:rotate-90"
+            aria-label="Close lightbox"
+          >
+            <X size={24} />
+          </button>
+          <div className="relative max-h-[90vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={lightboxImage}
+              alt="Enlarged view"
+              className="h-auto max-h-[90vh] w-auto max-w-[90vw] rounded-xl shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -251,67 +289,27 @@ function MetricTile({ value, label, note }: { value: string; label: string; note
 function MethodCard({
   title,
   lines,
-  slotLabel,
+  imagePath,
 }: {
   title: string;
   lines: string[];
-  slotLabel: string;
+  imagePath: string;
 }) {
   return (
     <div className="snap-center min-w-[280px] max-w-[320px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-4 backdrop-blur-sm">
       <div className="aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-orange-500/5 to-slate-900/60">
-        <ImageSlot hint={slotLabel} tall={false} />
+        <img
+          src={imagePath}
+          alt={title}
+          className="h-full w-full object-cover opacity-90"
+        />
       </div>
-      <h4 className="mt-4 text-base font-semibold text-white">{title}</h4>
+      <h4 className="mt-4 text-base font-semibold text-orange-400">{title}</h4>
       <ul className="mt-2 space-y-1">
         {lines.map((l, i) => (
           <li key={i} className="text-xs leading-relaxed text-slate-400">{l}</li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-function ImageSlot({ hint, tall = true }: { hint: string; tall?: boolean }) {
-  // Map hints to actual image paths
-  const getImagePath = (hint: string) => {
-    if (hint.includes("consent") || hint.includes("briefing")) {
-      return "/images/project/step1.png";
-    } else if (hint.includes("exterior") || hint.includes("interior") || hint.includes("ambience")) {
-      return "/images/project/step2.jpeg";
-    } else if (hint.includes("dish") || hint.includes("hero") || hint.includes("plated")) {
-      return "/images/project/step3.jpeg";
-    } else if (hint.includes("interview") || hint.includes("waveform")) {
-      return "/images/project/audio.png";
-    } else if (hint.includes("metadata") || hint.includes("sheet") || hint.includes("data")) {
-      return "/images/project/step4.png";
-    } else if (hint.includes("photography") || hint.includes("close-up")) {
-      return "/images/project/photography_setup.jpeg";
-    } else if (hint.includes("scan") || hint.includes("mesh") || hint.includes("3D")) {
-      return "/images/project/3D_capture.png";
-    } else if (hint.includes("kitchen") || hint.includes("street") || hint.includes("atmosphere")) {
-      return "/images/project/video&atmos.png";
-    } else if (hint.includes("audio") || hint.includes("recording") || hint.includes("waveform")) {
-      return "/images/project/audio.png";
-    } else {
-      // Default fallback
-      return "/images/project/step5.png";
-    }
-  };
-
-  return (
-    <div
-      className={cn(
-        "relative flex items-center justify-center rounded-xl border border-dashed border-orange-500/30 overflow-hidden",
-        tall ? "h-36" : "h-full min-h-40",
-      )}
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.15),_transparent_60%)]" />
-      <img
-        src={getImagePath(hint)}
-        alt={hint}
-        className="absolute inset-0 h-full w-full object-cover opacity-90"
-      />
     </div>
   );
 }
@@ -342,7 +340,7 @@ const metrics = [
 const methods = [
   {
     title: "Photography Setup",
-    slotLabel: "Add dish close-ups / plating stage",
+    imagePath: "/images/project/photography_setup.jpeg",
     lines: [
       "A7R4 + 50mm f/1.2; 3-point soft light at 5000K",
       "Consistent angles per dish for cross-comparison",
@@ -351,7 +349,7 @@ const methods = [
   },
   {
     title: "3D Capture (GLB)",
-    slotLabel: "Add scan screenshot / mesh preview",
+    imagePath: "/images/project/3D_capture.png",
     lines: [
       "Dual path: AI GLB + iPhone LiDAR GLB",
       "3 rings: outer → 45° → top; keep overlap",
@@ -360,7 +358,7 @@ const methods = [
   },
   {
     title: "Video & Atmosphere",
-    slotLabel: "Add kitchen still / street view",
+    imagePath: "/images/project/video&atmos.png",
     lines: [
       "Street exterior & dining ambience clips",
       "Process segments: 配料→上浆→走油→收汁→装盘",
@@ -369,7 +367,7 @@ const methods = [
   },
   {
     title: "Audio Notes",
-    slotLabel: "Add waveform / recording moment",
+    imagePath: "/images/project/audio.png",
     lines: [
       "30–60s chef notes per dish: origin + 判据",
       "Clip-on lav; 10s room tone per location",
@@ -382,27 +380,27 @@ const workflow = [
   {
     title: "Consent & Orientation",
     desc: "Trusted access via concise consent form; align goals and privacy (renovation, recipes, visibility levels).",
-    hint: "Insert photo of signed consent / briefing scene",
+    imagePath: "/images/project/step1.png",
   },
   {
     title: "Space & Ambience",
     desc: "Exterior street context → dining room ambience; establish environmental baseline for narrative continuity.",
-    hint: "Insert exterior or interior ambience still",
+    imagePath: "/images/project/step2.jpeg",
   },
   {
     title: "Dish Capture",
     desc: "Four dishes documented with studio photos, process videos, and 3D capture. Maintain angle and lighting consistency.",
-    hint: "Insert plated dish hero shot",
+    imagePath: "/images/project/step3.jpeg",
   },
   {
     title: "Interview & Voice Notes",
-    desc: "25-minute semi-structured owner interview + 30s chef voice cards (what’s hard, how to judge ‘到位’).",
-    hint: "Insert interview still / waveform",
+    desc: "25-minute semi-structured owner interview + 30s chef voice cards (what's hard, how to judge '到位').",
+    imagePath: "/images/project/step4.png",
   },
   {
     title: "Data & Naming",
     desc: "3-2-1 backups; unified filenames and metadata table link media to dish pages and 3D exhibits.",
-    hint: "Insert screenshot of your metadata sheet",
+    imagePath: "/images/project/step5.png",
   },
 ];
 
