@@ -264,14 +264,7 @@ export default function PhilosophyConceptMap({
       >
         <Background color="#475569" gap={16} size={1} />
         <Controls
-          className="rounded-lg border border-white/10 bg-slate-900/80 backdrop-blur-xl"
-          style={{
-            button: {
-              backgroundColor: 'rgba(15, 23, 42, 0.8)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#94a3b8',
-            },
-          }}
+          className="rounded-lg border border-white/10 bg-slate-900/80 backdrop-blur-xl [&_button]:bg-slate-950/80 [&_button]:border-b [&_button]:border-white/10 [&_button]:text-slate-400"
         />
         <MiniMap
           nodeColor={(node) => {

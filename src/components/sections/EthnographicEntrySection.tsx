@@ -56,7 +56,7 @@ export default function EthnographicEntrySection() {
 
               <div className="space-y-6">
                 <p className="text-base leading-relaxed text-slate-300">
-                  The restaurant's street-level frontage on Fenghuang Street draws regulars rather than destination diners. Signage is plain, consonant with a value proposition the owner describes as <span className="font-semibold text-orange-400">"接地气"</span> (grounded)—affordability and freshness "as the first gate to guard."
+                  The restaurant&apos;s street-level frontage on Fenghuang Street draws regulars rather than destination diners. Signage is plain, consonant with a value proposition the owner describes as <span className="font-semibold text-orange-400">&ldquo;接地气&rdquo;</span> (grounded)—affordability and freshness &ldquo;as the first gate to guard.&rdquo;
                 </p>
 
                 <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-6">
@@ -320,7 +320,7 @@ export default function EthnographicEntrySection() {
                     Quality as Craft Value
                   </p>
                   <blockquote className="border-l-2 border-orange-500 pl-4 text-base italic leading-relaxed text-slate-200">
-                    "新鲜度是第一道门" (Freshness is the first gate to guard)
+                    &ldquo;新鲜度是第一道门&rdquo; (Freshness is the first gate to guard)
                   </blockquote>
                   <p className="text-sm leading-relaxed text-slate-300">
                     This operates as a <strong>craft value</strong> rather than a branding slogan. It structures daily routines: morning market sourcing, tactile assessment (look, smell, touch), and time-sensitive prep sequences. We treat this value as a curatorial principle—footage and 3D assets privilege material truth over excessive post-processing.
