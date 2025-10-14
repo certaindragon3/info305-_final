@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Calendar, Clock, Camera, Users, FileText, Shield } from "lucide-react";
+import { Calendar, Clock, Camera, Users, FileText, Shield, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export default function EthnographicEntrySection() {
   return (
@@ -67,20 +68,25 @@ export default function EthnographicEntrySection() {
                   </p>
                 </div>
 
-                {/* Floor Plan Placeholder */}
+                {/* Street View Video */}
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-slate-800/50">
-                  <div className="flex h-full items-center justify-center">
-                    <div className="text-center">
-                      <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-orange-500/10 flex items-center justify-center">
-                        <Camera className="h-8 w-8 text-orange-400" />
-                      </div>
-                      <p className="text-sm font-semibold text-slate-400">
-                        Interactive Floor Plan
-                      </p>
-                      <p className="mt-1 text-xs text-slate-500">
-                        Kitchen zones: 初加工 → 蒸板 → 梅炉 → 打荷
-                      </p>
-                    </div>
+                  <div className="relative h-full w-full">
+                    <iframe
+                      className="absolute inset-0 h-full w-full"
+                      src="https://www.youtube.com/embed/_H3U9LTUO6k?rel=0&showinfo=0&modestbranding=1"
+                      title="Street Approach to Acheng Fandian"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="absolute bottom-4 left-4 rounded-lg bg-black/60 px-3 py-2 backdrop-blur-sm">
+                    <p className="text-xs font-medium text-white">
+                      Street approach to Acheng Fandian
+                    </p>
+                    <p className="text-xs text-slate-300">
+                      Fenghuang Street, Subang
+                    </p>
                   </div>
                 </div>
               </div>
@@ -226,16 +232,19 @@ export default function EthnographicEntrySection() {
                 </p>
               </div>
 
-              {/* Video Segments Grid */}
+              {/* Craft Documentation Grid */}
               <div className="grid gap-6 md:grid-cols-3">
-                {/* Segment 1: Knife Work */}
+                {/* Documentation 1: Knife Work */}
                 <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-800/30">
                   <div className="relative aspect-video bg-slate-800/50">
-                    <div className="flex h-full items-center justify-center">
-                      <div className="text-center">
-                        <FileText className="mx-auto h-8 w-8 text-orange-400" />
-                        <p className="mt-2 text-xs text-slate-400">Video Clip</p>
-                      </div>
+                    <img
+                      src="/images/eth/Knife.png"
+                      alt="Knife Work: Lattice Precision"
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute top-4 right-4">
+                      <Camera className="h-4 w-4 text-white/80" />
                     </div>
                   </div>
                   <div className="p-4">
@@ -243,7 +252,7 @@ export default function EthnographicEntrySection() {
                       Knife Work: Lattice Precision
                     </p>
                     <p className="mb-3 text-xs text-slate-400">
-                      Duration: 45s | 松鼠桂鱼
+                      Photo Documentation | 松鼠桂鱼 preparation
                     </p>
                     <p className="text-xs leading-relaxed text-slate-500">
                       <strong>Tacit cues:</strong> Blade angle relative to fish spine, depth control to avoid membrane rupture, rhythmic tempo indicating muscle memory
@@ -251,14 +260,17 @@ export default function EthnographicEntrySection() {
                   </div>
                 </div>
 
-                {/* Segment 2: Oil Temperature */}
+                {/* Documentation 2: Oil Temperature */}
                 <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-800/30">
                   <div className="relative aspect-video bg-slate-800/50">
-                    <div className="flex h-full items-center justify-center">
-                      <div className="text-center">
-                        <FileText className="mx-auto h-8 w-8 text-orange-400" />
-                        <p className="mt-2 text-xs text-slate-400">Video Clip</p>
-                      </div>
+                    <img
+                      src="/images/eth/Oil.png"
+                      alt="Oil Temperature: Bubble Tempo"
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute top-4 right-4">
+                      <Camera className="h-4 w-4 text-white/80" />
                     </div>
                   </div>
                   <div className="p-4">
@@ -266,7 +278,7 @@ export default function EthnographicEntrySection() {
                       Oil Temperature: Bubble Tempo
                     </p>
                     <p className="mb-3 text-xs text-slate-400">
-                      Duration: 30s | Deep-frying technique
+                      Photo Documentation | Deep-frying technique
                     </p>
                     <p className="text-xs leading-relaxed text-slate-500">
                       <strong>Tacit cues:</strong> Bubble size, tempo, oil shimmer patterns—decision criteria encoded in visual and auditory signals
@@ -274,14 +286,17 @@ export default function EthnographicEntrySection() {
                   </div>
                 </div>
 
-                {/* Segment 3: Sauce Finishing */}
+                {/* Documentation 3: Sauce Finishing */}
                 <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-800/30">
                   <div className="relative aspect-video bg-slate-800/50">
-                    <div className="flex h-full items-center justify-center">
-                      <div className="text-center">
-                        <FileText className="mx-auto h-8 w-8 text-orange-400" />
-                        <p className="mt-2 text-xs text-slate-400">Video Clip</p>
-                      </div>
+                    <img
+                      src="/images/eth/Sauce.png"
+                      alt="Sauce Finishing: Glaze at Nappe"
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
+                    <div className="absolute top-4 right-4">
+                      <Camera className="h-4 w-4 text-white/80" />
                     </div>
                   </div>
                   <div className="p-4">
@@ -289,7 +304,7 @@ export default function EthnographicEntrySection() {
                       Sauce Finishing: Glaze at Nappe
                     </p>
                     <p className="mb-3 text-xs text-slate-400">
-                      Duration: 40s | 活卤 technique
+                      Photo Documentation | 活卤 technique
                     </p>
                     <p className="text-xs leading-relaxed text-slate-500">
                       <strong>Tacit cues:</strong> Glaze viscosity and clarity at the moment of nappe—visual judgment of sweet-sour balance

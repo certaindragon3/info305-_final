@@ -51,10 +51,10 @@ const PhotoGallerySection = ({ className }: SectionProps) => {
             Visual Documentation
           </p>
           <h2 className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
-            Spatial and Social Context
+            Feel the Acheng Cuisine
           </h2>
           <p className="mt-4 text-base text-slate-300">
-            Photographic evidence from fieldwork and community sources documenting restaurant atmosphere and daily operations.
+            Photographic evidence from community sources documenting restaurant atmosphere.
           </p>
         </header>
 

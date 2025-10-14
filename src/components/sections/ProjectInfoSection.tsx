@@ -103,17 +103,19 @@ export default function ProjectInfoSection() {
             Owner interview excerpt documenting heritage, technique, and preservation mindset.
           </p>
           <div className="mt-5 overflow-hidden rounded-xl border border-white/10 bg-black">
-            <video
-              className="aspect-video h-full w-full"
-              controls
-              playsInline
-              preload="metadata"
-            >
-              <source src="/videos/renovation.mp4" type="video/mp4" />
-            </video>
+            <div className="relative aspect-video w-full">
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube.com/embed/AAY6KJFXwgY?rel=0&showinfo=0&modestbranding=1"
+                title="Owner Interview: Heritage and Technique at Acheng Fandian"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
           <p className="mt-3 text-xs text-slate-500">
-            Replace video source with your interview file if different.
+            Interview with Mr. Shen Jiecheng discussing culinary heritage and preservation philosophy.
           </p>
         </section>
 
@@ -186,6 +188,44 @@ Fields (CSV/JSON):
                   {t.category}
                 </div>
                 <div className="mt-2 text-sm font-medium text-slate-200">{t.tools}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Academic Framework */}
+        <section className="grid gap-10 md:grid-cols-[1.1fr_1.5fr]">
+          <div className="sticky top-24 h-fit self-start">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">
+              Theoretical Framework
+            </p>
+            <h3 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
+              Academic Significance
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-slate-400">
+              This project bridges interactive heritage discourse and human–food digital narration, positioning neighborhood restaurants as stewards of cultural memory and tacit knowledge.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {academicFramework.map((item, i) => (
+              <div
+                key={i}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-6 transition-all duration-300 hover:border-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/10"
+              >
+                <div className="absolute -top-10 -right-10 h-24 w-24 rounded-full bg-orange-500/10 blur-3xl" />
+                <div className="relative z-[1]">
+                  <div className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-400">
+                    {item.category}
+                  </div>
+                  <h4 className="mt-2 text-lg font-semibold text-white">{item.title}</h4>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.description}</p>
+                  {item.citation && (
+                    <div className="mt-4 rounded-lg border border-white/10 bg-slate-900/50 p-3">
+                      <p className="text-xs leading-relaxed text-slate-500">{item.citation}</p>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -348,4 +388,38 @@ const techText = [
   { category: "3D Capture", tools: "iPhone LiDAR · Reality Composer" },
   { category: "Models", tools: "GLB (AI + LiDAR)" },
   { category: "Build", tools: "Static Generation" },
+];
+
+const academicFramework = [
+  {
+    category: "Embodied Interaction",
+    title: "Hand-Based Manipulation as Cultural Learning",
+    description:
+      "Interactive digital narration enables visitors to engage with culinary heritage through embodied attention and exploratory manipulation. By inviting the viewer's hand through 3D rotation and zoom, we evoke a mode of learning that recalls studio pedagogy in craft, where hands mediate meaning between the viewer's sensorimotor intuition and the kitchen's tacit criteria.",
+    citation:
+      'Silvia Mirri, Catia Prandi, Marco Roccetti, and Paola Salomoni, "Handmade Narrations: Handling Digital Narrations on Food and Gastronomic Culture," ACM Journal on Computing and Cultural Heritage 10, no. 4 (July 2017): Article 20, https://doi.org/10.1145/3097569.',
+  },
+  {
+    category: "Digital Heritage",
+    title: "Reconstructive Media as Interpretive Instrument",
+    description:
+      "When direct access to cultural practices is constrained, contemporary technologies—3D fabrication, media performance, and interactive visualization—can render otherwise inaccessible traces sensible to modern audiences. This project adapts that logic to edible culture, using 3D not to monumentalize an object but to stabilize a way of seeing that might otherwise disappear with a retiring chef.",
+    citation:
+      'Tak‑Cheung Hui and Yu‑Chia Kuo, "A Concert in a Vanished Church: Contextualizing Peace Island\'s Auditory History with Modern Technology," Proceedings of the ACM on Computer Graphics and Interactive Techniques 7, no. 4 (August 2024): Article 65, https://doi.org/10.1145/3664218.',
+  },
+  {
+    category: "Intangible Heritage",
+    title: "Neighborhood Kitchens as Cultural Stewards",
+    description:
+      "By documenting Acheng Fandian at the threshold of intergenerational transfer, we attend to the fragile infrastructures through which taste is reproduced: seasonal sourcing, the patience of mise‑en‑place, and the rhythm of service that calibrates technique to the day's variability. The micro‑museum foregrounds a category of culinary heritage that often escapes institutional attention because it is ordinary and ongoing rather than spectacular.",
+    citation:
+      'Mr. Shen Jiecheng (owner‑chef, Acheng Fandian), interview by the project team, Suzhou, September 21, 2025. "新鲜度是第一道门 (Freshness is the first gate to guard)"—a craft value rather than a branding slogan.',
+  },
+  {
+    category: "Methodological Contribution",
+    title: "Replicable Pattern for Community-Led Preservation",
+    description:
+      "This project demonstrates that a careful blend of fieldwork and web‑native interactivity can capture and transmit fragile culinary knowledge at neighborhood scale. Rather than isolating recipes, we connect technique to space, time, and decision cues in a way that supports both scholarly citation and lay learning. The hope is that similar micro‑museums could be developed around other kitchens, forming a distributed documentation of regional cuisines.",
+    citation: null,
+  },
 ];

@@ -248,6 +248,25 @@ export default function DishPage({ params }: Params) {
           </div>
         </div>
 
+        {/* Methodology note: dual 3D capture rationale */}
+        <div className="mx-auto mt-6 max-w-3xl rounded-2xl border border-white/10 bg-slate-900/60 px-6 py-4 backdrop-blur-xl">
+          <div className="flex items-start gap-4">
+            <div className="mt-1 flex-shrink-0">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500/10 ring-1 ring-orange-500/30">
+                <svg className="h-3.5 w-3.5 text-orange-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div className="flex-1">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-orange-400/90">Methodological Note</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                We present <span className="font-semibold text-white">two 3D models</span>: an <span className="text-orange-300">AI-generated mesh</span> optimized for visual clarity and pedagogical annotation, and a <span className="text-orange-300">photogrammetry scan</span> preserving material authenticity—glossiness, micro-texture, and color fidelity. This dual approach balances <span className="italic">analytical legibility</span> with <span className="italic">documentary precision</span>, addressing the trade-offs inherent in digital food preservation.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Interactive window */}
         <div className="mt-8">
           <DishInteractiveWindow
