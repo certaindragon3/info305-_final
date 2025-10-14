@@ -273,17 +273,48 @@ function MethodCard({
 }
 
 function ImageSlot({ hint, tall = true }: { hint: string; tall?: boolean }) {
+  // Map hints to actual image paths
+  const getImagePath = (hint: string) => {
+    if (hint.includes("consent") || hint.includes("briefing")) {
+      return "/images/project/step1.png";
+    } else if (hint.includes("exterior") || hint.includes("interior") || hint.includes("ambience")) {
+      return "/images/project/step2.jpeg";
+    } else if (hint.includes("dish") || hint.includes("hero") || hint.includes("plated")) {
+      return "/images/project/step3.jpeg";
+    } else if (hint.includes("interview") || hint.includes("waveform")) {
+      return "/images/project/audio.png";
+    } else if (hint.includes("metadata") || hint.includes("sheet") || hint.includes("data")) {
+      return "/images/project/step4.png";
+    } else if (hint.includes("photography") || hint.includes("close-up")) {
+      return "/images/project/photography_setup.jpeg";
+    } else if (hint.includes("scan") || hint.includes("mesh") || hint.includes("3D")) {
+      return "/images/project/3D_capture.png";
+    } else if (hint.includes("kitchen") || hint.includes("street") || hint.includes("atmosphere")) {
+      return "/images/project/video&atmos.png";
+    } else if (hint.includes("audio") || hint.includes("recording") || hint.includes("waveform")) {
+      return "/images/project/audio.png";
+    } else {
+      // Default fallback
+      return "/images/project/step5.png";
+    }
+  };
+
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center rounded-xl border border-dashed border-orange-500/30 text-center",
+        "relative flex items-center justify-center rounded-xl border border-dashed border-orange-500/30 overflow-hidden",
         tall ? "h-36" : "h-full min-h-40",
       )}
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.15),_transparent_60%)]" />
-      <div className="relative z-[1] px-4 py-3">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">Image Placeholder</p>
-        <p className="mt-1 text-xs text-slate-400">{hint}</p>
+      <img
+        src={getImagePath(hint)}
+        alt={hint}
+        className="absolute inset-0 h-full w-full object-cover opacity-90"
+      />
+      <div className="relative z-[1] px-4 py-3 bg-black/40 rounded-lg backdrop-blur-sm">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-orange-400">Field Documentation</p>
+        <p className="mt-1 text-xs text-slate-200">{hint}</p>
       </div>
     </div>
   );
