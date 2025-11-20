@@ -14,9 +14,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const philosophy = getPhilosophyBySlug(params.slug);
+  const { slug } = await params;
+  const philosophy = getPhilosophyBySlug(slug);
 
   if (!philosophy) {
     return {
@@ -30,8 +31,9 @@ export async function generateMetadata({
   };
 }
 
-export default function PhilosophyDetailPage({ params }: { params: { slug: string } }) {
-  const philosophy = getPhilosophyBySlug(params.slug);
+export default async function PhilosophyDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const philosophy = getPhilosophyBySlug(slug);
 
   if (!philosophy) {
     notFound();
