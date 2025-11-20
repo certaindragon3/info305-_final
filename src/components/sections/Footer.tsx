@@ -29,8 +29,8 @@ export default function Footer(): React.ReactElement {
               <g
                 className="animate-scroll"
                 style={{
-                  // @ts-ignore custom property for animation duration
-                  ["--animation-duration" as any]: "30s",
+                  // @ts-expect-error custom property for animation duration
+                  ["--animation-duration"]: "30s",
                   willChange: "transform",
                 }}
               >
