@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Center, useGLTF } from '@react-three/drei';
-import { Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 import { DishModel3DPlaceholder } from './DishModel3DPlaceholder';
 
 // For mainpage gallery section
@@ -16,10 +16,11 @@ interface DishModel3DProps {
 
 function Model({ modelPath }: { modelPath: string }) {
   const { scene } = useGLTF(modelPath);
+  const clonedScene = useMemo(() => scene.clone(true), [scene]);
 
   return (
     <Center>
-      <primitive object={scene} scale={3.5} />
+      <primitive object={clonedScene} scale={3.5} />
     </Center>
   );
 }

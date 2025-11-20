@@ -10,14 +10,15 @@ import { DishImageCarousel } from '@/components/dish/gallery/DishImageCarousel'
 import { DishBentoCards } from '@/components/dish/info/DishBentoCards'
 import { DishInteractiveWindow } from '@/components/dish/3d/DishInteractiveWindow'
 
-type Params = { params: { slug: string } }
+type Params = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
   return dishes.map((d) => ({ slug: d.slug }))
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const dish = getDishBySlug(params.slug)
+  const { slug } = await params
+  const dish = getDishBySlug(slug)
   if (!dish) return {}
   const title = `${dish.nameZh} | ${dish.name} — Acheng Museum`
   const description = dish.description
@@ -38,8 +39,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   }
 }
 
-export default function DishPage({ params }: Params) {
-  const dish = getDishBySlug(params.slug)
+export default async function DishPage({ params }: Params) {
+  const { slug } = await params
+  const dish = getDishBySlug(slug)
   if (!dish) return notFound()
 
   // Derive model variants
@@ -74,7 +76,7 @@ export default function DishPage({ params }: Params) {
         })
         .map((f) => `/images/${folderName}/${f}`)
     }
-  } catch {}
+  } catch { }
 
   // Perspective cards content per dish (English annotations for rotation stage)
   const cards: PerspectiveCardItem[] = (() => {

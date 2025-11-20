@@ -10,7 +10,8 @@ import { lockScroll, unlockScroll } from "@/components/dish/helpers/scroll-lock"
 // Reuse AnyModel loader logic through a local definition to avoid circular deps
 function GLBModel({ url }: { url: string }) {
   const { scene } = useGLTF(url);
-  return <primitive object={scene} />;
+  const clonedScene = useMemo(() => scene.clone(true), [scene]);
+  return <primitive object={clonedScene} />;
 }
 
 // GLB only — rotation stage always uses AI GLB
