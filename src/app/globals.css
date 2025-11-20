@@ -246,4 +246,23 @@
   .animate-scroll {
     animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
   }
+
+  /* Footer wave text utilities */
+  .footer-root {
+    background: linear-gradient(180deg, rgba(15,23,42,1) 0%, rgba(10,12,15,1) 100%);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-wave-viewport {
+    overflow: hidden;
+  }
+
+  .footer-wave-text {
+    white-space: nowrap;
+    will-change: transform;
+  }
+
+  .footer-meta {
+    color: rgba(203,213,225,0.7);
+  }
 }

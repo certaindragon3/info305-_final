@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ModelPreloader } from "@/components/ModelPreloader";
+import { HydrationStyleReset } from "@/components/HydrationStyleReset";
+import Footer from "@/components/sections/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         {/* Preconnect to optimize external resource loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,9 +34,12 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
+        suppressHydrationWarning
       >
+        <HydrationStyleReset />
         <ModelPreloader />
         {children}
+        <Footer />
       </body>
     </html>
   );

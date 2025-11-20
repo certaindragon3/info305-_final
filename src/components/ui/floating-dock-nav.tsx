@@ -16,6 +16,7 @@ const ITEMS: Item[] = [
 export default function FloatingDockNav({ className }: { className?: string }) {
   const [active, setActive] = useState<string>("hero");
   const [isHeroVisible, setIsHeroVisible] = useState<boolean>(true);
+  const [isFooterVisible, setIsFooterVisible] = useState<boolean>(false);
   const observers = useMemo(() => new Map<string, IntersectionObserver>(), []);
 
   useEffect(() => {
@@ -69,6 +70,30 @@ export default function FloatingDockNav({ className }: { className?: string }) {
     };
   }, []);
 
+  // Separate observer for footer visibility to auto-hide dock
+  useEffect(() => {
+    const footerEl = document.getElementById("site-footer");
+    if (!footerEl) return;
+
+    const footerObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          setIsFooterVisible(entry.isIntersecting);
+        }
+      },
+      {
+        root: null,
+        threshold: 0.1,
+      }
+    );
+
+    footerObserver.observe(footerEl);
+
+    return () => {
+      footerObserver.disconnect();
+    };
+  }, []);
+
   const onJump = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -81,7 +106,7 @@ export default function FloatingDockNav({ className }: { className?: string }) {
       <nav
         className={cn(
           "pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-2 py-2 backdrop-blur-2xl shadow-2xl shadow-orange-500/10 transition-all duration-500 ease-in-out",
-          isHeroVisible ? "translate-y-32 opacity-0" : "translate-y-0 opacity-100"
+          isHeroVisible || isFooterVisible ? "translate-y-32 opacity-0" : "translate-y-0 opacity-100"
         )}
       >
         {ITEMS.map((item) => {
