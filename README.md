@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Acheng Restaurant Virtual Museum
+
+A digital micro-museum preserving intangible culinary heritage through immersive web experience.
+
+> Documenting tacit technique, spatial routines, and oral histories at Acheng Fandian — a neighborhood Suzhou eatery in continuous operation since 1999.
+
+## Overview
+
+This project translates ethnographic fieldwork into an engaging public interface, positioned between academic rigor and accessible storytelling. It serves as a research instrument that uses design to shape how visitors understand culinary knowledge transmission.
+
+**Live Website**: [acheng.jiesen-huang.com](https://acheng.jiesen-huang.com)
+
+## Tech Stack
+
+| Category | Technologies |
+|----------|--------------|
+| Framework | Next.js 15, React 19, TypeScript |
+| 3D Graphics | React Three Fiber, Three.js, Drei |
+| Styling | Tailwind CSS v4, shadcn/ui |
+| Animations | Framer Motion, tw-animate-css |
+| UI Components | Aceternity UI, Magic UI |
+| Visualization | React Flow |
+| Deployment | Cloudflare Pages |
+
+## Features
+
+- **Immersive Scroll Journey**: Single-page narrative from street approach to cultural understanding
+- **Interactive 3D Models**: Examine dishes from all angles with dual capture variants (AI mesh + LiDAR)
+- **Philosophy Concept Maps**: React Flow-based interactive knowledge graphs
+- **Ethnographic Documentation**: Fieldwork video, chef interview audio, methodology transparency
+- **Community Voice Integration**: Triangulated evidence from researcher observation and customer testimonials
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── page.tsx            # Main scroll page
+│   ├── dishes/[slug]/      # Dynamic dish detail pages
+│   └── philosophy/[slug]/  # Philosophy deep-dive pages
+├── components/
+│   ├── sections/           # Page sections (Hero, Gallery, About, etc.)
+│   ├── dish/               # Dish page components (3D, gallery, info)
+│   ├── philosophy/         # Philosophy visualization components
+│   └── ui/                 # Reusable UI primitives
+├── lib/
+│   ├── data.ts             # Static content (dishes, reviews)
+│   ├── philosophies.ts     # Philosophy data with concept maps
+│   └── types.ts            # TypeScript interfaces
+└── public/
+    ├── models/             # GLB 3D models
+    ├── images/             # Photography assets
+    ├── audio/              # Chef interview clips
+    └── videos/             # Fieldwork documentation
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or pnpm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/acheng-museum.git
+cd acheng-museum
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the project.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Production build
+npm run build
 
-## Learn More
+# Preview production build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Deploy to Cloudflare Pages
+npm run deploy
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Content
 
-## Deploy on Vercel
+### Dishes Documented
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Dish | Chinese | Category |
+|------|---------|----------|
+| Squirrel Fish | 松鼠桂鱼 | Signature |
+| Lotus Pond Stir-fry | 荷塘小炒 | Classic |
+| Biluochun Tea Shrimp | 碧螺虾仁 | Seasonal |
+| Hot Oil Eel | 响油鳝糊 | Classic |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Philosophies Explored
+
+- **Seasonal Sourcing** (应时应季): "Freshness is the first gate to guard"
+- **Sincerity & Craft** (诚与工): Embodied technique and quality standards
+- **Grounded Approach** (接地气): Community-embedded business model
+
+## Fieldwork
+
+- **Date**: September 21, 2025
+- **Duration**: 4 hours (11:00–15:00)
+- **Methods**: Participant observation, semi-structured interview, dual 3D capture pipeline
+- **Participant**: Mr. Shen Jiecheng (owner-chef since 1999)
+
+## Academic Context
+
+This project explores how tacit culinary knowledge — skills embedded in hands, not books — can be preserved through digital media. It draws on theories of embodied knowledge, intangible cultural heritage, and human-food interaction.
+
+## License
+
+This project is for academic and educational purposes.
+
+## Author
+
+**Jiesen Huang**
+INFO 305 Project, Fall 2025
+
+---
+
+*"Solution Always Prevails"*
