@@ -265,4 +265,14 @@
   .footer-meta {
     color: rgba(203,213,225,0.7);
   }
+
+  .footer-wave-track {
+    display: flex;
+    width: 200%;
+    will-change: transform;
+  }
+
+  .footer-wave-svg {
+    flex: 0 0 50%;
+  }
 }
