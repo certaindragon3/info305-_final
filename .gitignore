@@ -44,3 +44,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 wrangler.toml
+
+# portfolio docs (personal)
+PORTFOLIO_FUNCTION_FLOW.md
+PORTFOLIO_MINDMAP.md
