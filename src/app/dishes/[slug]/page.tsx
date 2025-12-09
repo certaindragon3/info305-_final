@@ -66,15 +66,29 @@ export default async function DishPage({ params }: Params) {
     if (folderName) {
       const dir = path.join(process.cwd(), 'public', 'images', folderName)
       const files = fs.readdirSync(dir)
-      photoImages = files
+      
+      // Prefer webp files; group by base name and pick webp if available
+      const fileMap = new Map<string, string>()
+      files
         .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
-        .sort((a, b) => {
-          // Sort numerically by filename (1.JPG, 2.JPG, 3.JPG)
+        .forEach((f) => {
+          const baseName = f.replace(/\.(jpe?g|png|webp)$/i, '')
+          const ext = f.split('.').pop()?.toLowerCase()
+          const existing = fileMap.get(baseName)
+          // Prioritize webp over other formats
+          if (!existing || ext === 'webp') {
+            fileMap.set(baseName, f)
+          }
+        })
+      
+      photoImages = Array.from(fileMap.entries())
+        .sort(([a], [b]) => {
+          // Sort numerically by filename (1, 2, 3)
           const aNum = parseInt(a.match(/\d+/)?.[0] || '0')
           const bNum = parseInt(b.match(/\d+/)?.[0] || '0')
           return aNum - bNum
         })
-        .map((f) => `/images/${folderName}/${f}`)
+        .map(([, fileName]) => `/images/${folderName}/${fileName}`)
     }
   } catch { }
 

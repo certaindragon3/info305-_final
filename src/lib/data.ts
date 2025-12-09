@@ -30,7 +30,7 @@ export const dishes: Dish[] = [
     },
     media: {
       model3D: '/models/squirrel-fish.glb',
-      images: ['/images/squirrel-fish-1.jpg', '/images/squirrel-fish-2.jpg'],
+      images: ['/images/Squirrel_Fish/1.webp', '/images/Squirrel_Fish/2.webp'],
       audio: '/audio/chef-squirrel-fish.mp3'
     },
     chef: {
@@ -70,7 +70,7 @@ export const dishes: Dish[] = [
     },
     media: {
       model3D: '/models/lotus-stir-fry.glb',
-      images: ['/images/lotus-stir-fry-1.jpg']
+      images: ['/images/Lotus_Pond_Stir-fry/1.webp', '/images/Lotus_Pond_Stir-fry/2.webp']
     },
     culturalSignificance: 'Reflects the Subang preference for clarity and finesse—crisp textures, gentle seasoning, and seasonal produce.'
   },
@@ -102,7 +102,7 @@ export const dishes: Dish[] = [
     },
     media: {
       model3D: '/models/biluochun-shrimp.glb',
-      images: ['/images/biluochun-shrimp-1.jpg']
+      images: ['/images/Biluochun_Tea Shrimp/1.webp', '/images/Biluochun_Tea Shrimp/2.webp']
     },
     culturalSignificance: 'Showcases Suzhou terroir—tea and waterways—through refined technique and subtle aromas.'
   },
@@ -134,7 +134,7 @@ export const dishes: Dish[] = [
     },
     media: {
       model3D: '/models/hot-oil-eel.glb',
-      images: ['/images/hot-oil-eel-1.jpg']
+      images: ['/images/Hot_Oil_Eel/1.webp', '/images/Hot_Oil_Eel/2.webp']
     },
     culturalSignificance: 'Represents texture mastery and the hallmark finishing technique of Jiangnan kitchens.'
   }
