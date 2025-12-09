@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ModelPreloader } from "@/components/ModelPreloader";
 import { HydrationStyleReset } from "@/components/HydrationStyleReset";
+import GlobalCanvas from "@/components/canvas/GlobalCanvas";
 import Footer from "@/components/sections/Footer";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
       >
         <HydrationStyleReset />
         <ModelPreloader />
+        <GlobalCanvas />
         {children}
         <Footer />
       </body>
