@@ -290,10 +290,12 @@ function MethodCard({
   title,
   lines,
   imagePath,
+  imageClassName,
 }: {
   title: string;
   lines: string[];
   imagePath: string;
+  imageClassName?: string;
 }) {
   return (
     <div className="snap-center min-w-[280px] max-w-[320px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-4 backdrop-blur-sm">
@@ -301,7 +303,7 @@ function MethodCard({
         <img
           src={imagePath}
           alt={title}
-          className="h-full w-full object-cover opacity-90"
+          className={`h-full w-full object-cover opacity-90 ${imageClassName || ""}`}
         />
       </div>
       <h4 className="mt-4 text-base font-semibold text-orange-400">{title}</h4>
@@ -341,6 +343,7 @@ const methods = [
   {
     title: "Photography Setup",
     imagePath: "/images/project/photography_setup.webp",
+    imageClassName: "rotate-90 scale-125",
     lines: [
       "A7R4 + 50mm f/1.2; 3-point soft light at 5000K",
       "Consistent angles per dish for cross-comparison",

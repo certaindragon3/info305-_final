@@ -1,6 +1,6 @@
 "use client";
 
-import { View, OrbitControls, Center, useGLTF } from '@react-three/drei';
+import { View, OrbitControls, Center, useGLTF, PerspectiveCamera } from '@react-three/drei';
 import { Suspense, useMemo, useEffect, useState, useRef } from 'react';
 import { DishModel3DPlaceholder } from './DishModel3DPlaceholder';
 
@@ -27,6 +27,7 @@ function Model({ modelPath }: { modelPath: string }) {
 function ModelContent({ modelPath, interactive = true }: { modelPath: string; interactive?: boolean }) {
   return (
     <>
+      <PerspectiveCamera makeDefault position={[0, 3, 5]} fov={50} />
       {/* Enhanced lighting for brighter models */}
       <ambientLight intensity={1.2} />
       <directionalLight position={[10, 10, 5]} intensity={2.0} />
