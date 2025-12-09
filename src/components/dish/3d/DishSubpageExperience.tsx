@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Center, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "motion/react";
+import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 
 // Reuse AnyModel loader logic through a local definition to avoid circular deps
 function GLBModel({ url }: { url: string }) {
@@ -29,15 +29,32 @@ interface DishSubpageExperienceProps {
   modelScale?: number; // scale multiplier for both stages
 }
 
+// Invalidate render only when needed
+function RenderController() {
+  const { invalidate } = useThree();
+  useEffect(() => {
+    // Initial render
+    invalidate();
+  }, [invalidate]);
+  return null;
+}
+
 function ModelRotator({ url, progress, modelScale }: { url: string; progress: number; modelScale: number }) {
   const groupRef = useRef<THREE.Group>(null);
+  const { invalidate } = useThree();
 
   // Smooth rotation logic
   useFrame(() => {
     if (!groupRef.current) return;
     const targetRotation = progress * Math.PI * 2;
-    // Simple lerp for smoothness
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotation, 0.1);
+    const currentRotation = groupRef.current.rotation.y;
+    const newRotation = THREE.MathUtils.lerp(currentRotation, targetRotation, 0.1);
+    
+    // Only update if there's meaningful change
+    if (Math.abs(newRotation - currentRotation) > 0.001) {
+      groupRef.current.rotation.y = newRotation;
+      invalidate(); // Request render only when rotating
+    }
   });
 
   return (
@@ -49,7 +66,7 @@ function ModelRotator({ url, progress, modelScale }: { url: string; progress: nu
   );
 }
 
-function RotationStage({ url, progress, dishName, dishNameZh, annotations, modelScale = 1 }: { url: string; progress: number; dishName: string; dishNameZh: string; annotations: DishSubpageExperienceProps["annotations"]; modelScale?: number }) {
+function RotationStage({ url, progress, annotations, modelScale = 1 }: { url: string; progress: number; annotations: DishSubpageExperienceProps["annotations"]; modelScale?: number }) {
   // Calculate current segment (0..3) for annotations
   const segment = Math.min(Math.floor(progress * 4), 3);
 
@@ -57,7 +74,11 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
 
   return (
     <div className="relative h-screen w-full">
-      <Canvas camera={{ position: [0, 2.2, 5.2], fov: 52 }}>
+      <Canvas 
+        camera={{ position: [0, 2.2, 5.2], fov: 52 }}
+        frameloop="demand" // Only render when invalidated (saves GPU)
+      >
+        <RenderController />
         <ambientLight intensity={1.15} />
         <directionalLight position={[7, 10, 7]} intensity={1.7} />
         <spotLight position={[0, 12, 2]} angle={0.4} penumbra={1} intensity={1.6} />
@@ -112,6 +133,14 @@ function RotationStage({ url, progress, dishName, dishNameZh, annotations, model
 
 export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annotations, rotationSectionVh = 400, modelScale = 3 }: DishSubpageExperienceProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  // Keep dishName/dishNameZh for future use (SEO, metadata, etc.)
+  void dishName;
+  void dishNameZh;
+
+  // Preload model on mount
+  useEffect(() => {
+    useGLTF.preload(aiModelUrl);
+  }, [aiModelUrl]);
 
   // Use framer-motion's useScroll to track progress of the container relative to the viewport
   const { scrollYProgress } = useScroll({
@@ -144,8 +173,6 @@ export function DishSubpageExperience({ aiModelUrl, dishName, dishNameZh, annota
         <RotationStage
           url={aiModelUrl}
           progress={progress}
-          dishName={dishName}
-          dishNameZh={dishNameZh}
           annotations={annotations}
           modelScale={modelScale}
         />
