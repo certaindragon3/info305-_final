@@ -107,7 +107,7 @@ export default function AboutSection() {
                   {/* Photo with dramatic reveal */}
                   <div className="group/image relative overflow-hidden rounded-xl ring-1 ring-white/10 transition-all duration-500 hover:ring-orange-500/50">
                     <Image
-                      src="/images/aboutsection/old.png"
+                      src="/images/aboutsection/old.webp"
                       alt="Acheng Restaurant original storefront in 1999"
                       width={800}
                       height={600}
@@ -319,7 +319,7 @@ export default function AboutSection() {
                   {/* Renovated Storefront Photo */}
                   <div className="group/image relative overflow-hidden rounded-xl ring-1 ring-white/10 transition-all duration-500 hover:ring-orange-500/50">
                     <Image
-                      src="/images/aboutsection/renovated.jpeg"
+                      src="/images/aboutsection/renovated.webp"
                       alt="Acheng Restaurant after 2024 renovation"
                       width={800}
                       height={600}
@@ -410,7 +410,7 @@ export default function AboutSection() {
     {
       icon: Users,
       title: "Accessibility to All",
-      image: "/images/aboutsection/accessibility.png",
+      image: "/images/aboutsection/accessibility.webp",
       description:
         "Positioned as a restaurant for ordinary people with affordable pricing and high cost-performance ratio, ensuring quality Subang cuisine is accessible to everyone.",
       quote:
@@ -420,7 +420,7 @@ export default function AboutSection() {
     {
       icon: Sparkles,
       title: "Freshness First",
-      image: "/images/aboutsection/freshness.png",
+      image: "/images/aboutsection/freshness.webp",
       description:
         "The degree of freshness is the primary quality control checkpoint. Experienced chefs employ the traditional method: look, smell, and touch to ensure ingredient quality.",
       quote:
@@ -430,7 +430,7 @@ export default function AboutSection() {
     {
       icon: Heart,
       title: "Craftsmanship Heritage",
-      image: "/images/aboutsection/craftsmanship.png",
+      image: "/images/aboutsection/craftsmanship.webp",
       description:
         "From chef to business owner, the founder maintains the tradition of handcrafted dishes, refusing to adopt pre-made ingredients despite industry trends.",
       quote:

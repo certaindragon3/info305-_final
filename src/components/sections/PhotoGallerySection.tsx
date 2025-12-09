@@ -10,15 +10,15 @@ import { SectionProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const baseImages = [
-  "/images/gallery/exhibition/acheng-dining-room-01.jpg",
-  "/images/gallery/exhibition/acheng-open-kitchen-01.jpg",
-  "/images/gallery/exhibition/acheng-prep-station-01.jpg",
-  "/images/gallery/exhibition/acheng-chef-action-01.jpg",
-  "/images/gallery/exhibition/acheng-family-table-01.jpg",
-  "/images/gallery/exhibition/acheng-night-exterior-01.jpg",
-  "/images/gallery/exhibition/acheng-dish-plating-01.jpg",
-  "/images/gallery/exhibition/acheng-lotus-lanterns-01.jpg",
-  "/images/gallery/exhibition/acheng-water-town-approach-01.jpg",
+  "/images/gallery/exhibition/acheng-dining-room-01.webp",
+  "/images/gallery/exhibition/acheng-open-kitchen-01.webp",
+  "/images/gallery/exhibition/acheng-prep-station-01.webp",
+  "/images/gallery/exhibition/acheng-chef-action-01.webp",
+  "/images/gallery/exhibition/acheng-family-table-01.webp",
+  "/images/gallery/exhibition/acheng-night-exterior-01.webp",
+  "/images/gallery/exhibition/acheng-dish-plating-01.webp",
+  "/images/gallery/exhibition/acheng-lotus-lanterns-01.webp",
+  "/images/gallery/exhibition/acheng-water-town-approach-01.webp",
 ];
 
 const PhotoGallerySection = ({ className }: SectionProps) => {

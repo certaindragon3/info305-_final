@@ -238,7 +238,7 @@ export default function EthnographicEntrySection() {
                 <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-800/30">
                   <div className="relative aspect-video bg-slate-800/50">
                     <img
-                      src="/images/eth/Knife.png"
+                      src="/images/eth/Knife.webp"
                       alt="Knife Work: Lattice Precision"
                       className="h-full w-full object-cover"
                     />
@@ -264,7 +264,7 @@ export default function EthnographicEntrySection() {
                 <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-800/30">
                   <div className="relative aspect-video bg-slate-800/50">
                     <img
-                      src="/images/eth/Oil.png"
+                      src="/images/eth/Oil.webp"
                       alt="Oil Temperature: Bubble Tempo"
                       className="h-full w-full object-cover"
                     />
@@ -290,7 +290,7 @@ export default function EthnographicEntrySection() {
                 <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-800/30">
                   <div className="relative aspect-video bg-slate-800/50">
                     <img
-                      src="/images/eth/Sauce.png"
+                      src="/images/eth/Sauce.webp"
                       alt="Sauce Finishing: Glaze at Nappe"
                       className="h-full w-full object-cover"
                     />

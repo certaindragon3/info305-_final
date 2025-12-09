@@ -340,7 +340,7 @@ const metrics = [
 const methods = [
   {
     title: "Photography Setup",
-    imagePath: "/images/project/photography_setup.jpeg",
+    imagePath: "/images/project/photography_setup.webp",
     lines: [
       "A7R4 + 50mm f/1.2; 3-point soft light at 5000K",
       "Consistent angles per dish for cross-comparison",
@@ -349,7 +349,7 @@ const methods = [
   },
   {
     title: "3D Capture (GLB)",
-    imagePath: "/images/project/3D_capture.png",
+    imagePath: "/images/project/3D_capture.webp",
     lines: [
       "Dual path: AI GLB + iPhone LiDAR GLB",
       "3 rings: outer → 45° → top; keep overlap",
@@ -358,7 +358,7 @@ const methods = [
   },
   {
     title: "Video & Atmosphere",
-    imagePath: "/images/project/video&atmos.png",
+    imagePath: "/images/project/video&atmos.webp",
     lines: [
       "Street exterior & dining ambience clips",
       "Process segments: 配料→上浆→走油→收汁→装盘",
@@ -367,7 +367,7 @@ const methods = [
   },
   {
     title: "Audio Notes",
-    imagePath: "/images/project/audio.png",
+    imagePath: "/images/project/audio.webp",
     lines: [
       "30–60s chef notes per dish: origin + 判据",
       "Clip-on lav; 10s room tone per location",
@@ -380,27 +380,27 @@ const workflow = [
   {
     title: "Consent & Orientation",
     desc: "Trusted access via concise consent form; align goals and privacy (renovation, recipes, visibility levels).",
-    imagePath: "/images/project/step1.png",
+    imagePath: "/images/project/step1.webp",
   },
   {
     title: "Space & Ambience",
     desc: "Exterior street context → dining room ambience; establish environmental baseline for narrative continuity.",
-    imagePath: "/images/project/step2.jpeg",
+    imagePath: "/images/project/step2.webp",
   },
   {
     title: "Dish Capture",
     desc: "Four dishes documented with studio photos, process videos, and 3D capture. Maintain angle and lighting consistency.",
-    imagePath: "/images/project/step3.jpeg",
+    imagePath: "/images/project/step3.webp",
   },
   {
     title: "Interview & Voice Notes",
     desc: "25-minute semi-structured owner interview + 30s chef voice cards (what's hard, how to judge '到位').",
-    imagePath: "/images/project/step4.png",
+    imagePath: "/images/project/step4.webp",
   },
   {
     title: "Data & Naming",
     desc: "3-2-1 backups; unified filenames and metadata table link media to dish pages and 3D exhibits.",
-    imagePath: "/images/project/step5.png",
+    imagePath: "/images/project/step5.webp",
   },
 ];
 

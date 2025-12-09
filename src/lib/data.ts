@@ -252,7 +252,7 @@ export const photoGallery: PhotoGallery[] = [
     title: 'Chef Portrait',
     description: 'Master Chef Chen in traditional chef attire',
     category: 'chef',
-    imageUrl: '/images/gallery/chef.jpg',
+    imageUrl: '/images/gallery/chef.webp',
     alt: 'Portrait of Master Chef Chen'
   },
   {
@@ -260,7 +260,7 @@ export const photoGallery: PhotoGallery[] = [
     title: 'Traditional Dining Hall',
     description: 'The main dining area showcasing classic Chinese round tables',
     category: 'dining-hall',
-    imageUrl: '/images/gallery/dining-hall.jpg',
+    imageUrl: '/images/gallery/dining-hall.webp',
     alt: 'Traditional Chinese restaurant dining hall with round tables'
   },
   {
@@ -268,7 +268,7 @@ export const photoGallery: PhotoGallery[] = [
     title: 'Restaurant Mascot',
     description: 'The beloved mascot of Acheng Restaurant',
     category: 'mascot',
-    imageUrl: '/images/gallery/restaurant-mascot.jpg',
+    imageUrl: '/images/gallery/restaurant-mascot.webp',
     alt: 'Acheng Restaurant mascot'
   },
   {
@@ -276,7 +276,7 @@ export const photoGallery: PhotoGallery[] = [
     title: 'Tempting Food',
     description: 'Delicious Subang cuisine dishes',
     category: 'food',
-    imageUrl: '/images/gallery/tempting-food.jpg',
+    imageUrl: '/images/gallery/tempting-food.webp',
     alt: 'Tempting Subang cuisine dishes'
   },
   {
@@ -284,7 +284,7 @@ export const photoGallery: PhotoGallery[] = [
     title: 'Ingredient Preparation',
     description: 'Fresh ingredients carefully prepared for cooking',
     category: 'preparation',
-    imageUrl: '/images/gallery/ingredient-preparation.jpg',
+    imageUrl: '/images/gallery/ingredient-preparation.webp',
     alt: 'Fresh ingredients preparation'
   }
 ];
