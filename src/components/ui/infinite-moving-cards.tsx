@@ -31,6 +31,13 @@ export const InfiniteMovingCards = ({
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
+      // Prevent duplication if already duplicated (check if children count > original items length)
+      // This is a simple check assuming we only duplicate once
+      if (scrollerContent.length > items.length) {
+         setStart(true);
+         return;
+      }
+
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
         if (scrollerRef.current) {
