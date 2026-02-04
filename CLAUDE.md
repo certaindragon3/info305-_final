@@ -164,14 +164,15 @@ interface DishArchiveEntry {
   // Visual assets
   thumbnail: string;           // /images/ai-archive/{slug}.jpg
   model3D: string;             // /models/ai-archive/{slug}.glb
-  lidarScan?: string;          // Optional USDZ LiDAR
   
   // RAG context
   contextSource: 'interview' | 'dianping';
   contextPath: string;         // Path to markdown context doc
   
-  // Display
-  briefDescription: string;    // 1-2 sentence teaser for cards
+  // Display content (from context document frontmatter)
+  brief: string;               // 2-3 sentence dish description for info card
+  welcome: string;             // AI opening message (bilingual)
+  suggestedQuestions: string[]; // 2-3 clickable prompts
 }
 
 interface ChatMessage {
@@ -240,23 +241,41 @@ interface EmbeddingChunk {
 
 ```
 ┌────────────────────────────────┬────────────────────────────────────┐
-│                                │   ┌──────────────────────────┐    │
-│    ╭──────────────────────╮    │   │ 🤖 AI                    │    │
-│    │     🐟 3D MODEL      │    │   │ Squirrel Fish is the     │    │
-│    │   ↻ drag to rotate   │    │   │ crown jewel of Suzhou... │    │
-│    ╰──────────────────────╯    │   └──────────────────────────┘    │
-│                                │                                    │
-│    ┌────────────────────┐      │   ┌──────────────────────────┐    │
-│    │ 📷 Toggle: AI Model│      │   │ 👤 You                   │    │
-│    │    ○ LiDAR Scan    │      │   │ How hot should the oil   │    │
-│    └────────────────────┘      │   │ be?                      │    │
-│                                │   └──────────────────────────┘    │
-│                                ├────────────────────────────────────┤
-│                                │  ┌────────────────────────────┐   │
-│                                │  │ Ask about this dish...     │   │
-│                                │  └────────────────────────────┘   │
-└────────────────────────────────┴────────────────────────────────────┘
+│  LEFT PANEL                      │  RIGHT PANEL: Chat               │
+│                                  │                                  │
+│    ╭──────────────────────╮    │   ┌──────────────────────────┐    │
+│    │       🐟 3D MODEL      │    │   │ 🤖 AI Welcome             │    │
+│    │     ↻ drag to rotate  │    │   │                          │    │
+│    ╮──────────────────────╯    │   │ 欢迎来到松鼠桂鱼档案！   │    │
+│                                  │   │ 这道菜以精湛刀工和酸甜   │    │
+│  ╔══════════════════════════╗  │   │ 卤汁著称。有什么想了解的？ │    │
+│  ║ 松鼠桂鱼                   ║  │   └──────────────────────────┘    │
+│  ║ Squirrel Mandarin Fish   ║  │                                  │
+│  ╟──────────────────────────╢  │   ┌──────────────────────────┐    │
+│  ║ 苏帮名菜，以精湛刀工将鳃 ║  │   │ 👤 You                   │    │
+│  ║ 鱼改成松鼠形，外酥里嫩， ║  │   │ How hot should the oil   │    │
+│  ║ 浇上酸甜卤汁。           ║  │   │ be?                      │    │
+│  ╟──────────────────────────╢  │   └──────────────────────────┘    │
+│  ║ 💡 试试问：                ║  │                                  │
+│  ║ • 为什么叫松鼠鱼？         ║  │   ┌──────────────────────────┐    │
+│  ║ • 油温怎么判断？           ║  │   │ 🤖 AI                    │    │
+│  ╚══════════════════════════╝  │   │ The oil should be...     │    │
+│                                  │   └──────────────────────────┘    │
+│                                  ├──────────────────────────────────┤
+│                                  │  ┌────────────────────────────┐   │
+│                                  │  │ Ask about this dish...     │   │
+│                                  │  └────────────────────────────┘   │
+└────────────────────────────────┴──────────────────────────────────┘
 ```
+
+**Left Panel Components:**
+- **3D Model Viewer**: Hunyuan-generated GLB model with OrbitControls
+- **Dish Info Card**: Bilingual title + 2-3 line description + clickable suggested questions
+
+**Right Panel Components:**
+- **AI Welcome Message**: Auto-generated from context document `welcome` field
+- **Chat History**: Scrollable message list with user/AI bubbles
+- **Input Box**: Text input with send button
 
 ---
 
@@ -314,12 +333,14 @@ interface EmbeddingChunk {
 
 ### Story 7.4: Chat View Implementation
 **As a visitor**, I want a split-panel chat interface  
-**So that** I can view the 3D model while conversing
+**So that** I can view the 3D model and dish info while conversing
 
 **Acceptance Criteria:**
-- [ ] Left panel: Interactive 3D model (Hunyuan GLB)
+- [ ] Left panel: Interactive 3D model (Hunyuan GLB) at top
+- [ ] Left panel: Dish info card below model (bilingual title + brief + suggested questions)
+- [ ] Right panel: AI welcome message on load (from context doc `welcome` field)
 - [ ] Right panel: Chat message list + input
-- [ ] Model toggle: AI-generated ↔ LiDAR scan (if available)
+- [ ] Suggested questions are clickable and populate input
 - [ ] Persist chat history per dish (IndexedDB)
 - [ ] Stream AI responses
 
@@ -327,6 +348,7 @@ interface EmbeddingChunk {
 - Use Vercel AI SDK `useChat` hook
 - Create `/api/chat/route.ts` for Gemini integration
 - Inject dish context into system prompt
+- Load `brief`, `welcome`, `suggestedQuestions` from context document frontmatter
 
 ---
 
@@ -361,13 +383,11 @@ if (dish.contextSource === 'interview') {
 - [ ] Create `DishModel.tsx` component with drei loader
 - [ ] Implement OrbitControls with constrained rotation
 - [ ] Add loading skeleton during model fetch
-- [ ] Support GLB format (Hunyuan output)
-- [ ] Optional: USDZ toggle for LiDAR scans
+- [ ] Support GLB format (Hunyuan output only)
 
 **Asset Paths:**
 ```
-/public/models/ai-archive/{slug}.glb  # Hunyuan models
-/public/models/ai-archive/{slug}.usdz # LiDAR scans (optional)
+/public/models/ai-archive/{slug}.glb  # Hunyuan AI-generated models
 ```
 
 ---
