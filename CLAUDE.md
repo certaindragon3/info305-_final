@@ -199,24 +199,105 @@ interface EmbeddingChunk {
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
+│                     ☁️ STEAM EFFECT ☁️                              │
+│                        🍲 3D Clay Pot                               │
 │                                                                     │
-│           ╔═══════════════════════════════════════════╗             │
-│           ║      今天你想吃什么？                     ║             │
-│           ║      What would you like to eat today?    ║             │
-│           ╚═══════════════════════════════════════════╝             │
+│         ╭──────────────────────────────────────────────╮            │
+│         │  ✨ AI-POWERED CULINARY ARCHIVE ✨            │            │
+│         ╰──────────────────────────────────────────────╯            │
+│                                                                     │
+│                    Archive of Flavors                               │
+│         Converse with AI to uncover the stories...                  │
 │                                                                     │
 │        ┌─────────────────────────────────────────────────┐          │
-│        │  Ask me anything about Suzhou cuisine...        │          │
+│        │ 💬 Ask AI anything about Suzhou dishes...       │          │
 │        │                                          [🔍]   │          │
 │        └─────────────────────────────────────────────────┘          │
 │                                                                     │
-│        💡 Try: "What makes Squirrel Fish special?"                  │
-│            "Show me dishes with river shrimp"                       │
-│            "How does Chef Shen judge freshness?"                    │
+│        💡 Try asking:                                               │
+│            「为什么叫松鼠桂鱼？」                                    │
+│            「金牌酱油虾的酱油是什么牌子？」                          │
+│            「糖醋排骨的糖醋比例是多少？」                            │
 │                                                                     │
-│                    [ View All Dishes → ]                            │
+│                 [ ✨ Explore All 12 Dishes → ]                      │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+
+**Suggested Questions (dish-specific):**
+- 为什么叫松鼠桂鱼？ / Why is it called Squirrel Fish?
+- 金牌酱油虾的酱油是什么牌子？ / What makes Golden Soy Shrimp "golden"?
+- 糖醋排骨的糖醋比例是多少？ / What's the sweet-sour ratio for the ribs?
+
+**Pill Behavior:** Click fills input only; user must click 🔍 to search.
+
+---
+
+### View 1.5: Search Matching Flow (Transition State)
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                                     │
+│                     ✨ ✨ ✨ ✨ ✨ ✨ ✨                               │
+│                                                                     │
+│              ┌─────────────────────────────────┐                    │
+│              │                                 │                    │
+│              │    Searching 12 dishes...       │                    │
+│              │    ████████░░░░░░░░             │                    │
+│              │                                 │                    │
+│              └─────────────────────────────────┘                    │
+│                                                                     │
+│                         ↓ (on match)                                │
+│                                                                     │
+│              ┌─────────────────────────────────┐                    │
+│              │  ✅ Found: 松鼠桂鱼              │                    │
+│              │     Squirrel Mandarin Fish      │                    │
+│              │                                 │                    │
+│              │     Redirecting...              │                    │
+│              └─────────────────────────────────┘                    │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**State Machine:**
+
+```
+IDLE (View 1)
+    │ click search button
+    ▼
+SEARCHING (View 1.5)
+    │ RAG API response
+    ▼
+┌───┴───────────────────┐
+│                       │
+▼                       ▼
+HIGH_CONFIDENCE         LOW_CONFIDENCE
+(similarity > 0.7)      (similarity ≤ 0.7)
+    │                       │
+    ▼                       ▼
+┌─────────────────┐   ┌──────────────────────────────┐
+│ Show "Found"    │   │ Show recommendation cards    │
+│ + dish name     │   │ (top 3 dishes by score)      │
+│                 │   │                              │
+│ Redirect to     │   │ [ Browse All Dishes → ]      │
+│ /ai-archive/    │   └──────────────────────────────┘
+│ {slug}          │
+└─────────────────┘
+```
+
+**Behavior Rules:**
+
+| Scenario | Threshold | Action |
+|----------|-----------|--------|
+| Single high-confidence match | similarity > 0.7 | Show "Found: {dish}" → redirect to `/ai-archive/{slug}` |
+| Multiple matches | Pick highest confidence | Same as single match |
+| Low confidence / general query | similarity ≤ 0.7 | Show top 3 dish recommendation cards + "Browse All" button |
+| No match / error | API error or empty | "Couldn't find a match. Try browsing our dishes." → Browse link |
+
+**Animation:** Loading progress follows actual API response time (no fixed duration).
+
+**URL State:** Query encoded as `/ai-archive?q={query}` for shareability.
+
+---
 
 ### View 2: Browse Mode (Grid)
 
@@ -281,19 +362,24 @@ interface EmbeddingChunk {
 
 ## 🚀 Epic 7: AI Archive Implementation
 
-### Story 7.1: Archive Section Integration
+### Story 7.1: Archive Section Integration ✅
 **As a visitor**, I want the AI Archive to appear naturally in the museum scroll  
 **So that** I can discover this feature while browsing
 
 **Acceptance Criteria:**
-- [ ] Create `AIArchiveSection.tsx` component
-- [ ] Integrate between `GallerySection` and `AboutSection` in `page.tsx`
-- [ ] Match existing section styling (gradient backgrounds, spacing)
-- [ ] Add to floating dock navigation
+- [x] Create `AIArchiveSection.tsx` component
+- [x] Integrate between `GallerySection` and `AboutSection` in `page.tsx`
+- [x] Match existing section styling (gradient backgrounds, spacing)
+- [x] Add to floating dock navigation
+- [x] WebGL steam effect with drei `<Cloud>` covering section top
+- [x] 3D clay pot model with rotation animation
+- [x] Dish-specific suggested questions
+- [x] Pill click fills input only (no auto-search)
 
 **Technical Notes:**
 - Use lazy loading with Suspense (consistent with other sections)
 - Apply `SectionLoader` fallback pattern
+- Dish registry created at `src/lib/ai-archive/dish-registry.ts`
 
 ---
 

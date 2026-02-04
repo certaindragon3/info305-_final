@@ -7,6 +7,7 @@ import { SectionLoader, GallerySkeleton } from "@/components/loading/SectionLoad
 const EthnographicEntrySection = lazy(() => import("@/components/sections/EthnographicEntrySection"));
 const PhotoGallerySection = lazy(() => import("@/components/sections/PhotoGallerySection"));
 const GallerySection = lazy(() => import("@/components/sections/GallerySection").then(mod => ({ default: mod.GallerySection })));
+const AIArchiveSection = lazy(() => import("@/components/sections/AIArchiveSection"));
 const AboutSection = lazy(() => import("@/components/sections/AboutSection"));
 const ProjectInfoSection = lazy(() => import("@/components/sections/ProjectInfoSection"));
 
@@ -28,6 +29,11 @@ export default function Home() {
 
       <Suspense fallback={<SectionLoader text="Loading Gallery" />}>
         <GallerySection />
+      </Suspense>
+
+      {/* AI Archive section - between Gallery and About */}
+      <Suspense fallback={<SectionLoader text="Loading AI Archive" />}>
+        <AIArchiveSection />
       </Suspense>
 
       <Suspense fallback={<SectionLoader text="Loading Restaurant History" />}>

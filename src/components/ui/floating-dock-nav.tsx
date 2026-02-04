@@ -9,6 +9,7 @@ const ITEMS: Item[] = [
   { id: "hero", label: "Overview" },
   { id: "photo-gallery", label: "Photos" },
   { id: "gallery-exhibition", label: "Exhibition" },
+  { id: "ai-archive", label: "AI Archive" },
   { id: "about", label: "About" },
   { id: "project", label: "Project" },
 ];
