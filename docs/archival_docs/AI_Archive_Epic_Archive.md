@@ -101,14 +101,14 @@ src/
 docs/
 ├── ai-archive/                     # NEW FOLDER - Context documents
 │   ├── README.md                   # Source mapping
-│   ├── golden-soy-shrimp.md        # 金牌酱油虾
-│   ├── assorted-delicacies.md      # 白什锦
-│   ├── crab-roe-tofu.md            # 蟹粉豆腐
-│   ├── salt-pepper-pork.md         # 椒盐排条
-│   ├── wine-lees-fish.md           # 糟溜黑鱼片
-│   ├── sweet-sour-ribs.md          # 糖醋排骨
-│   ├── whitebait-eggs.md           # 银鱼炒蛋
-│   └── red-bean-soup.md            # 赤豆圆子
+│   ├── jinpai-jiangyou-xia.md      # 金牌酱油虾
+│   ├── bai-shijin.md               # 白什锦
+│   ├── xianrou-caifan.md           # 咸肉菜饭
+│   ├── jiaoyan-paitiao.md          # 椒盐排条
+│   ├── zaoliu-heiyu-pian.md        # 糟溜黑鱼片
+│   ├── tangcu-paigu.md             # 糖醋排骨
+│   ├── yinyu-chaodan.md            # 银鱼炒蛋
+│   └── chidou-yuanzi.md            # 赤豆圆子
 └── interview_transcript.md         # Existing - context for 4 dishes
 public/
 ├── models/ai-archive/              # NEW FOLDER - Hunyuan GLB models
@@ -124,23 +124,23 @@ public/
 
 | ID | 中文名 | English Name | Slug |
 |----|--------|--------------|------|
-| 1 | 松鼠桂鱼 | Squirrel Mandarin Fish | `squirrel-fish` |
-| 2 | 响油鳝糊 | Sizzling Eel | `hot-oil-eel` |
-| 3 | 荷塘小炒 | Lotus Pond Stir-fry | `lotus-stir-fry` |
-| 4 | 清炒虾仁 | Stir-fried Shrimp | `biluochun-shrimp` |
+| 1 | 松鼠桂鱼 | Squirrel Mandarin Fish | `songshu-guiyu` |
+| 2 | 响油鳝糊 | Sizzling Eel | `xiangyou-shanhu` |
+| 3 | 荷塘小炒 | Lotus Pond Stir-fry | `hetang-xiaochao` |
+| 4 | 清炒虾仁 | Stir-fried Shrimp | `qingchao-xiaren` |
 
 ### New Dishes (Context: `/docs/ai-archive/*.md` — Dianping Reviews)
 
 | ID | 中文名 | English Name | Slug | Context File |
 |----|--------|--------------|------|--------------|
-| 5 | 金牌酱油虾 | Golden Soy Sauce Shrimp | `golden-soy-shrimp` | `golden-soy-shrimp.md` |
-| 6 | 白什锦 | Assorted Delicacies in Clear Broth | `assorted-delicacies` | `assorted-delicacies.md` |
-| 7 | 蟹粉豆腐 | Tofu with Crab Roe | `crab-roe-tofu` | `crab-roe-tofu.md` |
-| 8 | 椒盐排条 | Salt and Pepper Pork Strips | `salt-pepper-pork` | `salt-pepper-pork.md` |
-| 9 | 糟溜黑鱼片 | Wine Lees Sliced Snakehead Fish | `wine-lees-fish` | `wine-lees-fish.md` |
-| 10 | 糖醋排骨 | Sweet and Sour Pork Ribs | `sweet-sour-ribs` | `sweet-sour-ribs.md` |
-| 11 | 银鱼炒蛋 | Scrambled Eggs with Whitebait | `whitebait-eggs` | `whitebait-eggs.md` |
-| 12 | 赤豆圆子 | Sweet Red Bean Soup with Rice Balls | `red-bean-soup` | `red-bean-soup.md` |
+| 5 | 金牌酱油虾 | Golden Soy Sauce Shrimp | `jinpai-jiangyou-xia` | `jinpai-jiangyou-xia.md` |
+| 6 | 白什锦 | Mixed Vegetables | `bai-shijin` | `bai-shijin.md` |
+| 7 | 咸肉菜饭 | Salted Pork Rice | `xianrou-caifan` | `xianrou-caifan.md` |
+| 8 | 椒盐排条 | Salt & Pepper Pork Strips | `jiaoyan-paitiao` | `jiaoyan-paitiao.md` |
+| 9 | 糟溜黑鱼片 | Wine-Lees Black Fish | `zaoliu-heiyu-pian` | `zaoliu-heiyu-pian.md` |
+| 10 | 糖醋排骨 | Sweet & Sour Ribs | `tangcu-paigu` | `tangcu-paigu.md` |
+| 11 | 银鱼炒蛋 | Silverfish Scrambled Eggs | `yinyu-chaodan` | `yinyu-chaodan.md` |
+| 12 | 赤豆圆子 | Red Bean Dumplings | `chidou-yuanzi` | `chidou-yuanzi.md` |
 
 > [!IMPORTANT]
 > **Context Source Distinction:**
