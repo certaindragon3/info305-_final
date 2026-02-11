@@ -400,16 +400,16 @@ HIGH_CONFIDENCE         LOW_CONFIDENCE
 
 ---
 
-### Story 7.3: Browse View (Dish Cards)
+### Story 7.3: Browse View (Dish Cards) ✅
 **As a visitor**, I want to browse all 12 dishes visually  
 **So that** I can choose which to explore
 
 **Acceptance Criteria:**
-- [ ] Create responsive grid layout (2-4 columns)
-- [ ] Implement `DishCard` with embedded 3D model preview
-- [ ] Add bilingual dish names + brief description
-- [ ] Include "Chat with AI" CTA per card
-- [ ] Add category filter (signature/classic/dessert)
+- [x] Create responsive grid layout (2-4 columns)
+- [x] Implement `DishCard` with embedded 3D model preview
+- [x] Add bilingual dish names + brief description
+- [x] Include "Chat with AI" CTA per card
+- [x] Add category filter (signature/classic/dessert)
 
 **Component Guidelines:**
 > [!TIP]

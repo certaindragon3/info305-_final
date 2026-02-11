@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import { motion } from "motion/react";
-import { Sparkles, Search, MessageCircle, ChefHat, ArrowRight } from "lucide-react";
+import { Sparkles, Search, MessageCircle, ChefHat, ArrowRight, Star, UtensilsCrossed, CakeSlice } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -147,12 +147,12 @@ export default function ArchiveHomeView() {
                     transition={{ duration: 0.5, delay: 0.45 }}
                 >
                     {[
-                        { label: "Signature", count: categoryStats.signature, emoji: "⭐" },
-                        { label: "Classic", count: categoryStats.classic, emoji: "🍜" },
-                        { label: "Dessert", count: categoryStats.dessert, emoji: "🍡" },
+                        { label: "Signature", count: categoryStats.signature, Icon: Star },
+                        { label: "Classic", count: categoryStats.classic, Icon: UtensilsCrossed },
+                        { label: "Dessert", count: categoryStats.dessert, Icon: CakeSlice },
                     ].map((stat) => (
                         <span key={stat.label} className="flex items-center gap-1.5">
-                            <span>{stat.emoji}</span>
+                            <stat.Icon className="h-3.5 w-3.5 text-orange-400" />
                             <span className="font-medium text-slate-300">{stat.count}</span>
                             <span>{stat.label}</span>
                         </span>
