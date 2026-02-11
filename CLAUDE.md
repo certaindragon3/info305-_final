@@ -159,7 +159,7 @@ interface DishArchiveEntry {
   slug: string;
   nameZh: string;
   nameEn: string;
-  category: 'signature' | 'classic' | 'seasonal' | 'dessert';
+  category: 'signature' | 'classic' | 'dessert';
   
   // Visual assets
   thumbnail: string;           // /images/ai-archive/{slug}.jpg
@@ -388,10 +388,10 @@ HIGH_CONFIDENCE         LOW_CONFIDENCE
 **So that** I understand I can ask questions about dishes
 
 **Acceptance Criteria:**
-- [ ] Display bilingual hero text (今天你想吃什么? / What would you like...)
-- [ ] Implement search input with placeholder suggestions
-- [ ] Add animated suggestion pills
-- [ ] Create "View All Dishes" entry button
+- [x] Display bilingual hero text (今天你想吃什么? / What would you like...)
+- [x] Implement search input with placeholder suggestions
+- [x] Add animated suggestion pills
+- [x] Create "View All Dishes" entry button
 
 **Component Guidelines:**
 > [!TIP]
@@ -409,7 +409,7 @@ HIGH_CONFIDENCE         LOW_CONFIDENCE
 - [ ] Implement `DishCard` with embedded 3D model preview
 - [ ] Add bilingual dish names + brief description
 - [ ] Include "Chat with AI" CTA per card
-- [ ] Add category filter (signature/classic/seasonal/dessert)
+- [ ] Add category filter (signature/classic/dessert)
 
 **Component Guidelines:**
 > [!TIP]

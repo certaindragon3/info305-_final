@@ -306,7 +306,7 @@ export default function AIArchiveSection() {
                         className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-lg shadow-orange-500/30 transition-all duration-300 hover:scale-105 hover:shadow-orange-500/50"
                     >
                         <Sparkles className="h-4 w-4" />
-                        Explore All 12 Dishes
+                        Enter AI Archive
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Link>
                 </motion.div>
