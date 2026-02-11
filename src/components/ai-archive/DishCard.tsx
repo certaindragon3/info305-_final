@@ -8,7 +8,7 @@ import { DishModel3D } from "@/components/dish/3d/DishModel3D";
 import { cn } from "@/lib/utils";
 import type { DishArchiveEntry } from "@/lib/ai-archive/types";
 
-const CATEGORY_CONFIG = {
+export const CATEGORY_CONFIG: Record<string, { label: string; color: string; Icon: React.ComponentType<{ className?: string }> }> = {
     signature: { label: "Signature", Icon: Star, color: "text-amber-400 bg-amber-400/10 ring-amber-400/30" },
     classic: { label: "Classic", Icon: UtensilsCrossed, color: "text-orange-400 bg-orange-400/10 ring-orange-400/30" },
     dessert: { label: "Dessert", Icon: CakeSlice, color: "text-pink-400 bg-pink-400/10 ring-pink-400/30" },
