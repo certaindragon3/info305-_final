@@ -26,19 +26,19 @@ export default function DishChatView({ dish }: DishChatViewProps) {
     return (
         <div className="flex h-[100dvh] flex-col bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
             {/* Top navigation bar */}
-            <header className="flex h-14 shrink-0 items-center justify-between border-b border-orange-500/10 bg-slate-950/80 px-4 backdrop-blur-xl">
+            <header className="flex h-13 shrink-0 items-center justify-between border-b border-white/[0.06] bg-slate-950/90 px-4 backdrop-blur-xl">
                 <div className="flex items-center gap-3">
                     <Link
                         href="/ai-archive/browse"
-                        className="inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-orange-400"
+                        className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm text-slate-400 transition-colors hover:bg-slate-800 hover:text-orange-400"
                     >
-                        <ArrowLeft className="h-4 w-4" />
-                        <span className="hidden sm:inline">Back</span>
+                        <ArrowLeft className="h-3.5 w-3.5" />
+                        <span className="hidden sm:inline">Browse</span>
                     </Link>
-                    <div className="h-4 w-px bg-slate-700" />
+                    <div className="h-4 w-px bg-white/[0.08]" />
                     <div className="flex items-center gap-2">
-                        <span className="truncate text-sm font-bold text-white">{dish.nameZh}</span>
-                        <span className="hidden text-xs text-slate-400 sm:inline">
+                        <span className="truncate text-sm font-semibold text-white">{dish.nameZh}</span>
+                        <span className="hidden text-xs text-slate-500 sm:inline">
                             {dish.nameEn}
                         </span>
                     </div>
@@ -48,10 +48,10 @@ export default function DishChatView({ dish }: DishChatViewProps) {
                 <button
                     onClick={() => setShowMobileChat(!showMobileChat)}
                     className={cn(
-                        "flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors lg:hidden",
+                        "flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all lg:hidden",
                         showMobileChat
-                            ? "border-orange-500/20 bg-slate-800 text-orange-400"
-                            : "border-orange-500 bg-orange-500 text-white"
+                            ? "bg-slate-800 text-orange-400 ring-1 ring-orange-500/20"
+                            : "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/20"
                     )}
                 >
                     {showMobileChat ? (
@@ -70,7 +70,7 @@ export default function DishChatView({ dish }: DishChatViewProps) {
                 {/* Left Panel — 3D Model + Info Card */}
                 <aside
                     className={cn(
-                        "flex w-full flex-col border-r border-orange-500/10 transition-transform duration-300 lg:w-[420px] lg:translate-x-0 xl:w-[480px]",
+                        "flex w-full flex-col border-r border-white/[0.06] transition-transform duration-300 lg:w-[420px] lg:translate-x-0 xl:w-[480px]",
                         showMobileChat ? "absolute inset-0 -translate-x-full lg:static" : "relative translate-x-0"
                     )}
                 >

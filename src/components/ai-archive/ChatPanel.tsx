@@ -171,10 +171,12 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
 
     return (
       <div className="relative flex h-full flex-col bg-slate-950">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(251,146,60,0.08),transparent_45%)]" />
+        {/* Subtle ambient glow */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(251,146,60,0.06),transparent_50%)]" />
 
+        {/* Chat messages area */}
         <Conversation className="relative flex-1">
-          <ConversationContent className="gap-5 p-4 pb-6 sm:p-6">
+          <ConversationContent className="gap-6 px-4 py-6 sm:px-6">
             {messages.map((message) => {
               const from = message.role === "user" ? "user" : "assistant";
               const text = getTextFromMessage(message);
@@ -198,18 +200,19 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
                       from === "user" ? "justify-end" : ""
                     )}
                   >
+                    {/* Assistant avatar */}
                     {from === "assistant" && (
-                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500/10 text-orange-400 ring-1 ring-orange-500/30">
+                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/20 to-orange-600/10 text-orange-400 ring-1 ring-orange-500/25">
                         <Bot className="h-4 w-4" />
                       </div>
                     )}
 
                     <MessageContent
                       className={cn(
-                        "max-w-[88%] rounded-2xl px-4 py-3",
+                        "max-w-[85%] rounded-2xl px-4 py-3",
                         from === "user"
-                          ? "bg-orange-500 text-white shadow-[0_8px_24px_rgba(249,115,22,0.25)]"
-                          : "border border-orange-500/10 bg-slate-900/80 text-slate-200"
+                          ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/20"
+                          : "bg-slate-800/70 text-slate-200 ring-1 ring-white/[0.06]"
                       )}
                     >
                       <MessageResponse
@@ -222,8 +225,9 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
                       </MessageResponse>
                     </MessageContent>
 
+                    {/* User avatar */}
                     {from === "user" && (
-                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-300 ring-1 ring-slate-700">
+                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-800 text-slate-300 ring-1 ring-white/[0.08]">
                         <User className="h-4 w-4" />
                       </div>
                     )}
@@ -233,65 +237,90 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
             })}
 
             {error && (
-              <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+              <div className="rounded-xl border border-red-500/20 bg-red-950/40 px-4 py-3 text-sm text-red-300">
                 {error.message || "Failed to get response. Please try again."}
               </div>
             )}
           </ConversationContent>
 
-          <ConversationScrollButton className="border-orange-500/30 bg-slate-900 text-orange-300 hover:bg-slate-800" />
+          <ConversationScrollButton className="border-slate-700 bg-slate-800 text-orange-300 shadow-lg hover:bg-slate-700" />
         </Conversation>
 
-        <div className="border-t border-orange-500/15 bg-slate-900/70 p-4 backdrop-blur-xl">
+        {/* ── Input area ── */}
+        <div className="relative border-t border-white/[0.06] bg-slate-900/80 px-4 pb-4 pt-3 backdrop-blur-xl">
           <div className="mx-auto max-w-3xl">
+            {/* Prompt input — override InputGroup defaults via descendant selectors */}
             <PromptInput
               onSubmit={({ text }) => handleSend(text)}
-              className="overflow-hidden rounded-2xl border border-orange-500/25 bg-slate-950 transition-colors focus-within:border-orange-500/55"
+              className={cn(
+                /* ---- Kill every InputGroup default ---- */
+                "[&_[data-slot=input-group]]:!border-0",
+                "[&_[data-slot=input-group]]:!shadow-none",
+                "[&_[data-slot=input-group]]:!ring-0",
+                "[&_[data-slot=input-group]]:!bg-transparent",
+                "[&_[data-slot=input-group]]:!outline-none",
+                "[&_[data-slot=input-group]]:flex-col",
+                "[&_[data-slot=input-group]]:items-stretch",
+                "[&_[data-slot=input-group]]:!rounded-2xl",
+                /* ---- Our own container styling ---- */
+                "rounded-2xl border border-slate-700/60 bg-slate-800/60",
+                "transition-all duration-200",
+                "focus-within:border-orange-500/40 focus-within:bg-slate-800/80",
+                "focus-within:shadow-[0_0_0_1px_rgba(249,115,22,0.15),0_4px_24px_rgba(0,0,0,0.3)]",
+              )}
             >
+              {/* Textarea */}
               <PromptInputTextarea
                 ref={textareaRef}
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
                 placeholder={`Ask about ${dish.nameEn}...`}
-                className="min-h-[56px] w-full resize-none border-none bg-transparent px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 focus-visible:ring-0"
+                className={cn(
+                  "!min-h-[44px] w-full resize-none",
+                  "!border-none !bg-transparent !shadow-none !ring-0 !outline-none",
+                  "px-4 py-3 text-sm text-white",
+                  "placeholder:text-slate-500",
+                  "focus-visible:!ring-0 focus-visible:!border-none",
+                )}
               />
 
-              <div className="flex items-center justify-between px-3 pb-3">
+              {/* Bottom toolbar — inline with textarea inside InputGroup */}
+              <div className="flex items-center justify-between border-t border-white/[0.04] px-3 py-2">
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => void handleClearHistory()}
                     disabled={isGenerating || messages.length <= 1}
                     className={cn(
-                      "rounded-md border border-slate-700 px-2 py-1 text-[10px] text-slate-400 transition-colors",
-                      "hover:border-orange-500/40 hover:text-orange-300",
-                      "disabled:cursor-not-allowed disabled:opacity-40"
+                      "rounded-lg px-2.5 py-1 text-[11px] font-medium text-slate-500 transition-colors",
+                      "hover:bg-slate-700/50 hover:text-slate-300",
+                      "disabled:cursor-not-allowed disabled:opacity-30"
                     )}
                   >
-                    Clear Chat
+                    Clear
                   </button>
-                  <p className="text-[10px] text-slate-500">
-                    Enter to send, Shift+Enter for newline.
-                  </p>
+                  <span className="hidden text-[11px] text-slate-600 sm:inline">
+                    ↵ Send · ⇧↵ Newline
+                  </span>
                 </div>
-                <div>
-                  <PromptInputSubmit
-                    status={status}
-                    onStop={stop}
-                    disabled={!isGenerating && !input.trim()}
-                    className={cn(
-                      "h-8 w-8 rounded-lg text-white",
-                      isGenerating
-                        ? "bg-red-500 hover:bg-red-400"
-                        : "bg-orange-500 hover:bg-orange-400",
-                      "disabled:bg-slate-700 disabled:text-slate-400"
-                    )}
-                  />
-                </div>
+
+                <PromptInputSubmit
+                  status={status}
+                  onStop={stop}
+                  disabled={!isGenerating && !input.trim()}
+                  className={cn(
+                    "!h-8 !w-8 !rounded-lg text-white transition-all",
+                    isGenerating
+                      ? "!bg-red-500 hover:!bg-red-400"
+                      : "!bg-orange-500 hover:!bg-orange-400",
+                    "disabled:!bg-slate-700/50 disabled:!text-slate-500"
+                  )}
+                />
               </div>
             </PromptInput>
-            <p className="mt-2 text-center text-[10px] text-slate-500">
-              AI can make mistakes. Please verify important details.
+
+            <p className="mt-2 text-center text-[10px] text-slate-600">
+              AI responses may be inaccurate. Verify important information.
             </p>
           </div>
         </div>
