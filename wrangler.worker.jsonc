@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bootstrap",
+  "main": "workers/ai-archive-api.ts",
+  "compatibility_date": "2026-02-20",
+  "compatibility_flags": ["nodejs_compat"]
+}

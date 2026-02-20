@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import DishChatView from "@/components/ai-archive/DishChatView";
 import { getDishBySlug, DISH_REGISTRY } from "@/lib/ai-archive/dish-registry";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 interface DishPageProps {
     params: Promise<{ slug: string }>;
@@ -35,5 +36,9 @@ export default async function DishPage({ params }: DishPageProps) {
         notFound();
     }
 
-    return <DishChatView dish={dish} />;
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-slate-950" />}>
+            <DishChatView dish={dish} />
+        </Suspense>
+    );
 }

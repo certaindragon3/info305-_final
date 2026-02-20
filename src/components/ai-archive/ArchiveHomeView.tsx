@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Sparkles, Search, MessageCircle, ChefHat, ArrowRight, Star, UtensilsCrossed, CakeSlice } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { routeDishIntent } from "@/app/actions/routeDishIntent";
+import { routeDishIntentClient } from "@/lib/ai-archive/worker-api";
 
 import { Spotlight } from "@/components/ui/spotlight";
 import { FlipWords } from "@/components/ui/flip-words";
@@ -62,7 +62,7 @@ export default function ArchiveHomeView() {
             setAnalyzeStatus("Analyzing your question...");
 
             try {
-                const matches = await routeDishIntent(query.trim());
+                const matches = await routeDishIntentClient(query.trim());
 
                 if (matches && matches.length > 0) {
                     setAnalyzeStatus("Match found! Entering archive...");

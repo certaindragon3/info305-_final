@@ -296,6 +296,7 @@ const CodeBlockBody = memo(
     prevProps.showLineNumbers === nextProps.showLineNumbers &&
     prevProps.className === nextProps.className
 );
+CodeBlockBody.displayName = "CodeBlockBody";
 
 export const CodeBlockContainer = ({
   className,

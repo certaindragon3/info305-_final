@@ -10,7 +10,7 @@ import * as THREE from "three";
 
 import { Spotlight } from "@/components/ui/spotlight";
 import { cn } from "@/lib/utils";
-import { routeDishIntent } from "@/app/actions/routeDishIntent";
+import { routeDishIntentClient } from "@/lib/ai-archive/worker-api";
 import { getDishBySlug } from "@/lib/ai-archive/dish-registry";
 import DishCard from "@/components/ai-archive/DishCard";
 
@@ -156,7 +156,7 @@ export default function AIArchiveSection() {
         setAnalyzeStatus("Connecting to culinary archive...");
 
         try {
-            const matches = await routeDishIntent(query.trim());
+            const matches = await routeDishIntentClient(query.trim());
 
             if (matches && matches.length === 1) {
                 setAnalyzeStatus("Match found! Entering archive...");

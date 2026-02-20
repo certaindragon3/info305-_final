@@ -17,7 +17,7 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
 } from "@/components/ai-elements/prompt-input";
-import type { UIMessage } from "ai";
+import { DefaultChatTransport, type UIMessage } from "ai";
 import {
   forwardRef,
   useCallback,
@@ -35,6 +35,7 @@ import {
   loadDishChatHistory,
   saveDishChatHistory,
 } from "@/lib/ai-archive/chat-history";
+import { getChatApiPath } from "@/lib/ai-archive/worker-api";
 
 /** Number of messages (including welcome) that trigger the "explore again" banner */
 const DEEP_CONVERSATION_THRESHOLD = 5;
@@ -87,6 +88,9 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
     const { messages, status, sendMessage, stop, error, clearError, setMessages } =
       useChat({
         id: `dish-${dish.slug}`,
+        transport: new DefaultChatTransport({
+          api: getChatApiPath(),
+        }),
         messages: [welcomeMessage],
       });
 

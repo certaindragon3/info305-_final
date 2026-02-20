@@ -41,6 +41,12 @@ This archive lets visitors **talk to the dishes** — ask about ingredients, tec
 | **Storage** | Memory / Local JSON | Pre-computed embeddings for 12 dishes (tiny footprint) |
 | **3D Models** | Tencent Hunyuan 3D Generation | GLB files for dish presentation |
 
+> [!NOTE]
+> **Current deployment context (important):** AI routing is now served by a Cloudflare Worker, not Next.js server routes.
+> - Runtime endpoints: `/api/intent` and `/api/chat` on the Worker domain
+> - Worker source: `workers/ai-archive-api.ts`
+> - Frontend runtime base URL: `NEXT_PUBLIC_AI_WORKER_URL` (see `src/lib/ai-archive/worker-api.ts`)
+
 ### Hybrid RAG Pipeline (Server-Routing + Client-Chat)
 ```
 1. GLOBAL SEARCH (View 1 & 2): User enters question
