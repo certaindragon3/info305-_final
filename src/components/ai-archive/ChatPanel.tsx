@@ -20,6 +20,7 @@ import {
 import type { UIMessage } from "ai";
 import {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -27,7 +28,7 @@ import {
   useState,
 } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Bot, User } from "lucide-react";
+import { Bot, Layers, RefreshCw, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   clearDishChatHistory,
@@ -35,12 +36,17 @@ import {
   saveDishChatHistory,
 } from "@/lib/ai-archive/chat-history";
 
+/** Number of messages (including welcome) that trigger the "explore again" banner */
+const DEEP_CONVERSATION_THRESHOLD = 5;
+
 interface ChatPanelProps {
   dish: DishArchiveEntry;
 }
 
 export interface ChatPanelRef {
   fillInput: (question: string) => void;
+  /** Called by parent header menu to trigger the two-step clear flow */
+  triggerClear: () => void;
 }
 
 function getTextFromMessage(message: UIMessage): string {
@@ -86,6 +92,9 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
 
     const isGenerating = status === "submitted" || status === "streaming";
 
+    /** Whether the conversation is "deep" enough to show the explore-again banner */
+    const isDeepConversation = messages.length >= DEEP_CONVERSATION_THRESHOLD;
+
     useEffect(() => {
       let isCancelled = false;
 
@@ -112,13 +121,11 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
           );
 
           if (!hasQueryAlready) {
-            // Give a slight delay for UI to settle before streaming
             setTimeout(() => {
               sendMessage(
                 { text: initialQuery },
                 { body: { dishSlug: dish.slug } }
               );
-              // Clean the URL param after consuming it
               router.replace(pathname, { scroll: false });
             }, 500);
           } else {
@@ -163,16 +170,8 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
       }
     };
 
-    const handleClearHistory = async () => {
-      if (typeof window !== "undefined") {
-        const confirmed = window.confirm(
-          `Clear chat history for ${dish.nameZh} (${dish.nameEn})?`
-        );
-        if (!confirmed) {
-          return;
-        }
-      }
-
+    /** Resets chat to the welcome message and clears persisted history */
+    const executeReset = useCallback(async () => {
       stop();
       if (error) {
         clearError();
@@ -180,7 +179,7 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
       setInput("");
       setMessages([welcomeMessage]);
       await clearDishChatHistory(dish.slug);
-    };
+    }, [clearError, dish.slug, error, setMessages, stop, welcomeMessage]);
 
     useImperativeHandle(
       ref,
@@ -195,8 +194,10 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
             );
           });
         },
+        // Confirmation already happened in the header menu — execute directly.
+        triggerClear: () => { void executeReset(); },
       }),
-      []
+      [executeReset]
     );
 
     return (
@@ -248,7 +249,13 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
                       <MessageResponse
                         className={cn(
                           "text-sm leading-relaxed",
-                          from === "user" ? "text-white" : "text-slate-200"
+                          from === "user" ? "text-white" : "text-slate-200",
+                          // Markdown list indentation for assistant messages
+                          from === "assistant" && [
+                            "[&_ul]:pl-5 [&_ul]:list-disc [&_ul]:space-y-1",
+                            "[&_ol]:pl-5 [&_ol]:list-decimal [&_ol]:space-y-1",
+                            "[&_li]:leading-relaxed",
+                          ]
                         )}
                       >
                         {content}
@@ -276,10 +283,54 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
           <ConversationScrollButton className="border-slate-700 bg-slate-800 text-orange-300 shadow-lg hover:bg-slate-700" />
         </Conversation>
 
+        {/* ── Context-aware "Explore Again" banner ── */}
+        {isDeepConversation && !isGenerating && (
+          <div className="animate-in slide-in-from-bottom-2 fade-in duration-500">
+            {/* Accent gradient line at top */}
+            <div className="h-px bg-gradient-to-r from-transparent via-orange-500/40 to-transparent" />
+
+            {/* Banner body */}
+            <div className="relative overflow-hidden bg-gradient-to-r from-orange-950/30 via-slate-900/80 to-slate-900/60 px-4 py-4 backdrop-blur-sm">
+              {/* Subtle warm glow blob */}
+              <div className="pointer-events-none absolute -left-8 top-1/2 h-20 w-32 -translate-y-1/2 rounded-full bg-orange-500/10 blur-2xl" />
+
+              <div className="relative mx-auto flex max-w-3xl items-center justify-between gap-4">
+                <div className="min-w-0 flex-1">
+                  <p className="flex items-center gap-2 text-sm font-medium text-slate-200">
+                    <Layers className="h-3.5 w-3.5 shrink-0 text-orange-400" />
+                    You&apos;ve dug deep into this dish.
+                  </p>
+                  <p className="mt-0.5 text-xs text-slate-500">
+                    Want a fresh start? Clear the conversation and ask something new.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => void executeReset()}
+                  className={cn(
+                    "shrink-0 flex items-center gap-2 rounded-full px-4 py-2",
+                    "bg-gradient-to-r from-orange-500/20 to-orange-600/10",
+                    "text-xs font-semibold text-orange-300",
+                    "ring-1 ring-orange-500/30",
+                    "transition-all duration-200",
+                    "hover:from-orange-500/30 hover:to-orange-600/20 hover:text-orange-200",
+                    "hover:ring-orange-500/50 hover:shadow-[0_0_12px_rgba(249,115,22,0.15)]",
+                    "active:scale-95"
+                  )}
+                >
+                  <RefreshCw className="h-3 w-3" />
+                  Explore Again
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+
         {/* ── Input area ── */}
         <div className="relative border-t border-white/[0.06] bg-slate-900/80 px-4 pb-4 pt-3 backdrop-blur-xl">
           <div className="mx-auto max-w-3xl">
-            {/* Prompt input — override InputGroup defaults via descendant selectors */}
             <PromptInput
               onSubmit={({ text }) => handleSend(text)}
               className={cn(
@@ -314,25 +365,13 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
                 )}
               />
 
-              {/* Bottom toolbar — inline with textarea inside InputGroup */}
+              {/* Bottom toolbar */}
               <div className="flex items-center justify-between border-t border-white/[0.04] px-3 py-2">
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => void handleClearHistory()}
-                    disabled={isGenerating || messages.length <= 1}
-                    className={cn(
-                      "rounded-lg px-2.5 py-1 text-[11px] font-medium text-slate-500 transition-colors",
-                      "hover:bg-slate-700/50 hover:text-slate-300",
-                      "disabled:cursor-not-allowed disabled:opacity-30"
-                    )}
-                  >
-                    Clear
-                  </button>
-                  <span className="hidden text-[11px] text-slate-600 sm:inline">
-                    ↵ Send · ⇧↵ Newline
-                  </span>
-                </div>
+                <span className="hidden text-[11px] text-slate-600 sm:inline">
+                  ↵ Send · ⇧↵ Newline
+                </span>
+                {/* Spacer on mobile */}
+                <span className="sm:hidden" />
 
                 <PromptInputSubmit
                   status={status}
