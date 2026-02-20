@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
-import { motion } from "motion/react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { Sparkles, Search, MessageCircle, ChefHat, ArrowRight, Star, UtensilsCrossed, CakeSlice } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { routeDishIntent } from "@/app/actions/routeDishIntent";
 
 import { Spotlight } from "@/components/ui/spotlight";
 import { FlipWords } from "@/components/ui/flip-words";
@@ -44,13 +45,50 @@ const pillVariants = {
 };
 
 export default function ArchiveHomeView() {
-    const [searchQuery, setSearchQuery] = useState("");
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const initialQuery = searchParams.get("q");
+
+    const [searchQuery, setSearchQuery] = useState(initialQuery || "");
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [analyzeStatus, setAnalyzeStatus] = useState("");
+    const hasAutoTriggered = useRef(false);
 
     const handleSearch = useCallback(
-        (query: string) => {
-            if (query.trim()) {
-                router.push(`/ai-archive?q=${encodeURIComponent(query.trim())}`);
+        async (query: string) => {
+            if (!query.trim()) return;
+
+            setIsAnalyzing(true);
+            setAnalyzeStatus("Analyzing your question...");
+
+            try {
+                const matches = await routeDishIntent(query.trim());
+
+                if (matches && matches.length > 0) {
+                    setAnalyzeStatus("Match found! Entering archive...");
+                    setTimeout(() => {
+                        // Even if multiple matches, default route them to the best match on View 2
+                        // because we already showed the selection UI on View 1 if they came from the landing page.
+                        router.push(`/ai-archive/${matches[0]}?q=${encodeURIComponent(query.trim())}`);
+                        setTimeout(() => setIsAnalyzing(false), 500); // cleanup after push
+                    }, 800);
+                } else {
+                    setAnalyzeStatus("No specific dish matched.");
+                    setTimeout(() => {
+                        setAnalyzeStatus("Opening full gallery instead...");
+                        setTimeout(() => {
+                            router.push(`/ai-archive/browse?q=${encodeURIComponent(query.trim())}`);
+                            setTimeout(() => setIsAnalyzing(false), 500); // cleanup after push
+                        }, 1200);
+                    }, 1200);
+                }
+            } catch (error) {
+                console.error("Routing error:", error);
+                setAnalyzeStatus("Network error. Opening gallery...");
+                setTimeout(() => {
+                    router.push(`/ai-archive/browse?q=${encodeURIComponent(query.trim())}`);
+                    setTimeout(() => setIsAnalyzing(false), 500); // cleanup after push
+                }, 1200);
             }
         },
         [router]
@@ -59,6 +97,13 @@ export default function ArchiveHomeView() {
     const handleSuggestionClick = useCallback((question: string) => {
         setSearchQuery(question);
     }, []);
+
+    useEffect(() => {
+        if (initialQuery && !hasAutoTriggered.current) {
+            hasAutoTriggered.current = true;
+            handleSearch(initialQuery);
+        }
+    }, [initialQuery, handleSearch]);
 
     // Dish count by category for stats display
     const categoryStats = useMemo(() => {
@@ -69,6 +114,31 @@ export default function ArchiveHomeView() {
 
     return (
         <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
+            {/* Analyzing Overlay (View 1.5) */}
+            <AnimatePresence>
+                {isAnalyzing && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/90 backdrop-blur-md"
+                    >
+                        <div className="flex flex-col items-center gap-6">
+                            <Sparkles className="h-12 w-12 animate-pulse text-orange-400" />
+                            <h2 className="text-xl md:text-2xl font-semibold text-white tracking-widest">{analyzeStatus}</h2>
+                            <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-800">
+                                <motion.div
+                                    className="h-full bg-orange-500"
+                                    initial={{ width: "0%" }}
+                                    animate={{ width: "100%" }}
+                                    transition={{ duration: 1.5, repeat: Infinity }}
+                                />
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Ambient background effects */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(251,146,60,0.15),_transparent_50%)]" />
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(251,146,60,0.08),_transparent_40%)]" />

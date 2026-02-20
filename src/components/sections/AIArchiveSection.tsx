@@ -10,6 +10,9 @@ import * as THREE from "three";
 
 import { Spotlight } from "@/components/ui/spotlight";
 import { cn } from "@/lib/utils";
+import { routeDishIntent } from "@/app/actions/routeDishIntent";
+import { getDishBySlug } from "@/lib/ai-archive/dish-registry";
+import DishCard from "@/components/ai-archive/DishCard";
 
 // 3D Clay Pot Model
 function ClayPotModel() {
@@ -135,24 +138,56 @@ function AtmosphericSteam() {
 
 // Suggested question pills - dish-specific questions
 const SUGGESTED_QUESTIONS = [
-    "为什么叫松鼠桂鱼？",
-    "金牌酱油虾的酱油是什么牌子？",
-    "糖醋排骨的糖醋比例是多少？",
+    "What is the story behind Squirrel Fish?",
+    "What makes Golden Soy Shrimp special?",
+    "How to make the perfect Sweet & Sour Ribs?",
 ];
 
 export default function AIArchiveSection() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [analyzeStatus, setAnalyzeStatus] = useState("");
+    const [multipleMatches, setMultipleMatches] = useState<string[] | null>(null);
 
-    const handleSearch = useCallback((query: string) => {
-        // For now, navigate to first dish with query
-        // In Story 7.2, this will trigger semantic search
-        if (query.trim()) {
-            window.location.href = `/ai-archive/squirrel-fish?q=${encodeURIComponent(query)}`;
+    const handleSearch = useCallback(async (query: string) => {
+        if (!query.trim()) return;
+
+        setIsAnalyzing(true);
+        setAnalyzeStatus("Connecting to culinary archive...");
+
+        try {
+            const matches = await routeDishIntent(query.trim());
+
+            if (matches && matches.length === 1) {
+                setAnalyzeStatus("Match found! Entering archive...");
+                setTimeout(() => {
+                    window.location.href = `/ai-archive/${matches[0]}?q=${encodeURIComponent(query.trim())}`;
+                }, 800);
+            } else if (matches && matches.length > 1) {
+                setAnalyzeStatus("Multiple dishes match your query.");
+                setTimeout(() => {
+                    setIsAnalyzing(false);
+                    setMultipleMatches(matches);
+                }, 800);
+            } else {
+                setAnalyzeStatus("No specific dish matched.");
+                setTimeout(() => {
+                    setAnalyzeStatus("Opening full gallery instead...");
+                    setTimeout(() => {
+                        window.location.href = `/ai-archive/browse?q=${encodeURIComponent(query.trim())}`;
+                    }, 1200);
+                }, 1200);
+            }
+        } catch (error) {
+            console.error("Routing error:", error);
+            setAnalyzeStatus("Network error. Opening gallery...");
+            setTimeout(() => {
+                window.location.href = `/ai-archive/browse?q=${encodeURIComponent(query.trim())}`;
+            }, 1200);
         }
     }, []);
 
     const handleSuggestionClick = useCallback((question: string) => {
-        // Only fill input - user must click search to submit
         setSearchQuery(question);
     }, []);
 
@@ -164,6 +199,60 @@ export default function AIArchiveSection() {
                 "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
             )}
         >
+            {/* Analyzing Overlay (View 1.5) */}
+            {isAnalyzing && (
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/90 backdrop-blur-md">
+                    <div className="flex flex-col items-center gap-6">
+                        <Sparkles className="h-12 w-12 animate-pulse text-orange-400" />
+                        <h2 className="text-xl md:text-2xl font-semibold text-white tracking-widest">{analyzeStatus}</h2>
+                        <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-800">
+                            <motion.div
+                                className="h-full bg-orange-500"
+                                initial={{ width: "0%" }}
+                                animate={{ width: "100%" }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Multiple Match Selection Modal */}
+            {multipleMatches && (
+                <div className="fixed inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/80 p-6 backdrop-blur-xl">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="w-full max-w-4xl rounded-3xl border border-orange-500/20 bg-slate-900/90 p-8 shadow-2xl"
+                    >
+                        <h2 className="mb-2 text-2xl font-bold text-white">Multiple Matches Found</h2>
+                        <p className="mb-8 text-slate-400">Your query matches several of our signature dishes. Which one were you looking for?</p>
+
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-h-[60vh] overflow-y-auto pr-2 pb-4">
+                            {multipleMatches.map((slug, index) => {
+                                const dish = getDishBySlug(slug);
+                                if (!dish) return null;
+                                return (
+                                    <DishCard
+                                        key={slug}
+                                        dish={dish}
+                                        index={index}
+                                        searchQuery={searchQuery}
+                                    />
+                                );
+                            })}
+                        </div>
+
+                        <button
+                            onClick={() => setMultipleMatches(null)}
+                            className="mt-8 text-sm text-slate-500 hover:text-white"
+                        >
+                            Cancel
+                        </button>
+                    </motion.div>
+                </div>
+            )}
+
             {/* Gradient backgrounds - removed bottom orange to prevent clash with steam */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(251,146,60,0.12),_transparent_50%)]" />
 

@@ -32,21 +32,25 @@ This archive lets visitors **talk to the dishes** — ask about ingredients, tec
 - **Styling**: Tailwind CSS v4 + shadcn/ui
 - **Animations**: Framer Motion (motion/react)
 
-### AI Archive Tech Stack (New)
+### AI Archive Tech Stack (New / Optimized)
 | Layer | Tool | Purpose |
 |-------|------|---------|
-| **LLM** | Gemini (via Vercel AI SDK) | Streaming responses, multilingual |
-| **Embeddings** | Transformers.js (gte-small) | Browser-side embedding (~30MB) |
-| **Vector Search** | MeMemo / client-vector-search | IndexedDB-backed, no server |
-| **Storage** | IndexedDB | Embeddings + chat history |
+| **LLM Engine** | Gemini (via Vercel AI SDK) | Core text generation, streaming |
+| **Intent/Routing** | Vercel AI SDK `generateObject` | Zero-shot classification of queries to 1 of 12 dishes |
+| **RAG Retrieval** | Next.js Server Actions + lightweight vector search | Server-side embedding matching (no heavy client downloads) |
+| **Storage** | Memory / Local JSON | Pre-computed embeddings for 12 dishes (tiny footprint) |
 | **3D Models** | Tencent Hunyuan 3D Generation | GLB files for dish presentation |
 
-### Client-Side RAG Pipeline
+### Hybrid RAG Pipeline (Server-Routing + Client-Chat)
 ```
-User query → Transformers.js generates embedding
-           → MeMemo searches IndexedDB for closest dish
-           → Dish context injected into Gemini prompt
-           → Vercel AI SDK streams response back
+1. GLOBAL SEARCH (View 1 & 2): User enters question
+   → Next.js Server Action uses LLM or pre-computed vectors to classify intent
+   → Returns target Dish Slug
+   → Client transitions (View 1.5) and redirects to `/ai-archive/[slug]?q=question`
+
+2. DISH CHAT (View 3): Page loads with query
+   → Vercel AI SDK `useChat` initializes with the specific dish's context document
+   → LLM streams contextual, grounded response back to user
 ```
 
 ---
@@ -241,8 +245,8 @@ interface EmbeddingChunk {
 │                                                                     │
 │              ┌─────────────────────────────────┐                    │
 │              │                                 │                    │
-│              │    Searching 12 dishes...       │                    │
-│              │    ████████░░░░░░░░             │                    │
+│              │    Analyzing your question...   │                    │
+│              │    [AI Processing Animation]    │                    │
 │              │                                 │                    │
 │              └─────────────────────────────────┘                    │
 │                                                                     │
@@ -252,50 +256,47 @@ interface EmbeddingChunk {
 │              │  ✅ Found: 松鼠桂鱼              │                    │
 │              │     Squirrel Mandarin Fish      │                    │
 │              │                                 │                    │
-│              │     Redirecting...              │                    │
+│              │     Entering Archive...         │                    │
 │              └─────────────────────────────────┘                    │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-**State Machine:**
+**State Machine (Routing Flow):**
 
 ```
-IDLE (View 1)
-    │ click search button
+IDLE (View 1 or View 2)
+    │ User submits question
     ▼
-SEARCHING (View 1.5)
-    │ RAG API response
+ANALYZING (View 1.5)
+    │ Next.js Server Action (`routeDishIntent`)
+    │ (Uses Vercel AI SDK generateObject or Vector similarity)
     ▼
 ┌───┴───────────────────┐
 │                       │
 ▼                       ▼
-HIGH_CONFIDENCE         LOW_CONFIDENCE
-(similarity > 0.7)      (similarity ≤ 0.7)
+MATCHED (Dish Identified) NO_CLEAR_MATCH
     │                       │
     ▼                       ▼
 ┌─────────────────┐   ┌──────────────────────────────┐
 │ Show "Found"    │   │ Show recommendation cards    │
-│ + dish name     │   │ (top 3 dishes by score)      │
+│ + dish name     │   │ (Unable to identify dish)    │
 │                 │   │                              │
 │ Redirect to     │   │ [ Browse All Dishes → ]      │
 │ /ai-archive/    │   └──────────────────────────────┘
-│ {slug}          │
+│ {slug}?q={query}│
 └─────────────────┘
 ```
 
 **Behavior Rules:**
 
-| Scenario | Threshold | Action |
+| Scenario | Condition | Action |
 |----------|-----------|--------|
-| Single high-confidence match | similarity > 0.7 | Show "Found: {dish}" → redirect to `/ai-archive/{slug}` |
-| Multiple matches | Pick highest confidence | Same as single match |
-| Low confidence / general query | similarity ≤ 0.7 | Show top 3 dish recommendation cards + "Browse All" button |
-| No match / error | API error or empty | "Couldn't find a match. Try browsing our dishes." → Browse link |
+| Intent Matched | Server Action identifies specific dish | Show "Found: {dish}" → push to `/ai-archive/{slug}?q={encoded_query}` |
+| General Query / Unmatched | Action returns null | Show "Couldn't match a specific dish." → Prompt to browse all dishes. |
 
-**Animation:** Loading progress follows actual API response time (no fixed duration).
-
-**URL State:** Query encoded as `/ai-archive?q={query}` for shareability.
+**Animation:** Seamless transition using Framer Motion while the Server Action resolves.
+**Data Handoff:** The query is passed via URL parameters `?q=` so the specific dish page can immediately trigger the AI response upon loading.
 
 ---
 
@@ -438,24 +439,37 @@ HIGH_CONFIDENCE         LOW_CONFIDENCE
 
 ---
 
-### Story 7.5: RAG Pipeline Integration
-**As a visitor**, I want AI responses grounded in real documentation  
-**So that** I get accurate, source-backed information
+### Story 7.5: Intent Routing & RAG Integration
+**As a visitor**, I want the system to understand my question and direct me to the right place  
+**So that** I don't have to manually search through all the dishes
 
 **Acceptance Criteria:**
-- [ ] Initialize Transformers.js with `gte-small` model
-- [ ] Pre-compute embeddings for all context documents
-- [ ] Store embeddings in IndexedDB via MeMemo
-- [ ] Implement semantic search on user query
-- [ ] Inject top-k chunks into Gemini prompt
+- [ ] Create Next.js Server Action `routeDishQuery(query: string)`
+- [ ] Implement Vercel AI SDK `generateObject` for zero-shot classification OR pre-compute simple embeddings for the 12 dishes.
+- [ ] Create View 1.5 loading state while action resolves.
+- [ ] On match, automatically redirect to `/ai-archive/[slug]?q={query}`.
+- [ ] On destination page, extract the `q` parameter and auto-trigger the Vercel AI SDK `useChat` submit function.
+- [ ] Inject the specific dish's markdown context document into the `useChat` system prompt.
 
-**Context Routing:**
+**Context Injection (Server-Side):**
 ```typescript
-// Pseudo-logic for context selection
-if (dish.contextSource === 'interview') {
-  loadContext('/docs/interview_transcript.md', dish.slug);
-} else {
-  loadContext(`/docs/ai-archive/${dish.slug}.md`);
+// /api/chat/route.ts
+import { streamText } from 'ai';
+import { google } from '@ai-sdk/google';
+
+export async function POST(req: Request) {
+  const { messages, dishSlug } = await req.json();
+  const context = await loadDishContext(dishSlug); // Loads local .md file
+  
+  const systemPrompt = `You are a museum AI... Use this context to answer: \n\n${context}`;
+  
+  const result = await streamText({
+    model: google('models/gemini-2.5-flash'),
+    system: systemPrompt,
+    messages,
+  });
+  
+  return result.toDataStreamResponse();
 }
 ```
 

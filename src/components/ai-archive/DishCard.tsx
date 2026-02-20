@@ -17,6 +17,7 @@ export const CATEGORY_CONFIG: Record<string, { label: string; color: string; Ico
 interface DishCardProps {
     dish: DishArchiveEntry;
     index: number;
+    searchQuery?: string;
 }
 
 const cardVariants = {
@@ -40,8 +41,13 @@ const cardVariants = {
     },
 };
 
-export default function DishCard({ dish, index }: DishCardProps) {
+export default function DishCard({ dish, index, searchQuery }: DishCardProps) {
     const category = CATEGORY_CONFIG[dish.category];
+
+    // Preserve query parameter if passing from an ambiguous search modal
+    const href = searchQuery
+        ? `/ai-archive/${dish.slug}?q=${encodeURIComponent(searchQuery)}`
+        : `/ai-archive/${dish.slug}`;
 
     return (
         <motion.div
@@ -54,7 +60,7 @@ export default function DishCard({ dish, index }: DishCardProps) {
             className="group relative"
         >
             <Link
-                href={`/ai-archive/${dish.slug}`}
+                href={href}
                 className="block"
             >
                 {/* Card container */}

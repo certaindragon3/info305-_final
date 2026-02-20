@@ -26,6 +26,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Bot, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -55,6 +56,11 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
     const [input, setInput] = useState("");
     const [isHydrated, setIsHydrated] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+    const initialQuery = searchParams.get("q");
 
     const welcomeMessage = useMemo<UIMessage>(
       () => ({
@@ -89,12 +95,36 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
           return;
         }
 
+        let currentMessages = [welcomeMessage];
         if (savedMessages && savedMessages.length > 0) {
-          setMessages(savedMessages);
+          currentMessages = savedMessages;
+          setMessages(currentMessages);
         } else {
-          setMessages([welcomeMessage]);
+          setMessages(currentMessages);
         }
+
         setIsHydrated(true);
+
+        // Auto-trigger if initial query exists and we haven't answered it yet
+        if (initialQuery) {
+          const hasQueryAlready = currentMessages.some(
+            (m) => m.role === "user" && getTextFromMessage(m as UIMessage) === initialQuery
+          );
+
+          if (!hasQueryAlready) {
+            // Give a slight delay for UI to settle before streaming
+            setTimeout(() => {
+              sendMessage(
+                { text: initialQuery },
+                { body: { dishSlug: dish.slug } }
+              );
+              // Clean the URL param after consuming it
+              router.replace(pathname, { scroll: false });
+            }, 500);
+          } else {
+            router.replace(pathname, { scroll: false });
+          }
+        }
       };
 
       setIsHydrated(false);
@@ -103,7 +133,7 @@ const ChatPanel = forwardRef<ChatPanelRef, ChatPanelProps>(
       return () => {
         isCancelled = true;
       };
-    }, [dish.slug, setMessages, welcomeMessage]);
+    }, [dish.slug, setMessages, welcomeMessage, initialQuery, pathname, router]);
 
     useEffect(() => {
       if (!isHydrated) {
